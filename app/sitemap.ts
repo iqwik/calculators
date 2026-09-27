@@ -3,6 +3,8 @@ import {categories, getAllCalculators} from '@/data'
 import {getBaseUrl} from '@/helpers'
 import {routing} from '@/i18n/routing'
 
+export const dynamic = 'force-static'
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = getBaseUrl()
   const now = new Date()

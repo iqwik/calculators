@@ -13,3 +13,7 @@ export const categories: Category[] = [
   {slug: 'generators', icon: '⚡'},
   {slug: 'business', icon: '📄'},
 ]
+
+export function getCategory(slug: string) {
+  return categories.find(c => c.slug === slug)
+}

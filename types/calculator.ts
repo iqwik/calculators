@@ -1,3 +1,5 @@
+import {FAQItem} from './common'
+
 export type CategorySlug =
   | 'finance'
   | 'health'
@@ -31,11 +33,6 @@ export interface ResultRange {
   max: number
   label: string
   color: 'blue' | 'green' | 'orange' | 'red' | 'gray'
-}
-
-export interface FAQItem {
-  q: string
-  a: string
 }
 
 export type Values = Record<string, string | number>

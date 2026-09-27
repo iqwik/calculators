@@ -1,6 +1,7 @@
 'use client'
 
 import {useTranslations} from 'next-intl'
+import {SearchTrigger} from '@/components/search/SearchTrigger'
 import {categories} from '@/data'
 import {Link, usePathname} from '@/i18n/navigation'
 import {
@@ -8,45 +9,52 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
+  useSidebar,
 } from '../ui/sidebar'
+import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip'
 import {SidebarSettings} from './SidebarSettings'
 
 export function AppSidebar() {
   const t = useTranslations('sidebar')
   const tHome = useTranslations('home')
   const pathname = usePathname()
+  const {state} = useSidebar()
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="gap-2 p-2">
-        <Link
-          href="/"
-          className="flex items-center gap-2 rounded-md px-2 py-1.5 text-sm font-semibold"
-        >
-          <span className="text-lg">{'/'}</span>
-          <span className="truncate group-data-[collapsible=icon]:hidden">
-            {'ProjectName'}
-          </span>
-        </Link>
-        {/* <div className="relative group-data-[collapsible=icon]:hidden">
-          <Search className="absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            type="search"
-            placeholder={t('search.placeholder')}
-            aria-label={t('search.label')}
-            className="h-8 pl-8 text-sm"
-          />
-        </div> */}
+      <SidebarHeader className="h-27 gap-2 p-2">
+        <div className="flex items-center gap-1 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-2">
+          <Link
+            href="/"
+            className="flex flex-1 items-center gap-2 rounded-md px-2 py-1.5 text-sm font-semibold group-data-[collapsible=icon]:hidden"
+          >
+            <span className="text-lg">{'/'}</span>
+            <span className="truncate">{'ProjectName'}</span>
+          </Link>
+          <Tooltip>
+            <TooltipTrigger render={<SidebarTrigger className="size-9" />} />
+            <TooltipContent side="right">
+              {state === 'expanded' ? t('toggle.collapse') : t('toggle.expand')}
+            </TooltipContent>
+          </Tooltip>
+        </div>
+        <div className="h-9 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:justify-center">
+          <div className="group-data-[collapsible=icon]:hidden">
+            <SearchTrigger variant="full" />
+          </div>
+          <div className="hidden group-data-[collapsible=icon]:block">
+            <SearchTrigger variant="icon" />
+          </div>
+        </div>
       </SidebarHeader>
 
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>{t('categories.title')}</SidebarGroupLabel>
           <SidebarMenu>
             {categories.map(cat => {
               const href = `/${cat.slug}`
@@ -59,9 +67,6 @@ export function AppSidebar() {
                     render={<Link href={href} />}
                   >
                     <span aria-hidden="true">{cat.icon}</span>
-                    {/* <span aria-hidden="true">
-                      <CategoryIcon slug={cat.slug} className="h-4 w-4" />
-                    </span> */}
                     <span>{tHome(`categories.${cat.slug}`)}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

@@ -1,7 +1,7 @@
 import {ArrowLeft} from 'lucide-react'
 import {notFound} from 'next/navigation'
 import {getTranslations} from 'next-intl/server'
-import {getCalculatorsByCategory, getCategory} from '@/data'
+import {getCategory, getRegistryEntriesByCategory} from '@/data'
 import {Link} from '@/i18n/navigation'
 import type {CategorySlug} from '@/types'
 import {Badge} from '../ui/badge'
@@ -20,14 +20,15 @@ export async function CategoryPage({category}: Props) {
   const tCat = await getTranslations('category')
   const tConfig = await getTranslations('config')
 
-  const calculators = getCalculatorsByCategory(category)
+  const entries = getRegistryEntriesByCategory(category)
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
       <Button
-        variant="ghost"
         size="sm"
+        variant="ghost"
         render={<Link href="/" />}
+        nativeButton={false}
         className="mb-6 -ml-2 gap-1.5 text-muted-foreground hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -48,22 +49,22 @@ export async function CategoryPage({category}: Props) {
         </h1>
 
         <p className="mt-3 text-sm text-muted-foreground">
-          {tCat('toolsCount', {count: calculators.length})}
+          {tCat('toolsCount', {count: entries.length})}
         </p>
       </header>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {calculators.map(calc => (
+        {entries.map(entry => (
           <Link
-            key={calc.slug}
-            href={`/${calc.slug}`}
+            key={entry.config.slug}
+            href={`/${entry.config.slug}`}
             className="group rounded-xl border bg-card p-5 transition hover:border-primary"
           >
             <h2 className="font-semibold group-hover:text-primary">
-              {tConfig(calc.h1)}
+              {tConfig(entry.config.h1)}
             </h2>
             <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
-              {tConfig(calc.description)}
+              {tConfig(entry.config.description)}
             </p>
           </Link>
         ))}

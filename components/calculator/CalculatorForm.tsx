@@ -6,6 +6,13 @@ import {getCalculatorBySlug} from '@/data'
 import type {CalculationOutput, ResultRange, Values} from '@/types'
 import {Button} from '../ui/button'
 import {Input} from '../ui/input'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select'
 
 interface Props {
   slug: string
@@ -30,7 +37,7 @@ function findRange(
 }
 
 export function CalculatorForm({slug}: Props) {
-  const t = useTranslations('calculator')
+  const t = useTranslations('global')
   const tConfig = useTranslations('config')
 
   const calc = getCalculatorBySlug(slug)
@@ -81,19 +88,26 @@ export function CalculatorForm({slug}: Props) {
             )}
           </label>
 
-          {input.type === 'select' ? (
-            <select
-              id={input.name}
+          {input.type === 'select' && input.options ? (
+            <Select
+              items={input.options.map(opt => ({
+                value: opt.value,
+                label: tConfig(opt.label),
+              }))}
               value={String(values[input.name] ?? '')}
-              onChange={e => handleChange(input.name, e.target.value)}
-              className="h-9 w-full rounded-md border bg-transparent px-3 text-sm"
+              onValueChange={value => handleChange(input.name, value ?? '')}
             >
-              {input.options?.map(opt => (
-                <option key={opt.value} value={opt.value}>
-                  {tConfig(opt.label)}
-                </option>
-              ))}
-            </select>
+              <SelectTrigger id={input.name} className="w-full">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {input.options.map(opt => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {tConfig(opt.label)}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           ) : (
             <Input
               id={input.name}

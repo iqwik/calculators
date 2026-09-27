@@ -8,22 +8,63 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- Button "Back to home" on category pages
-- Richer result block on calculator pages (range badge with color)
+
+**Tool system (independent from calculators)**
+- New `ToolConfig` discriminated union in `types/tool.ts` with three kinds: `unit-converter`, `json-formatter`, `base64`
+- `types/common.ts` — shared `FAQItem` type, used by both calculators and tools
+- `data/tools/` — new directory with `developer.ts` and `unit-categories.ts`
+- `data/registry.ts` — unified registry: `getRegistryEntry(slug)`, `getAllRegistryEntries()`, `getRegistryEntriesByCategory(category)`
+- `components/tool/ToolLayout.tsx` — server layout for tool pages
+- `components/tool/ToolView.tsx` — switch by `kind`
+- `components/tool/ToolSchema.tsx` — JSON-LD `WebApplication` + `FAQPage`
+
+**Three developer tools**
+- **Unit Converter** (`/unit-converter`) — 10 categories (length, weight, temperature, area, volume, speed, time, data, pressure, energy), live conversion, swap button, all-units grid
+- **JSON Formatter** (`/json-formatter`) — Beautify (2 / 4 spaces), Minify, live formatting on input, inline error highlighting
+- **Base64 Encoder / Decoder** (`/base64-encoder-decoder`) — Encode / Decode, Standard / URL-Safe alphabets, live conversion, swap, copy
+
+**Shared components**
+- `components/shared/FAQ.tsx` (was `CalculatorFAQ.tsx`) — used by calculators and tools
+- `components/shared/RelatedTools.tsx` — resolves both calculators and tools by slug
+
+**Navigation & UI**
+- `SearchTrigger` now has two variants: `full` (sidebar, expanded) and `icon` (mobile header, collapsed sidebar)
+- Search field moved into the sidebar (under the logo); `SidebarTrigger` also moved into the sidebar
+- Mobile header (`lg:hidden`) with `SidebarTrigger` + search icon; modal opens on tap
+- Sidebar settings button now uses `SidebarMenuButton` — icon-only when collapsed, tooltip with label
+
+**i18n**
+- `setRequestLocale` removed everywhere — migrated to `next/root-params` in `i18n/request.ts` (Next.js 16.3+)
+- `generateStaticParams` added to `app/[locale]/layout.tsx` — full SSG for all locales
+
+### Changed
+
+- `CalculatorConfig` untouched; tools are now a fully separate system with own types and view
+- `[slug]/page.tsx` is now a thin dispatcher: resolves via registry and renders either `CalcLayout` or `ToolLayout`
+- `Stats`, `ToolGrid`, `SearchModal`, `CategoryPage` now use `getAllRegistryEntries()` / `getRegistryEntriesByCategory()` — tools show up on home, in search, in category hubs
+- `messages/*/config` extended with `unit-converter`, `json-formatter`, `base64-encoder-decoder` sections
+- Translation namespace `calculator` renamed to `global` (calculate, reset, result, related, faq, backHome) — shared across all features
+- `SearchModal`: compact when query empty, fixed-height results block when typing, vertically centered empty state
 
 ### Fixed
-- `useExhaustiveDependencies` warning in `sidebar.tsx`
+
+- `data/calculators/index.ts` — self-import cycle (`'../calculators'` → `'./finance'` / `'./health'`)
+- `getRelated()` removed from `data/calculators/index.ts` — superseded by `RelatedTools` (cross-type resolution)
+- `MALFORMED_ARGUMENT` ICU error in `json-formatter.inputPlaceholder` — curly braces removed from placeholder string
+- All `[locale]` routes now prerender statically (was `ƒ` dynamic → now `●` SSG)
+- Removed `scripts/test-data.ts` — stale ad-hoc script referencing non-existent helpers
 
 ### TODO
-- Fill 5 empty categories (finance, text, developer, generators, business)
-- Move existing calculators to their proper categories
-- Add "Back" button on calculator pages
-- OG image + favicon set
-- JSON-LD `ItemList` for category pages
-- JSON-LD `FAQPage` for calculator pages
-- Replace `<ProjectName>` with real project name
-- Connect GA + AdSense
-- Deploy to Vercel
+
+- Active category link in sidebar — use slug → category resolution (currently strict `===`)
+- Vertical position of category items in collapsed sidebar shifts upward (due to `SidebarGroupLabel` being hidden by shadcn)
+- Tooltip on `SidebarTrigger` — Base UI tooltip requires `TooltipTrigger` wrapping, currently broken
+- `<ProjectName>` hardcoded in `ToolSchema.publisher.name`
+- `ToolView` — add `default` / `assertNever` for exhaustiveness
+- Sidebar state resets on locale change (`[locale]` layout remounts — same root cause as theme flicker)
+- `ThemeProvider` `<script>` warning in dev — suppressed via console filter (React 19 false positive)
+- DatePicker for `age-calculator` (`<input type="date">` still native)
+- `output: 'export'` breaks i18n (`localePrefix: 'as-needed'` incompatible, `proxy.ts` disabled) — keep default output, deploy to Vercel
 
 ## [0.1.0] - 2026-09-27
 

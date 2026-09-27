@@ -1,9 +1,9 @@
 import {useTranslations} from 'next-intl'
-import {getAllCalculators} from '@/data'
+import {getAllRegistryEntries} from '@/data'
 
 export function Stats() {
   const t = useTranslations('home')
-  const count = getAllCalculators().length
+  const count = getAllRegistryEntries().length
 
   const items = [
     {value: t('stats.tools.value', {count}), label: t('stats.tools.label')},

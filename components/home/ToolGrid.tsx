@@ -2,7 +2,7 @@
 
 import {useTranslations} from 'next-intl'
 import {useMemo, useState} from 'react'
-import {getAllCalculators} from '@/data'
+import {getAllRegistryEntries} from '@/data'
 import {Link} from '@/i18n/navigation'
 import {Input} from '../ui/input'
 
@@ -23,16 +23,16 @@ export function ToolGrid() {
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<Filter>('all')
 
-  const all = getAllCalculators()
+  const all = useMemo(() => getAllRegistryEntries().map(e => e.config), [])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
-    return all.filter(calc => {
+    return all.filter(item => {
       if (filter !== 'all' && filter !== 'calculators') {
-        if (calc.category !== filter) return false
+        if (item.category !== filter) return false
       }
       if (!q) return true
-      return calc.slug.includes(q) || tConfig(calc.h1).toLowerCase().includes(q)
+      return item.slug.includes(q) || tConfig(item.h1).toLowerCase().includes(q)
     })
   }, [all, filter, query, tConfig])
 
@@ -70,20 +70,20 @@ export function ToolGrid() {
       </div>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filtered.map(calc => (
+        {filtered.map(item => (
           <Link
-            key={calc.slug}
-            href={`/${calc.slug}`}
+            key={item.slug}
+            href={`/${item.slug}`}
             className="group rounded-xl border bg-card p-5 transition hover:border-primary"
           >
             <h2 className="font-semibold group-hover:text-primary">
-              {tConfig(calc.h1)}
+              {tConfig(item.h1)}
             </h2>
             <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
-              {tConfig(calc.description)}
+              {tConfig(item.description)}
             </p>
             <span className="mt-3 inline-block rounded-full border px-2.5 py-0.5 text-[10px] font-medium tracking-wide uppercase">
-              {calc.category}
+              {item.category}
             </span>
           </Link>
         ))}

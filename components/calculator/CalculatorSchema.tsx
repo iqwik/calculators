@@ -1,65 +1,36 @@
-import {getTranslations} from 'next-intl/server'
-import {getBaseUrl} from '@/helpers'
-import type {CalculatorConfig} from '@/types/calculator'
+import {getLocale, getTranslations} from 'next-intl/server'
+import type {CalculatorConfig} from '@/types'
 
-const BASE_URL = getBaseUrl()
-
-interface CalculatorSchemaProps {
-  config: CalculatorConfig
+interface Props {
+  calc: CalculatorConfig
+  url: string
 }
 
-export async function CalculatorSchema({config}: CalculatorSchemaProps) {
+export async function CalculatorSchema({calc, url}: Props) {
   const t = await getTranslations('config')
-  const tSchema = await getTranslations('schema')
-  const url = `${BASE_URL}/${config.category}/${config.slug}`
+  const locale = await getLocale()
 
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebApplication',
-    name: t(config.h1),
-    description: t(config.description),
+    name: t(calc.h1),
+    description: t(calc.description),
     url,
+    inLanguage: locale,
     applicationCategory: 'UtilityApplication',
-    operatingSystem: 'Any',
-    browserRequirements: 'Requires JavaScript',
+    operatingSystem: 'Web',
     offers: {
       '@type': 'Offer',
       price: '0',
-      priceCurrency: tSchema('priceCurrency'),
+      priceCurrency: 'USD',
     },
-    inLanguage: tSchema('inLanguage'),
   }
 
-  const faqSchema =
-    config.faq && config.faq.length > 0
-      ? {
-          '@context': 'https://schema.org',
-          '@type': 'FAQPage',
-          mainEntity: config.faq.map(item => ({
-            '@type': 'Question',
-            name: t(item.q),
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: t(item.a),
-            },
-          })),
-        }
-      : null
-
   return (
-    <>
-      <script
-        type="application/ld+json"
-        // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD требует dangerouslySetInnerHTML
-        dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}}
-      />
-      {faqSchema && (
-        <script
-          type="application/ld+json"
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD требует dangerouslySetInnerHTML
-          dangerouslySetInnerHTML={{__html: JSON.stringify(faqSchema)}}
-        />
-      )}
-    </>
+    <script
+      type="application/ld+json"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD is safe here
+      dangerouslySetInnerHTML={{__html: JSON.stringify(schema)}}
+    />
   )
 }

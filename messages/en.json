@@ -1,102 +1,166 @@
 {
   "meta": {
-    "siteName": "Calculators",
-    "homeTitle": "Free Online Calculators",
-    "homeDescription": "Free online calculators: BMI, calories, age, finance. No registration, no ads."
-  },
-  "nav": {
-    "siteName": "Calculators",
-    "home": "Home",
-    "about": "About",
-    "privacy": "Privacy",
-    "health": "Health",
-    "finance": "Finance",
-    "math": "Math",
-    "datetime": "Date & Time"
+    "home": {
+      "title": "Free Online Tools for Everyday Tasks",
+      "description": "Free, fast, privacy-first online tools. Calculators, text utilities, generators, and developer tools that run 100% in your browser. No signup required."
+    }
   },
   "home": {
-    "title": "Free Online Calculators",
-    "subtitle": "{count} tools, no registration, no ads.",
+    "badge": "100% Free • No Signup • Privacy First",
+    "h1": "Free Online Tools for Everyday Tasks",
+    "subtitle": "Instant calculators, text utilities, generators, and developer tools. Everything runs in your browser — no data leaves your device.",
+    "stats": {
+      "tools": { "value": "{count}+", "label": "Free Tools" },
+      "cost": { "value": "$0", "label": "Cost to Use" },
+      "signup": { "value": "100%", "label": "No Signup" },
+      "speed": { "value": "Fast", "label": "Browser Based" }
+    },
+    "search": {
+      "placeholder": "Search tools, e.g. age, BMI, password",
+      "label": "Search tools",
+      "empty": "No tools found"
+    },
+    "filters": {
+      "all": "All Tools",
+      "calculators": "Calculators",
+      "text": "Text",
+      "health": "Health",
+      "developer": "Developer",
+      "generators": "Generators",
+      "business": "Business"
+    },
+    "toolsCount": "{count} available",
     "categories": {
-      "health": {
-        "title": "Health",
-        "description": "BMI, calorie and other health tools"
-      },
-      "finance": {
-        "title": "Finance",
-        "description": "Mortgage, loans, interest, taxes"
-      },
-      "math": {
-        "title": "Math",
-        "description": "Percentages, fractions, area, volume"
-      },
-      "datetime": {
-        "title": "Date & Time",
-        "description": "Age calculator, date difference, weekday"
-      }
+      "finance": "Finance Calculators",
+      "health": "Health & Fitness",
+      "text": "Text Tools",
+      "developer": "Developer Tools",
+      "generators": "Generators",
+      "business": "Business Tools"
     }
+  },
+  "nav": {
+    "home": "Home"
+  },
+  "sidebar": {
+    "search": {
+      "placeholder": "Search tools...",
+      "label": "Search tools"
+    },
+    "toggle": {
+      "expand": "Expand sidebar",
+      "collapse": "Collapse sidebar"
+    },
+    "categories": {
+      "title": "Categories"
+    },
+    "settings": {
+      "label": "Settings",
+      "about": "About",
+      "privacy": "Privacy",
+      "language": "Language",
+      "theme": "Theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "System"
+    }
+  },
+  "category": {
+    "toolsCount": "{count} tools",
+    "backHome": "Back to home"
   },
   "calculator": {
     "calculate": "Calculate",
-    "calcError": "Calculation error",
+    "reset": "Reset",
+    "result": "Result",
+    "related": "Related tools",
     "faq": "Frequently Asked Questions",
-    "related": "See also",
-    "required": "This field is required",
-    "invalidNumber": "Enter a number",
-    "min": "Minimum: {min}",
-    "max": "Maximum: {max}",
-    "checkFields": "Please check the form fields"
-  },
-  "about": {
-    "metaTitle": "About",
-    "metaDescription": "Free online calculators, no registration, no ads.",
-    "title": "About",
-    "intro": "Our site is a collection of free online calculators for everyday tasks: health, finance, math, dates. All tools run right in your browser, no registration, no data sent to the server.",
-    "whyTitle": "Why we do this",
-    "whyText": "Most calculator sites are overloaded with ads, popups and slow loading. We wanted to create a place where you can quickly get an answer to a simple question — and close the tab.",
-    "privacyTitle": "Privacy",
-    "privacyText": "All calculations happen locally in your browser. We do not collect, store, or share data you enter into forms.",
-    "contactTitle": "Feedback",
-    "contactText": "Found a bug or want to suggest a new calculator? Email us at"
-  },
-  "privacy": {
-    "metaTitle": "Privacy Policy",
-    "metaDescription": "How we handle user data. All calculations happen locally in your browser.",
-    "title": "Privacy Policy",
-    "lastUpdated": "Last updated: {date}",
-    "s1Title": "1. General",
-    "s1Text": "This policy describes what data the site collects and how it is used. By using the site, you agree to the terms of this policy.",
-    "s2Title": "2. Data you enter",
-    "s2Text": "All calculations in the calculators happen locally in your browser. We do not send to the server or store the values you enter into the forms (height, weight, dates, amounts, etc.).",
-    "s3Title": "3. Cookies and analytics",
-    "s3Text": "The site may use cookies for analytics (e.g. Google Analytics) and ad delivery (Google AdSense). These services collect anonymous information: device type, browser, country, pages visited.",
-    "s4Title": "4. Advertising",
-    "s4Text": "The site uses Google AdSense to display ads. Google and its partners may use cookies to show personalized ads based on your previous visits. You can disable ad personalization in Google settings:",
-    "s5Title": "5. Your rights",
-    "s5Text": "You can disable cookies in your browser settings. This may limit some site features. If you have questions, email us at"
+    "backHome": "Back to home"
   },
   "notFound": {
     "title": "Page not found",
-    "text": "The calculator may have been removed or the link is outdated.",
+    "text": "The page you're looking for doesn't exist or has been moved.",
     "home": "Go home",
     "popular": "Popular categories"
   },
-  "schema": {
-    "priceCurrency": "USD",
-    "inLanguage": "en-US"
+  "about": {
+    "meta": {
+      "title": "About",
+      "description": "Learn about ProjectName — free, fast, privacy-first online tools."
+    },
+    "title": "About ProjectName",
+    "intro": "ProjectName is a collection of free online tools — calculators, text utilities, generators, and developer utilities — that run entirely in your browser.",
+    "mission": {
+      "title": "Our Mission",
+      "text": "Most online tools require sign-ups, process your data on their servers, or are cluttered with ads. We build simple, fast utilities that respect your privacy. Everything runs locally — nothing is uploaded, stored, or tracked.",
+      "points": {
+        "free": "100% free — no paywalls, no hidden fees, no accounts.",
+        "fast": "Built with Next.js and React, tools load instantly on any device.",
+        "private": "All calculations happen in your browser. Your data never leaves your device."
+      }
+    },
+    "offer": {
+      "title": "What We Offer",
+      "text": "Tools across six categories:",
+      "finance": "Financial calculators — loans, interest, returns.",
+      "health": "Health & fitness — BMI, calories, body metrics.",
+      "textTools": "Text tools — counters, converters, formatters.",
+      "developer": "Developer utilities — encoders, validators, generators.",
+      "generators": "Generators — passwords, QR codes, IDs.",
+      "business": "Business tools — invoices, quotes, salary slips."
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "text": "Found a bug or have a suggestion? We'd love to hear from you."
+    }
+  },
+  "privacy": {
+    "meta": {
+      "title": "Privacy Policy",
+      "description": "How ProjectName handles your data — short version: we don't collect it."
+    },
+    "title": "Privacy Policy",
+    "updated": "Last updated: {date}",
+    "intro": "Short version: we don't collect, store, or share your personal data. Everything runs in your browser.",
+    "sections": {
+      "data": {
+        "title": "What data we collect",
+        "text": "None. All tools run entirely in your browser using client-side JavaScript. Calculations, file conversions, text processing — everything happens on your device. Nothing is sent to our servers."
+      },
+      "storage": {
+        "title": "Local storage",
+        "text": "Some tools use your browser's localStorage to remember your preferences (for example, theme choice). This data stays on your device and is never transmitted."
+      },
+      "analytics": {
+        "title": "Analytics",
+        "text": "We may use privacy-friendly analytics to understand which tools are popular. This data is aggregated and cannot identify you personally."
+      },
+      "thirdparty": {
+        "title": "Third-party services",
+        "text": "We may display non-intrusive ads via Google AdSense to keep the service free. These ads follow Google's own privacy policy, independent of us."
+      },
+      "changes": {
+        "title": "Changes to this policy",
+        "text": "If we update this policy, we'll change the date above. Continued use of the site means you accept the updated policy."
+      },
+      "contact": {
+        "title": "Contact",
+        "text": "Questions about privacy? Get in touch."
+      }
+    }
   },
   "config": {
     "bmi-calculator": {
-      "title": "BMI Calculator — Calculate Your Body Mass Index",
-      "h1": "Body Mass Index Calculator",
-      "description": "Calculate your BMI from height and weight. Free, no registration, with interpretation and recommendations.",
-      "keywords": "bmi, body mass index, bmi calculator",
-      "resultLabel": "Your BMI",
-      "resultUnit": "kg/m²",
+      "title": "BMI Calculator – Body Mass Index",
+      "h1": "BMI Calculator",
+      "description": "Free BMI calculator. Check your Body Mass Index instantly, see weight category, and healthy weight range.",
+      "keywords": "bmi,bmi calculator,body mass index",
       "inputs": {
         "height": "Height",
         "weight": "Weight"
       },
+      "resultLabel": "Your BMI",
+      "resultUnit": "kg/m²",
       "ranges": {
         "underweight": "Underweight",
         "normal": "Normal",
@@ -105,20 +169,18 @@
       },
       "faq": {
         "q1": "What is BMI?",
-        "a1": "BMI (Body Mass Index) is a value that helps assess how well a person's weight matches their height. It is calculated as weight in kilograms divided by height in meters squared.",
-        "q2": "How accurate is the BMI calculator?",
-        "a2": "BMI is a rough indicator. It does not account for the ratio of muscle to fat, so athletes may show as \"overweight\". A body composition analysis is needed for an accurate assessment.",
-        "q3": "What BMI values are considered normal?",
-        "a3": "For adults, normal is between 18.5 and 25. Below 18.5 — underweight, 25–30 — overweight, above 30 — obese."
+        "a1": "BMI (Body Mass Index) is a measure of body fat based on height and weight.",
+        "q2": "Is BMI accurate for everyone?",
+        "a2": "No. BMI does not distinguish muscle from fat. Athletes may have high BMI but low body fat.",
+        "q3": "What is a healthy BMI?",
+        "a3": "For most adults, a BMI between 18.5 and 24.9 is considered healthy."
       }
     },
     "calorie-calculator": {
-      "title": "Calorie Calculator — Calculate Your Daily Intake",
-      "h1": "Daily Calorie Intake Calculator",
-      "description": "Calculate your daily calorie intake using the Mifflin-St Jeor formula, taking into account age, gender, weight, and activity level.",
-      "keywords": "calories, daily calories, calorie calculator, tdee",
-      "resultLabel": "Your daily intake",
-      "resultUnit": "kcal",
+      "title": "Calorie Calculator – Daily Calorie Needs",
+      "h1": "Calorie Calculator",
+      "description": "Calculate your daily calorie needs based on age, gender, height, weight, and activity level.",
+      "keywords": "calorie calculator,tdee,bmr,daily calories",
       "inputs": {
         "age": "Age",
         "gender": "Gender",
@@ -129,37 +191,39 @@
       "options": {
         "male": "Male",
         "female": "Female",
-        "sedentary": "Sedentary (desk job)",
-        "light": "Light (1-3 workouts per week)",
-        "moderate": "Moderate (3-5 workouts)",
-        "high": "High (6-7 workouts)",
-        "veryHigh": "Very high (athletes)"
+        "sedentary": "Sedentary",
+        "light": "Lightly active",
+        "moderate": "Moderately active",
+        "high": "Very active",
+        "veryHigh": "Extra active"
       },
+      "resultLabel": "Daily calories",
+      "resultUnit": "kcal",
       "secondary": {
-        "bmr": "Basal metabolic rate (BMR)",
-        "loss": "For weight loss",
-        "gain": "For weight gain"
+        "bmr": "BMR",
+        "loss": "Weight loss",
+        "gain": "Weight gain"
       },
       "faq": {
-        "q1": "What formula is used?",
-        "a1": "The Mifflin-St Jeor formula is used — one of the most accurate formulas for calculating basal metabolic rate.",
-        "q2": "What is TDEE?",
-        "a2": "TDEE (Total Daily Energy Expenditure) is the total number of calories you burn per day, taking physical activity into account."
+        "q1": "What is TDEE?",
+        "a1": "TDEE (Total Daily Energy Expenditure) is the total number of calories you burn per day.",
+        "q2": "How many calories should I eat to lose weight?",
+        "a2": "A common recommendation is a deficit of 300–500 kcal/day for steady weight loss."
       }
     },
     "age-calculator": {
-      "title": "Age Calculator — Calculate Your Exact Age Online",
+      "title": "Age Calculator – Exact Age in Years, Months, Days",
       "h1": "Age Calculator",
-      "description": "Calculate your exact age in years, months, and days from your birth date. Find out how many days you have lived and how many are left until your next birthday.",
-      "keywords": "age calculator, age by birth date, how old am i",
-      "resultLabel": "Your age",
+      "description": "Free age calculator to find your exact age in years, months, and days. Calculate age as of any date.",
+      "keywords": "age calculator,how old am i,date of birth",
       "inputs": {
         "birthDate": "Date of birth",
-        "targetDate": "Target date"
+        "targetDate": "Calculate age as of"
       },
       "hints": {
-        "targetDate": "Defaults to today"
+        "targetDate": "Leave empty to use today's date."
       },
+      "resultLabel": "Your age",
       "secondary": {
         "years": "Years",
         "months": "Months",
@@ -169,9 +233,9 @@
       },
       "faq": {
         "q1": "How is age calculated?",
-        "a1": "Age is calculated as the difference between the birth date and the target date, broken down into full years, months, and days.",
-        "q2": "Are leap years taken into account?",
-        "a2": "Yes, the calculation uses the exact number of days between dates, so leap years are handled automatically."
+        "a1": "Age is calculated by subtracting the birth date from the target date, accounting for month lengths.",
+        "q2": "Can I calculate age on a future date?",
+        "a2": "Yes. Enter any target date to see how old you will be."
       }
     }
   }

@@ -1,47 +1,68 @@
 import type {MetadataRoute} from 'next'
 import {categories, getAllCalculators} from '@/data'
 import {getBaseUrl} from '@/helpers'
-
-const BASE_URL = getBaseUrl()
+import {routing} from '@/i18n/routing'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = getBaseUrl()
   const now = new Date()
+  const staticPages = ['', '/about', '/privacy']
+  const urls: MetadataRoute.Sitemap = []
 
-  const home = {
-    url: BASE_URL,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: 1,
+  for (const locale of routing.locales) {
+    const prefix = locale === routing.defaultLocale ? '' : `/${locale}`
+
+    for (const path of staticPages) {
+      urls.push({
+        url: `${baseUrl}${prefix}${path}`,
+        lastModified: now,
+        changeFrequency: 'monthly',
+        priority: path === '' ? 1 : 0.6,
+        alternates: {
+          languages: Object.fromEntries(
+            routing.locales.map(l => [
+              l,
+              `${baseUrl}${l === routing.defaultLocale ? '' : `/${l}`}${path}`,
+            ]),
+          ),
+        },
+      })
+    }
+
+    for (const cat of categories) {
+      urls.push({
+        url: `${baseUrl}${prefix}/${cat.slug}`,
+        lastModified: now,
+        changeFrequency: 'weekly',
+        priority: 0.8,
+        alternates: {
+          languages: Object.fromEntries(
+            routing.locales.map(l => [
+              l,
+              `${baseUrl}${l === routing.defaultLocale ? '' : `/${l}`}/${cat.slug}`,
+            ]),
+          ),
+        },
+      })
+    }
+
+    for (const calc of getAllCalculators()) {
+      urls.push({
+        url: `${baseUrl}${prefix}/${calc.slug}`,
+        lastModified: calc.publishedAt ? new Date(calc.publishedAt) : now,
+        changeFrequency: 'weekly',
+        priority: 0.75,
+        alternates: {
+          languages: Object.fromEntries(
+            routing.locales.map(l => [
+              l,
+              `${baseUrl}${l === routing.defaultLocale ? '' : `/${l}`}/${calc.slug}`,
+            ]),
+          ),
+        },
+      })
+    }
   }
 
-  const categoryPages = categories.map(cat => ({
-    url: `${BASE_URL}/${cat.slug}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  const calculatorPages = getAllCalculators().map(calc => ({
-    url: `${BASE_URL}/${calc.category}/${calc.slug}`,
-    lastModified: calc.publishedAt ? new Date(calc.publishedAt) : now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }))
-
-  const staticPages = [
-    {
-      url: `${BASE_URL}/about`,
-      lastModified: now,
-      changeFrequency: 'monthly' as const,
-      priority: 0.3,
-    },
-    {
-      url: `${BASE_URL}/privacy`,
-      lastModified: now,
-      changeFrequency: 'yearly' as const,
-      priority: 0.3,
-    },
-  ]
-
-  return [home, ...categoryPages, ...calculatorPages, ...staticPages]
+  return urls
 }

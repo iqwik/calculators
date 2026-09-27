@@ -1,31 +1,36 @@
-import {getTranslations} from 'next-intl/server'
-import {Link} from '@/i18n/navigation'
-import type {CalculatorConfig} from '@/types'
+'use client'
 
-interface RelatedToolsProps {
-  calculators: CalculatorConfig[]
+import {useTranslations} from 'next-intl'
+import {getRelated} from '@/data'
+import {Link} from '@/i18n/navigation'
+
+interface Props {
+  slugs: string[]
 }
 
-export async function RelatedTools({calculators}: RelatedToolsProps) {
-  if (calculators.length === 0) return null
+export function RelatedTools({slugs}: Props) {
+  const t = useTranslations('calculator')
+  const tConfig = useTranslations('config')
+  const calculators = getRelated(slugs)
 
-  const t = await getTranslations('config')
-  const tUi = await getTranslations('calculator')
+  if (calculators.length === 0) return null
 
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-bold text-gray-900">{tUi('related')}</h2>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <h2 className="mb-6 text-xl font-bold">{t('related')}</h2>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {calculators.map(calc => (
           <Link
             key={calc.slug}
-            href={`/${calc.category}/${calc.slug}`}
-            className="rounded-lg border border-gray-200 bg-white p-4 transition hover:border-blue-300 hover:shadow-sm"
+            href={`/${calc.slug}`}
+            className="group rounded-xl border bg-card p-4 transition hover:border-primary"
           >
-            <div className="font-medium text-gray-900">{t(calc.h1)}</div>
-            <div className="mt-1 text-sm text-gray-500 line-clamp-2">
-              {t(calc.description)}
+            <div className="font-semibold group-hover:text-primary">
+              {tConfig(calc.h1)}
             </div>
+            <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">
+              {tConfig(calc.description)}
+            </p>
           </Link>
         ))}
       </div>

@@ -1,4 +1,11 @@
-export type CategorySlug = 'health' | 'finance' | 'math' | 'datetime'
+export type CategorySlug =
+  | 'finance'
+  | 'health'
+  | 'text'
+  | 'developer'
+  | 'generators'
+  | 'business'
+
 export type InputType = 'number' | 'text' | 'date' | 'select'
 
 export interface Option {

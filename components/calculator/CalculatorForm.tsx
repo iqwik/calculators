@@ -1,0 +1,164 @@
+'use client'
+
+import {useTranslations} from 'next-intl'
+import {useState} from 'react'
+import {getCalculatorBySlug} from '@/data'
+import type {CalculationOutput, ResultRange, Values} from '@/types'
+import {Button} from '../ui/button'
+import {Input} from '../ui/input'
+
+interface Props {
+  slug: string
+}
+
+const RANGE_COLORS: Record<ResultRange['color'], string> = {
+  blue: 'bg-blue-500/10 text-blue-700 dark:text-blue-300 border-blue-500/20',
+  green:
+    'bg-green-500/10 text-green-700 dark:text-green-300 border-green-500/20',
+  orange:
+    'bg-orange-500/10 text-orange-700 dark:text-orange-300 border-orange-500/20',
+  red: 'bg-red-500/10 text-red-700 dark:text-red-300 border-red-500/20',
+  gray: 'bg-muted text-muted-foreground border-border',
+}
+
+function findRange(
+  ranges: ResultRange[] | undefined,
+  raw: number | undefined,
+): ResultRange | undefined {
+  if (!ranges || raw === undefined) return undefined
+  return ranges.find(r => raw < r.max)
+}
+
+export function CalculatorForm({slug}: Props) {
+  const t = useTranslations('calculator')
+  const tConfig = useTranslations('config')
+
+  const calc = getCalculatorBySlug(slug)
+
+  const [values, setValues] = useState<Values>(() => {
+    if (!calc) return {}
+    const init: Values = {}
+    for (const input of calc.inputs) {
+      init[input.name] = input.defaultValue ?? ''
+    }
+    return init
+  })
+
+  const [result, setResult] = useState<CalculationOutput | null>(null)
+
+  if (!calc) return null
+
+  function handleChange(name: string, value: string) {
+    setValues(prev => ({...prev, [name]: value}))
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!calc) return
+    setResult(calc.calculate(values))
+  }
+
+  function handleReset() {
+    if (!calc) return
+    const init: Values = {}
+    for (const input of calc.inputs) {
+      init[input.name] = input.defaultValue ?? ''
+    }
+    setValues(init)
+    setResult(null)
+  }
+
+  const range = result ? findRange(calc.ranges, result.raw) : undefined
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      {calc.inputs.map(input => (
+        <div key={input.name} className="space-y-1.5">
+          <label htmlFor={input.name} className="text-sm font-medium">
+            {tConfig(input.label)}
+            {input.unit && (
+              <span className="ml-1 text-muted-foreground">({input.unit})</span>
+            )}
+          </label>
+
+          {input.type === 'select' ? (
+            <select
+              id={input.name}
+              value={String(values[input.name] ?? '')}
+              onChange={e => handleChange(input.name, e.target.value)}
+              className="h-9 w-full rounded-md border bg-transparent px-3 text-sm"
+            >
+              {input.options?.map(opt => (
+                <option key={opt.value} value={opt.value}>
+                  {tConfig(opt.label)}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <Input
+              id={input.name}
+              type={input.type}
+              value={String(values[input.name] ?? '')}
+              onChange={e => handleChange(input.name, e.target.value)}
+              min={input.min}
+              max={input.max}
+              step={input.step}
+              placeholder={input.placeholder}
+            />
+          )}
+
+          {input.hint && (
+            <p className="text-xs text-muted-foreground">
+              {tConfig(input.hint)}
+            </p>
+          )}
+        </div>
+      ))}
+
+      <div className="flex gap-2 pt-2">
+        <Button type="submit">{t('calculate')}</Button>
+        <Button type="button" variant="outline" onClick={handleReset}>
+          {t('reset')}
+        </Button>
+      </div>
+
+      {result && (
+        <div className="mt-6 rounded-xl border bg-muted/30 p-5">
+          <div className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
+            {tConfig(calc.resultLabel)}
+          </div>
+
+          <div className="mt-2 flex items-baseline gap-2">
+            <span className="text-3xl font-bold">{result.value}</span>
+            {calc.resultUnit && (
+              <span className="text-base text-muted-foreground">
+                {tConfig(calc.resultUnit)}
+              </span>
+            )}
+          </div>
+
+          {range && (
+            <div
+              className={`mt-3 inline-flex items-center rounded-full border px-3 py-1 text-sm font-medium ${RANGE_COLORS[range.color]}`}
+            >
+              {tConfig(range.label)}
+            </div>
+          )}
+
+          {result.secondary && result.secondary.length > 0 && (
+            <dl className="mt-4 grid gap-2 text-sm">
+              {result.secondary.map(item => (
+                <div key={item.label} className="flex justify-between gap-4">
+                  <dt className="text-muted-foreground">
+                    {tConfig(item.label)}
+                  </dt>
+                  <dd className="font-medium">{item.value}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </div>
+      )}
+    </form>
+  )
+}

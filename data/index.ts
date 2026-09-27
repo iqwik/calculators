@@ -1,24 +1,23 @@
 import type {CalculatorConfig} from '@/types'
-import {datetimeCalculators, healthCalculators} from './calculators'
+import {financeCalculators, healthCalculators} from './calculators'
 import {categories} from './categories'
 
 export {categories}
 export type {Category} from './categories'
 
 export const allCalculators: CalculatorConfig[] = [
+  ...financeCalculators,
   ...healthCalculators,
-  ...datetimeCalculators,
 ]
 
 export function getAllCalculators(): CalculatorConfig[] {
   return allCalculators
 }
 
-export function getCalculator(
-  category: string,
+export function getCalculatorBySlug(
   slug: string,
 ): CalculatorConfig | undefined {
-  return allCalculators.find(c => c.category === category && c.slug === slug)
+  return allCalculators.find(c => c.slug === slug)
 }
 
 export function getCalculatorsByCategory(category: string): CalculatorConfig[] {

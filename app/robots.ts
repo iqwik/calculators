@@ -1,9 +1,8 @@
 import type {MetadataRoute} from 'next'
 import {getBaseUrl} from '@/helpers'
 
-const BASE_URL = getBaseUrl()
-
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = getBaseUrl()
   return {
     rules: [
       {
@@ -12,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/'],
       },
     ],
-    sitemap: `${BASE_URL}/sitemap.xml`,
-    host: BASE_URL,
+    sitemap: `${baseUrl}/sitemap.xml`,
+    host: baseUrl,
   }
 }

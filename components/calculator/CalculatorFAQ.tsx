@@ -1,27 +1,31 @@
-import {getTranslations} from 'next-intl/server'
+'use client'
+
+import {useTranslations} from 'next-intl'
 import type {FAQItem} from '@/types'
 
-interface CalculatorFAQProps {
+interface Props {
   items: FAQItem[]
 }
 
-export async function CalculatorFAQ({items}: CalculatorFAQProps) {
-  const t = await getTranslations('config')
-  const tUi = await getTranslations('calculator')
+export function CalculatorFAQ({items}: Props) {
+  const t = useTranslations('calculator')
+  const tConfig = useTranslations('config')
 
   return (
     <section className="mt-12">
-      <h2 className="text-2xl font-bold text-gray-900">{tUi('faq')}</h2>
-      <div className="mt-4 space-y-3">
+      <h2 className="mb-6 text-xl font-bold">{t('faq')}</h2>
+      <div className="space-y-4">
         {items.map(item => (
           <details
             key={item.q}
-            className="group rounded-lg border border-gray-200 bg-white p-4"
+            className="group rounded-xl border bg-card p-4 open:bg-muted/20"
           >
-            <summary className="cursor-pointer font-medium text-gray-900 marker:content-none">
-              {t(item.q)}
+            <summary className="cursor-pointer list-none font-medium">
+              {tConfig(item.q)}
             </summary>
-            <p className="mt-2 text-gray-600">{t(item.a)}</p>
+            <p className="mt-3 text-sm text-muted-foreground">
+              {tConfig(item.a)}
+            </p>
           </details>
         ))}
       </div>

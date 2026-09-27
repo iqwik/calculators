@@ -7,10 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
-    "format": "biome format --write"
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "ts:check": "tsc --noEmit",
+    "prepare": "husky"
   },
   "dependencies": {
     "next": "16.3.6",
+    "next-intl": "^4.14.7",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -20,7 +24,16 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "tailwindcss": "^4",
+    "tsc-files": "^1.1.4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix",
+      "tsc-files --noEmit"
+    ]
   }
 }

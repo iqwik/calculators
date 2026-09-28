@@ -22,14 +22,14 @@ Built with Next.js 16 + React 19 + TypeScript + Tailwind CSS 4. Monorepo-free, n
 ## Getting Started
 
 Run:
-
+```
 pnpm install
 pnpm dev
-
+```
 Open http://localhost:3000.
 
 ### Scripts
-
+```
 pnpm dev          # start dev server
 pnpm build        # production build
 pnpm start        # run production build
@@ -37,13 +37,13 @@ pnpm lint         # biome check
 pnpm lint:fix     # biome check --write
 pnpm format       # biome format --write
 pnpm ts:check     # tsc --noEmit
-
+```
 ### Environment
 
 Create `.env.local`:
-
+```
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-
+```
 In production — set it to your real domain (used by `sitemap.ts`, `robots.ts`, canonical URLs, JSON-LD).
 
 ## Project structure

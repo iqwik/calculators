@@ -1,11 +1,10 @@
 'use client'
 
 import {cn} from 'cn'
-import {format} from 'date-fns'
 import {enUS, ru} from 'date-fns/locale'
 import {CalendarIcon} from 'lucide-react'
 import {useLocale} from 'next-intl'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Button} from './button'
 import {Calendar} from './calendar'
 import {Popover, PopoverContent, PopoverTrigger} from './popover'
@@ -32,6 +31,20 @@ function dateToIso(date: Date): string {
   return `${y}-${m}-${d}`
 }
 
+function pickDisplayLocale(appLocale: string): string {
+  if (typeof navigator === 'undefined') {
+    return appLocale === 'ru' ? 'ru-RU' : 'en-US'
+  }
+
+  const langs =
+    navigator.languages && navigator.languages.length > 0
+      ? navigator.languages
+      : [navigator.language]
+
+  const match = langs.find(l => l.toLowerCase().startsWith(appLocale))
+  return match ?? langs[0] ?? 'en-US'
+}
+
 export function DatePicker({
   id,
   value,
@@ -39,38 +52,59 @@ export function DatePicker({
   placeholder = '—',
   className,
 }: Props) {
-  const locale = useLocale()
+  const appLocale = useLocale()
+  const [displayLocale, setDisplayLocale] = useState<string>(
+    appLocale === 'ru' ? 'ru-RU' : 'en-US',
+  )
   const [open, setOpen] = useState(false)
 
+  useEffect(() => {
+    setDisplayLocale(pickDisplayLocale(appLocale))
+  }, [appLocale])
+
+  const calendarLocale = appLocale === 'ru' ? ru : enUS
+
+  function formatDate(date: Date): string {
+    try {
+      return new Intl.DateTimeFormat(displayLocale, {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).format(date)
+    } catch {
+      return date.toISOString().slice(0, 10)
+    }
+  }
+
   const date = isoToDate(value)
-  const dateLocale = locale === 'ru' ? ru : enUS
-  const displayFormat = locale === 'ru' ? 'd MMMM yyyy' : 'PPP'
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        render={
-          <Button
-            id={id}
-            type="button"
-            variant="outline"
-            className={cn(
-              'w-full justify-start text-left font-normal',
-              !date && 'text-muted-foreground',
-              className,
-            )}
-          />
-        }
-      >
-        <CalendarIcon className="mr-2 size-4 shrink-0" />
-        {date ? format(date, displayFormat, {locale: dateLocale}) : placeholder}
-      </PopoverTrigger>
+    <Popover open={open} onOpenChange={setOpen} modal={false}>
+      <div style={{display: 'contents'}}>
+        <PopoverTrigger
+          render={
+            <Button
+              id={id}
+              type="button"
+              variant="outline"
+              className={cn(
+                'w-full justify-start text-left font-normal',
+                !date && 'text-muted-foreground',
+                className,
+              )}
+            />
+          }
+        >
+          <CalendarIcon className="size-4 shrink-0" />
+          {date ? formatDate(date) : placeholder}
+        </PopoverTrigger>
+      </div>
       <PopoverContent className="w-auto p-0" align="start">
         <Calendar
           mode="single"
           selected={date}
           defaultMonth={date}
-          locale={dateLocale}
+          locale={calendarLocale}
           onSelect={next => {
             onChange(next ? dateToIso(next) : '')
             setOpen(false)

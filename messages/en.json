@@ -1319,6 +1319,32 @@
         "invalidPayload": "Invalid payload — cannot decode Base64URL or parse JSON."
       }
     },
+    "jwt-encoder": {
+      "title": "JWT Encoder – Create & Sign JSON Web Tokens",
+      "h1": "JWT Encoder",
+      "description": "Free JWT encoder. Create and sign JSON Web Tokens with HS256, HS384 or HS512 locally in your browser. Nothing is sent to any server.",
+      "keywords": "jwt encoder,jwt generator,create jwt token,sign jwt online,hs256 jwt,jwt creator,json web token tool",
+      "headerLabel": "Header",
+      "payloadLabel": "Payload",
+      "algorithmLabel": "Algorithm",
+      "secretLabel": "Secret",
+      "secretPlaceholder": "Your secret key",
+      "generate": "Generate token",
+      "generating": "Signing...",
+      "outputLabel": "Signed JWT",
+      "secretRequired": "Secret is required to sign the token.",
+      "securityNote": "Signing runs 100% locally using Web Crypto API. Your secret never leaves your device. For production, always store secrets in environment variables.",
+      "faq": {
+        "q1": "Is it safe to use my real secret here?",
+        "a1": "Yes. Signing happens 100% in your browser using the Web Crypto API. The secret never leaves your device. For production use, always keep secrets in environment variables or secure vaults.",
+        "q2": "Which algorithms are supported?",
+        "a2": "HS256, HS384, and HS512 (HMAC + SHA). These are the most common symmetric algorithms. We do not support RSA or ECDSA public-key signing in this client-only tool.",
+        "q3": "What is the structure of a JWT?",
+        "a3": "Three Base64URL-encoded parts joined by dots: header (algorithm and type), payload (claims), and signature (HMAC of header and payload using your secret).",
+        "q4": "Can I decode the token I just created?",
+        "a4": "Yes — the preview shows the encoded token. To inspect the decoded header and payload, use our separate JWT Decoder tool."
+      }
+    },
     "password-generator": {
       "title": "Password Generator – Create Strong Secure Passwords",
       "h1": "Password Generator",
@@ -1474,6 +1500,440 @@
       "height": "Height",
       "barcodeMargin": "Margin",
       "displayValue": "Show value under bars"
+    },
+    "image-compressor": {
+      "title": "Image Compressor – Reduce JPG, PNG & WebP Size",
+      "h1": "Image Compressor",
+      "description": "Free image compressor that runs entirely in your browser. Compress and resize JPG, PNG, and WebP images by up to 90% with no upload required.",
+      "keywords": "image compressor,compress image online,jpg compressor,png compressor,image optimizer,reduce image size",
+      "maxWidth": "Max width",
+      "quality": "Quality",
+      "format": "Output format",
+      "settingsHint": "PNG ignores quality — size reduction comes from resizing only.",
+      "dropzone": "Drop images here or click to select",
+      "dropzoneHint": "JPG, PNG, WebP — up to 20 files at once",
+      "processing": "Compressing...",
+      "files": "files",
+      "downloadAll": "Download all",
+      "privacyNote": "All compression runs locally in your browser. Your images never leave your device.",
+      "faq": {
+        "q1": "Is my image uploaded anywhere?",
+        "a1": "No. Compression happens locally in your browser using the HTML5 Canvas API. Your photos never leave your device.",
+        "q2": "What format should I use?",
+        "a2": "WebP gives the best size-to-quality ratio in modern browsers. JPEG is universally supported. PNG keeps transparency but ignores quality settings — use it only when you need alpha.",
+        "q3": "How much can it reduce file size?",
+        "a3": "Depends on the original. Typical savings are 50–80% for photos when you set quality to 75–85% and limit max width to 1920px. PNG screenshots compress less.",
+        "q4": "Does quality affect PNG?",
+        "a4": "No. PNG is lossless, so the quality slider has no effect. Resizing or switching to WebP/JPEG is the only way to shrink PNG files."
+      }
+    },
+    "invoice-generator": {
+      "title": "Invoice Generator – Free Online Invoice Maker",
+      "h1": "Invoice Generator",
+      "description": "Create professional invoices instantly for your business. Customize details, calculate taxes, and download as a PDF for free, entirely in your browser.",
+      "keywords": "invoice generator,free invoice maker,download pdf invoice,create invoice online,receipt maker",
+
+      "preview": "Preview",
+      "closePreview": "Close preview",
+      "downloadPdf": "Download PDF",
+      "reset": "Reset",
+      "confirmReset": "Reset the invoice? All current data will be lost.",
+
+      "customization": "Customization",
+      "template": "Template",
+      "templateModern": "Modern",
+      "templateClassic": "Classic",
+      "themeColor": "Theme Color",
+      "colorEmerald": "Emerald",
+      "colorBlue": "Blue",
+      "colorViolet": "Violet",
+      "colorRose": "Rose",
+      "colorGray": "Gray",
+      "fontSize": "Font Size",
+      "fontSmall": "Small",
+      "fontMedium": "Medium",
+      "fontLarge": "Large",
+
+      "companyLogo": "Company Logo",
+      "uploadLogo": "Upload Logo",
+      "removeLogo": "Remove logo",
+
+      "from": "From",
+      "billTo": "Bill To",
+      "companyName": "Your Company Name",
+      "clientName": "Client Name",
+      "email": "Email",
+      "clientEmail": "Client Email",
+      "address": "Your Address",
+      "clientAddress": "Client Address",
+
+      "invoiceDetails": "Invoice details",
+      "invoiceNumber": "Invoice #",
+      "issueDate": "Date",
+      "dueDate": "Due Date",
+      "currency": "Currency",
+
+      "lineItems": "Line Items",
+      "lineItemsHint": "Add each product or service as a separate row.",
+      "itemDescription": "Description",
+      "qty": "Qty",
+      "price": "Rate",
+      "amount": "Amount",
+      "removeItem": "Remove item",
+      "addNewItem": "Add New Item",
+
+      "previewDescription": "Description",
+      "previewQty": "Qty",
+      "previewRate": "Rate",
+      "previewAmount": "Amount",
+      "previewLogo": "Logo",
+      "previewTaxRate": "Tax",
+      "previewDiscountAmount": "Discount",
+
+      "notesTerms": "Notes & Terms",
+      "notesPlaceholder": "Payment instructions, thank you note, etc.",
+
+      "summary": "Summary",
+      "subtotal": "Subtotal",
+      "discountAmount": "Discount",
+      "taxRate": "Tax (%)",
+      "total": "Total",
+
+      "previewInvoiceTitle": "Invoice",
+      "previewInvoiceHash": "Invoice #",
+      "previewDate": "Date",
+      "previewDue": "Due",
+      "previewItemDescriptionPlaceholder": "Item description",
+      "previewYourCompany": "Your Company",
+      "previewClientNameFallback": "Client Name",
+      "previewBilledTo": "Billed To",
+      "previewNotesAndTerms": "Notes & Terms",
+      "previewSubtotal": "Subtotal",
+      "previewDiscount": "Discount",
+      "previewTax": "Tax",
+      "previewTotal": "Total",
+
+      "faq": {
+        "q1": "Is my invoice data saved?",
+        "a1": "No. Everything is generated locally in your browser and auto-saved only to your device's localStorage. Nothing is uploaded to any server.",
+        "q2": "Can I add my company logo?",
+        "a2": "Yes. Upload a PNG or JPG and it will be embedded into the preview and included in the printed PDF.",
+        "q3": "How do I export to PDF?",
+        "a3": "Click Download PDF and choose Save as PDF in your browser's print dialog. Only the invoice preview is printed — the form and controls are hidden automatically.",
+        "q4": "What is the difference between Modern and Classic templates?",
+        "a4": "Modern uses a colored accent bar and colored headings. Classic is plain black-and-white for a more traditional look."
+      }
+    },
+    "invoice-number-generator": {
+      "title": "Invoice Number Generator – Sequential Numbers & Tracker",
+      "h1": "Invoice Number Generator",
+      "description": "Free invoice number generator with tracker. Generate sequential invoice numbers, log client and PO references, and never reuse a number. Everything runs in your browser.",
+      "keywords": "invoice number generator,invoice numbering,sequential numbers,invoice tracker,billing numbers",
+
+      "prefixLabel": "Prefix",
+      "startLabel": "Starting Number",
+      "paddingLabel": "Leading zeros",
+      "padding": {
+        "none": "None"
+      },
+      "generateNext": "Generate Next Number",
+
+      "nextAvailable": "Next available",
+      "lastUsedLabel": "Last used for this prefix",
+
+      "clientPlaceholder": "Client / Company (optional)",
+      "notesPlaceholder": "Notes / PO reference (optional)",
+
+      "generatedTitle": "Generated Numbers ({count})",
+      "storedInBrowser": "Stored in this browser",
+      "colNumber": "Number",
+      "colDate": "Date",
+      "colClientNotes": "Client / Notes",
+      "delete": "Delete",
+      "reset": "Reset",
+      "resetTitle": "Reset all numbers?",
+      "confirmReset": "This will permanently delete all generated numbers, their dates, and any client or PO references. This action cannot be undone.",
+      "confirmResetAction": "Reset",
+      "cancel": "Cancel",
+      "emptyState": "No numbers generated yet. Click Generate Next Number to start.",
+      "privacyNote": "All data is stored only in your browser. Nothing is uploaded to any server.",
+
+      "faq": {
+        "q1": "What is an invoice number generator?",
+        "a1": "It creates a sequence of unique invoice numbers based on a prefix and starting number, then logs each one with the date, client, and any notes you add. Each number is unique and ready to paste into your invoices or accounting software.",
+        "q2": "Why do invoice numbers need to be sequential?",
+        "a2": "Many tax authorities require invoice numbers to be unique and sequential without gaps. Sequential numbering also makes audits and reconciliation much easier.",
+        "q3": "What happens when I change the prefix?",
+        "a3": "The tracker computes the next available number separately for each prefix. Your existing entries are preserved, so you can keep separate sequences for different entities or years.",
+        "q4": "Is my data saved?",
+        "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved state."
+      }
+    },
+    "utm-builder": {
+      "title": "UTM Link Builder – Free Campaign URL Builder",
+      "h1": "UTM Link Builder",
+      "description": "Free UTM link builder for Google Analytics. Generate clean, trackable URLs with source, medium, campaign, term, and content parameters instantly. Runs entirely in your browser.",
+      "keywords": "utm builder,utm link builder,campaign url builder,google analytics utm,utm parameters",
+
+      "urlLabel": "Website URL",
+      "urlPlaceholder": "https://example.com/page",
+      "urlWarning": "This doesn't look like a full URL. Include https:// or http://.",
+
+      "sourceLabel": "Campaign Source",
+      "sourcePlaceholder": "google, newsletter, linkedin",
+      "sourceHint": "Required. The referrer — where the traffic comes from.",
+
+      "mediumLabel": "Campaign Medium",
+      "mediumPlaceholder": "cpc, email, social",
+      "mediumHint": "The marketing medium — how the traffic reaches you.",
+
+      "campaignLabel": "Campaign Name",
+      "campaignPlaceholder": "spring_sale",
+      "campaignHint": "The specific campaign or promotion name.",
+
+      "termLabel": "Campaign Term",
+      "termPlaceholder": "running+shoes",
+      "termHint": "Optional. Paid search keywords.",
+
+      "contentLabel": "Campaign Content",
+      "contentPlaceholder": "logolink or textlink",
+      "contentHint": "Optional. Distinguishes between different links in the same campaign.",
+
+      "resultLabel": "Generated URL",
+      "emptyState": "Enter a website URL and at least one UTM parameter to see the result.",
+      "privacyNote": "Everything runs in your browser. Your URLs and parameters are never sent anywhere.",
+
+      "faq": {
+        "q1": "What are UTM parameters?",
+        "a1": "UTM parameters are short tags added to the end of a URL that tell Google Analytics (and similar tools) where your traffic came from. They don't change the page your visitors see — they just attach tracking information.",
+        "q2": "Which UTM parameters are required?",
+        "a2": "Only utm_source is technically required, but most tools recommend using utm_source, utm_medium, and utm_campaign together. That combination gives you the clearest picture in analytics.",
+        "q3": "Should UTM parameters be lowercase?",
+        "a3": "Yes. Analytics tools treat Google and google as two different sources if the case differs. Stick to lowercase for consistency across all your campaigns.",
+        "q4": "Do UTM parameters affect SEO?",
+        "a4": "No. UTM parameters don't affect search rankings, but they can create duplicate content in analytics if used on internal links. Only tag external campaign links, not links between pages of your own site."
+      }
+    },
+    "profit-margin-calculator": {
+      "title": "Profit Margin & Markup Calculator – Advanced Pricing Tool",
+      "h1": "Profit Margin & Markup Calculator",
+      "description": "Calculate gross profit margin, markup percentage and target margin pricing. Compare scenarios with clear explanations for owners and freelancers.",
+      "keywords": "profit margin calculator,markup calculator,gross margin,pricing calculator,margin vs markup,target profit pricing",
+
+      "reset": "Reset all fields",
+      "notePrefix": "Remember:",
+      "note": "A 50% markup is only ~33% margin. Always work in margin % when thinking about profit on revenue.",
+
+      "block1": {
+        "title": "Calculate from Cost & Selling Price",
+        "costLabel": "Cost per Unit",
+        "priceLabel": "Selling Price",
+        "grossProfit": "Gross Profit",
+        "margin": "Margin %",
+        "markup": "Markup %",
+        "per100": "Profit per 100 sale"
+      },
+      "block2": {
+        "title": "Price from Desired Margin %",
+        "costLabel": "Cost",
+        "targetMarginLabel": "Target Gross Margin %",
+        "resultLabel": "Required Selling Price"
+      },
+      "block3": {
+        "title": "Price from Markup %",
+        "costLabel": "Cost",
+        "markupLabel": "Markup % on Cost",
+        "resultLabel": "Required Selling Price",
+        "equivalentMargin": "Equivalent margin ≈ {value}"
+      },
+
+      "faq": {
+        "q1": "What is the difference between margin and markup?",
+        "a1": "Margin is profit as a percentage of selling price. Markup is profit as a percentage of cost. They are related but not the same number.",
+        "q2": "Which one should I use for pricing?",
+        "a2": "Most businesses think in margins (what % of revenue is profit). Use markup when you know your cost and want a specific profit on top.",
+        "q3": "How do I calculate the selling price for a target margin?",
+        "a3": "Selling price = Cost / (1 − Target margin / 100). For a cost of $100 and 30% target margin: 100 / (1 − 0.30) = $142.86.",
+        "q4": "Why can't the margin be 100%?",
+        "a4": "Margin is profit divided by revenue. As margin approaches 100%, profit approaches revenue, which means cost approaches zero. You can never have profit equal to revenue unless your product is free to produce."
+      }
+    },
+    "break-even-calculator": {
+      "title": "Break-Even Calculator – Find Your Break-Even Point Fast",
+      "h1": "Break-Even Analysis Calculator",
+      "description": "Calculate your break-even point in units and revenue. Enter fixed costs, price and variable costs to see contribution margin and margin of safety.",
+      "keywords": "break even calculator,break even analysis,break even point,fixed costs variable costs,contribution margin calculator,business break even",
+
+      "fixedCostsLabel": "Fixed costs",
+      "fixedCostsHint": "Rent, salaries, software — costs that don't change with sales.",
+      "priceLabel": "Price per unit",
+      "priceHint": "Selling price of one unit.",
+      "variableCostLabel": "Variable cost per unit",
+      "variableCostHint": "Materials, packaging, transaction fees — costs per unit sold.",
+      "expectedSalesLabel": "Expected sales (optional)",
+      "expectedSalesPlaceholder": "Units you plan to sell",
+      "expectedSalesHint": "Used to calculate margin of safety. Leave empty to skip.",
+
+      "invalidPrice": "Price must be higher than variable cost — otherwise each sale loses money and break-even is impossible.",
+
+      "breakEvenUnits": "Break-even point",
+      "units": "units",
+      "breakEvenRevenue": "Break-even revenue",
+      "revenue": "total sales",
+      "contributionMargin": "Contribution margin",
+      "ratio": "ratio",
+      "marginOfSafety": "Margin of safety",
+      "marginOfSafetyHint": "buffer above break-even",
+      "marginOfSafetyEmpty": "enter expected sales",
+
+      "reset": "Reset all fields",
+      "notePrefix": "Remember:",
+      "note": "Contribution margin per unit is the money each sale adds to cover fixed costs. Once fixed costs are covered, every additional sale becomes profit.",
+
+      "faq": {
+        "q1": "What is the break-even point?",
+        "a1": "The point at which total revenue equals total costs. Below it you lose money; above it you make profit.",
+        "q2": "How is the break-even point calculated?",
+        "a2": "Break-even units = Fixed costs / (Price per unit − Variable cost per unit). The denominator is the contribution margin per unit.",
+        "q3": "What is the contribution margin?",
+        "a3": "Contribution margin is the difference between price and variable cost. It is the amount each sale contributes toward covering fixed costs and generating profit.",
+        "q4": "What is margin of safety?",
+        "a4": "Margin of safety is how far above the break-even point your actual sales are. A 20% margin of safety means sales can drop 20% before you start losing money."
+      }
+    },
+    "quotation-generator": {
+      "title": "Quotation & Estimate Generator – Professional Quotes Online",
+      "h1": "Quotation & Estimate Generator",
+      "description": "Create professional quotations and estimates in your browser. Add line items, taxes, discounts and validity dates, then print or save as PDF. Fully private.",
+      "keywords": "quotation generator,estimate generator,quote maker,professional quotation,create estimate online,free quote template",
+
+      "preview": "Preview",
+      "downloadPdf": "Download PDF",
+      "reset": "Reset",
+      "confirmReset": "Reset the quotation? All current data will be lost.",
+
+      "from": "From",
+      "preparedFor": "Prepared For",
+      "companyName": "Your Company Name",
+      "email": "Email",
+      "phone": "Phone",
+      "clientName": "Client Name",
+      "clientEmail": "Client Email",
+      "clientAddress": "Client Address",
+
+      "details": "Quotation details",
+      "quotationNumber": "Quotation #",
+      "issueDate": "Date",
+      "validUntil": "Valid until",
+      "currency": "Currency",
+      "subject": "Subject / Project",
+      "subjectPlaceholder": "Brief description of the project or service",
+
+      "lineItems": "Line Items",
+      "lineItemsHint": "Add each product or service as a separate row.",
+      "itemDescription": "Description",
+      "qty": "Qty",
+      "price": "Rate",
+      "amount": "Amount",
+      "removeItem": "Remove item",
+      "addNewItem": "Add New Item",
+
+      "notes": "Notes",
+      "notesPlaceholder": "Additional information for the client...",
+      "terms": "Terms & Conditions",
+      "termsPlaceholder": "Payment terms, delivery time, warranty...",
+
+      "summary": "Summary",
+      "subtotal": "Subtotal",
+      "discountAmount": "Discount",
+      "taxRate": "Tax (%)",
+      "total": "Total",
+
+      "previewTitle": "Quotation",
+      "previewNumber": "Quotation #",
+      "previewDate": "Date",
+      "previewValid": "Valid until",
+      "previewSubject": "Subject",
+      "previewPreparedFor": "Prepared For",
+      "previewClientFallback": "Client Name",
+      "previewYourCompany": "Your Company",
+      "previewDescription": "Description",
+      "previewQty": "Qty",
+      "previewRate": "Rate",
+      "previewAmount": "Amount",
+      "previewItemDescriptionPlaceholder": "Item description",
+      "previewNotes": "Notes",
+      "previewTerms": "Terms",
+      "previewSubtotal": "Subtotal",
+      "previewDiscount": "Discount",
+      "previewTax": "Tax",
+      "previewTotal": "Total",
+
+      "faq": {
+        "q1": "What is the difference between a quotation and an invoice?",
+        "a1": "A quotation is a proposal — it lists prices for products or services before the work starts. An invoice is a request for payment issued after the work is delivered.",
+        "q2": "Should I include a validity date on a quotation?",
+        "a2": "Yes. Prices, availability, and terms can change over time. A validity date (usually 15–30 days) protects you from honouring outdated terms indefinitely.",
+        "q3": "What should be in the terms and conditions?",
+        "a3": "Payment terms (deposit, net-30), delivery time, warranty, scope of work, and any assumptions. Keep it short but explicit — vague terms cause disputes.",
+        "q4": "Is my data saved?",
+        "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved draft."
+      }
+    },
+    "salary-slip-generator": {
+      "title": "Salary Slip Generator – Free Payslip Maker",
+      "h1": "Salary Slip Generator",
+      "description": "Generate professional salary slips in your browser. Add earnings, deductions, PF, TDS and HRA, then download or print a formatted payslip. No signup needed.",
+      "keywords": "salary slip generator,payslip generator,salary slip maker,free payslip online,payroll slip generator,employee salary slip,monthly salary slip",
+
+      "preview": "Preview",
+      "downloadPdf": "Download PDF",
+      "reset": "Reset",
+      "confirmReset": "Reset the salary slip? All current data will be lost.",
+
+      "company": "Company",
+      "companyName": "Company Name",
+      "companyAddress": "Company Address",
+
+      "employee": "Employee",
+      "employeeName": "Employee Name",
+      "employeeId": "Employee ID",
+      "designation": "Designation",
+      "department": "Department",
+      "joiningDate": "Date of Joining",
+      "payPeriod": "Pay Period",
+      "currency": "Currency",
+
+      "earnings": "Earnings",
+      "earningsHint": "Basic, HRA, allowances, bonus, etc.",
+      "deductions": "Deductions",
+      "deductionsHint": "PF, professional tax, TDS, loans, etc.",
+      "itemLabel": "Label",
+      "removeItem": "Remove",
+      "addEarning": "Add Earning",
+      "addDeduction": "Add Deduction",
+      "grossEarnings": "Gross Earnings",
+      "totalDeductions": "Total Deductions",
+      "netPay": "Net Pay",
+
+      "netPayWords": "Net Pay in words (optional)",
+      "netPayWordsPlaceholder": "e.g. Five Thousand Only",
+
+      "previewTitle": "Salary Slip",
+      "previewCompanyFallback": "Your Company",
+      "signatureEmployee": "Employee Signature",
+      "signatureEmployer": "Employer Signature",
+
+      "faq": {
+        "q1": "What should a salary slip include?",
+        "a1": "A salary slip typically shows the employee's name, ID, designation, pay period, earnings (basic, HRA, allowances), deductions (PF, taxes, loans), and the net pay. Both parties usually sign it.",
+        "q2": "Is a salary slip the same as a payslip?",
+        "a2": "Yes. Salary slip, payslip, and pay stub all refer to the same document — a breakdown of an employee's pay for a specific period.",
+        "q3": "Can I add custom earnings and deductions?",
+        "a3": "Yes. Use the Add Earning and Add Deduction buttons to insert custom rows. You can also delete any row you don't need.",
+        "q4": "Is my data saved?",
+        "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved draft."
+      }
     }
   }
 }

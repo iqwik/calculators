@@ -7,66 +7,156 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [0.2.0] - 2026-09-28
-
 ### Added
 
-**Tool system (independent from calculators)**
-- New `ToolConfig` discriminated union in `types/tool.ts` with three kinds: `unit-converter`, `json-formatter`, `base64`
-- `types/common.ts` — shared `FAQItem` type, used by both calculators and tools
-- `data/tools/` — new directory with `developer.ts` and `unit-categories.ts`
-- `data/registry.ts` — unified registry: `getRegistryEntry(slug)`, `getAllRegistryEntries()`, `getRegistryEntriesByCategory(category)`
-- `components/tool/ToolLayout.tsx` — server layout for tool pages
-- `components/tool/ToolView.tsx` — switch by `kind`
-- `components/tool/ToolSchema.tsx` — JSON-LD `WebApplication` + `FAQPage`
+**Business tools (7)**
 
-**Three developer tools**
-- **Unit Converter** (`/unit-converter`) — 10 categories (length, weight, temperature, area, volume, speed, time, data, pressure, energy), live conversion, swap button, all-units grid
-- **JSON Formatter** (`/json-formatter`) — Beautify (2 / 4 spaces), Minify, live formatting on input, inline error highlighting
-- **Base64 Encoder / Decoder** (`/base64-encoder-decoder`) — Encode / Decode, Standard / URL-Safe alphabets, live conversion, swap, copy
-
-**Shared components**
-- `components/shared/FAQ.tsx` (was `CalculatorFAQ.tsx`) — used by calculators and tools
-- `components/shared/RelatedTools.tsx` — resolves both calculators and tools by slug
-
-**Navigation & UI**
-- `SearchTrigger` now has two variants: `full` (sidebar, expanded) and `icon` (mobile header, collapsed sidebar)
-- Search field moved into the sidebar (under the logo); `SidebarTrigger` also moved into the sidebar
-- Mobile header (`lg:hidden`) with `SidebarTrigger` + search icon; modal opens on tap
-- Sidebar settings button now uses `SidebarMenuButton` — icon-only when collapsed, tooltip with label
-
-**i18n**
-- `setRequestLocale` removed everywhere — migrated to `next/root-params` in `i18n/request.ts` (Next.js 16.3+)
-- `generateStaticParams` added to `app/[locale]/layout.tsx` — full SSG for all locales
+- **Invoice Generator** (`/invoice-generator`) — form + sticky preview, line items, tax, discount, currency, logo upload, print / save as PDF, live preview, `localStorage` draft
+- **Invoice Number Generator** (`/invoice-number-generator`) — prefix + starting number + leading zeros, «Next available» tracker, client / notes per entry, table of generated numbers, `localStorage` journal
+- **UTM Link Builder** (`/utm-builder`) — 5 UTM parameters, live URL assembly, `encodeURIComponent` for values, copy result
+- **Profit Margin & Markup Calculator** (`/profit-margin-calculator`) — three independent blocks: cost + price → margin/markup, cost + target margin → price, cost + markup → price
+- **Break-Even Calculator** (`/break-even-calculator`) — fixed / variable / price → break-even units, break-even revenue, contribution margin, margin of safety
+- **Quotation Generator** (`/quotation-generator`) — form + sticky preview, line items, tax, discount, subject, terms, validity date, print / save as PDF
+- **Salary Slip Generator** (`/salary-slip-generator`) — earnings + deductions tables, net pay, print / save as PDF, `localStorage` draft
 
 ### Changed
 
-- `CalculatorConfig` untouched; tools are now a fully separate system with own types and view
-- `[slug]/page.tsx` is now a thin dispatcher: resolves via registry and renders either `CalcLayout` or `ToolLayout`
-- `Stats`, `ToolGrid`, `SearchModal`, `CategoryPage` now use `getAllRegistryEntries()` / `getRegistryEntriesByCategory()` — tools show up on home, in search, in category hubs
-- `messages/*/config` extended with `unit-converter`, `json-formatter`, `base64-encoder-decoder` sections
-- Translation namespace `calculator` renamed to `global` (calculate, reset, result, related, faq, backHome) — shared across all features
-- `SearchModal`: compact when query empty, fixed-height results block when typing, vertically centered empty state
+- `ToolLayout` is now wide (`max-w-6xl`) for `invoice-generator`, `quotation-generator`, `salary-slip-generator` — form + preview two-column layout
+- `DatePicker` wraps `PopoverTrigger` in `<div style={{display: 'contents'}}>` — fixes Base UI focus-guards shifting layout
 
 ### Fixed
 
-- `data/calculators/index.ts` — self-import cycle (`'../calculators'` → `'./finance'` / `'./health'`)
-- `getRelated()` removed from `data/calculators/index.ts` — superseded by `RelatedTools` (cross-type resolution)
-- `MALFORMED_ARGUMENT` ICU error in `json-formatter.inputPlaceholder` — curly braces removed from placeholder string
-- All `[locale]` routes now prerender statically (was `ƒ` dynamic → now `●` SSG)
-- Removed `scripts/test-data.ts` — stale ad-hoc script referencing non-existent helpers
+- Base UI focus-guards breaking layout inside `space-y-*` / flex / grid — fixed via `display: contents` wrapper in `DatePicker`
+- Print CSS now uses `[id$='-preview']` — picks up any preview container without hardcoding each id
+- `InvoiceGeneratorView` fully localized (preview labels, fallbacks, placeholders)
+- Dead `components/tool/InvoicePreview.tsx` removed
 
 ### TODO
 
+- `SalarySlipGeneratorView`: `payPeriod` is a text input — replace with two `<Select>` (Month + Year), localized, `payMonth` + `payYear` in state
+- `SalarySlipGeneratorView`: hardcoded `"January 2025"` placeholder and `toLocaleString('en-US')` in `freshSlip()`
+- Currency formatting: RUB symbol should go after the number, use `toLocaleString(locale, ...)` for numbers
+- Extract `CurrencySelect` — `CURRENCIES` + `CURRENCY_SYMBOLS` duplicated in 3 files
+- `ToolSchema`: `<ProjectName>` hardcoded in `publisher.name`
+- `types/common.ts`: extract `FAQItem` (currently duplicated in `calculator.ts` and `tool.ts`)
+- Audit all `placeholder` / `defaultValue` for hardcoded English
+- Check remaining Base UI components (`Select`, `DropdownMenu`, `Tooltip`, `SidebarSettings`) for focus-guards
+- Remove `display: contents` wrapper once `@base-ui/react` ships PR #4350
+- `CURRENT_YEAR` computed at module load — wrap in `useMemo` inside component
+- DatePicker for `age-calculator` (`<input type="date">` still native in `CalculatorForm`)
 - Active category link in sidebar — use slug → category resolution (currently strict `===`)
-- Vertical position of category items in collapsed sidebar shifts upward (due to `SidebarGroupLabel` being hidden by shadcn)
-- Tooltip on `SidebarTrigger` — Base UI tooltip requires `TooltipTrigger` wrapping, currently broken
-- `<ProjectName>` hardcoded in `ToolSchema.publisher.name`
-- `ToolView` — add `default` / `assertNever` for exhaustiveness
 - Sidebar state resets on locale change (`[locale]` layout remounts — same root cause as theme flicker)
-- `ThemeProvider` `<script>` warning in dev — suppressed via console filter (React 19 false positive)
-- DatePicker for `age-calculator` (`<input type="date">` still native)
-- `output: 'export'` breaks i18n (`localePrefix: 'as-needed'` incompatible, `proxy.ts` disabled) — keep default output, deploy to Vercel
+- Mobile sidebar (Sheet) not thoroughly tested
+- OG image (`og-default.jpg`) not created
+- AdSense and GA not connected (deferred to production)
+
+## [0.3.0] - 2026-09-28
+
+### Added
+
+**Developer tools (9 total)**
+
+- Unit Converter, JSON Formatter, Base64 Encoder / Decoder (from 0.2.0)
+- UUID / GUID Generator — v4 + v7, bulk, uppercase, no-dashes
+- Hash Generator — MD5, SHA-1, SHA-256, SHA-512
+- URL Encoder / Decoder — Component / Full URL, swap, live
+- Timestamp Converter — Unix, ISO 8601, local, batch, timezones
+- JWT Decoder — header, payload, signature, expiry check
+- JWT Encoder — HS256/HS384/HS512, live signing
+
+**Text tools (4)**
+
+- Word Counter — words, characters, sentences, paragraphs, reading / speaking time
+- Case Converter — UPPER, lower, Title, Sentence, camelCase, PascalCase, snake_case, kebab-case, CONSTANT_CASE
+- Lorem Ipsum Generator — paragraphs / sentences / words, HTML tags option
+- Diff Checker — split / unified view, line-level diff, added / removed stats
+
+**Generator tools (3)**
+
+- Password Generator — length, character sets, ambiguous exclusion, strength meter
+- QR Code & Barcode Generator — QR (URL, text, email, phone, SMS, Wi-Fi, vCard) + 10 barcode formats, PNG / SVG download, colors, error correction
+- Image Compressor — JPG / PNG / WebP, quality, resize, batch, no upload
+
+**Calculator tools — finance (10)**
+
+- Percentage, EMI, Compound Interest, Discount, Tip, GST, Salary, ROI, SIP, Date Difference
+
+**Calculator tools — health (8 new, 11 total)**
+
+- TDEE & Macro, Body Fat, Ideal Weight, Water Intake, Heart Rate Zones, Pregnancy Due Date, Sleep Cycle, VO2 Max Estimator (plus BMI, Calorie, Age from 0.1.0)
+
+**Tool system**
+
+- `ToolConfig` discriminated union with 17 kinds
+- `data/tools/` — `developer.ts`, `text.ts`, `generators.ts`, `business.ts`, `unit-categories.ts`
+- `data/registry.ts` — unified registry for calculators and tools
+- `ToolLayout`, `ToolView` (switch by `kind` with `assertNever`), `ToolSchema` (JSON-LD)
+- Per-tool view components in `components/tool/`
+
+**Shared components**
+
+- `InputPanel`, `OutputPanel`, `CopyButton`, `SegmentedControl`, `SliderField`, `DatePicker`
+- `FAQ`, `RelatedTools` — cross-type resolution (calculators + tools)
+
+**SEO**
+
+- JSON-LD `WebApplication` + `FAQPage` on every tool and calculator page
+- `sitemap.ts` — all pages, both locales
+
+### Changed
+
+- `[slug]/page.tsx` — thin dispatcher: resolves via registry, renders `CalcLayout` or `ToolLayout`
+- `Stats`, `ToolGrid`, `SearchModal`, `CategoryPage` use `getAllRegistryEntries()` — tools show up on home, in search, in category hubs
+- `messages/*/config` extended with per-tool translation sections
+- Translation namespace `calculator` → `global` (calculate, reset, result, related, faq, backHome)
+
+### Fixed
+
+- `data/calculators/index.ts` self-import cycle
+- ICU `MALFORMED_ARGUMENT` in `json-formatter.inputPlaceholder`
+- All `[locale]` routes prerender statically (was `ƒ` → now `●`)
+
+## [0.2.0] - 2026-09-27
+
+### Added
+
+**Tool system**
+
+- `ToolConfig` union, `data/tools/`, `data/registry.ts`, `ToolLayout`, `ToolView`, `ToolSchema`
+
+**Three developer tools**
+
+- Unit Converter — 10 categories, live conversion, swap, all-units grid
+- JSON Formatter — Beautify (2 / 4 spaces), Minify, live, error highlighting
+- Base64 Encoder / Decoder — Encode / Decode, Standard / URL-Safe, swap, copy
+
+**Shared components**
+
+- `FAQ` (renamed from `CalculatorFAQ`), `RelatedTools` (cross-type)
+
+**Navigation**
+
+- `SearchTrigger` variants: `full` (sidebar) and `icon` (mobile)
+- Search field moved to sidebar, `SidebarTrigger` moved to sidebar
+- Mobile header with search modal
+- `SidebarSettings` uses `SidebarMenuButton` with tooltip in collapsed mode
+
+**i18n**
+
+- `setRequestLocale` → `next/root-params` in `i18n/request.ts`
+- `generateStaticParams` in `app/[locale]/layout.tsx` — full SSG
+
+### Changed
+
+- `[slug]/page.tsx` — thin dispatcher via registry
+- `Stats`, `ToolGrid`, `SearchModal`, `CategoryPage` — use registry
+- Translation namespace `calculator` → `global`
+
+### Fixed
+
+- `data/calculators/index.ts` self-import cycle
+- ICU `MALFORMED_ARGUMENT` in `json-formatter.inputPlaceholder`
+- All `[locale]` routes prerender statically
 
 ## [0.1.0] - 2026-09-27
 
@@ -74,118 +164,82 @@ First working MVP. Foundation laid: architecture, routing, i18n, design system, 
 
 ### Added
 
-**Architecture & infrastructure**
+**Architecture**
+
 - Next.js 16.3.6 (App Router, Turbopack) + React 19.2.8 + TypeScript 5 + Tailwind CSS 4
-- pnpm, Biome 2.4.2 (replaced ESLint/Prettier), Husky
-- next-intl v4.14.7 with two locales: `en` (default) and `ru`, `localePrefix: 'as-needed'`
+- pnpm, Biome 2.4.2, Husky
+- next-intl v4.14.7 with `en` (default) and `ru`, `localePrefix: 'as-needed'`
 - `proxy.ts` — next-intl middleware
-- `getBaseUrl()` helper — single source of `BASE_URL` for metadata, sitemap, robots, JSON-LD
+- `getBaseUrl()` — single source of `BASE_URL`
 
 **Routing**
-- Flat URLs — `/[locale]/[slug]` (e.g. `/ru/bmi-calculator`)
+
+- Flat URLs `/[locale]/[slug]` (e.g. `/ru/bmi-calculator`)
 - 6 SEO category hubs: `/finance`, `/health`, `/text`, `/developer`, `/generators`, `/business`
 - Service pages: home, About, Privacy, 404
-- SSG via `generateStaticParams` — all pages statically generated
+- SSG via `generateStaticParams`
 
 **Design system**
+
 - shadcn/ui on Base UI (not Radix)
 - Dark theme: light / dark / system via `next-themes`
-- Fonts: Inter (UI) + Geist Mono (code) via `next/font/google`, self-hosted
-- Icons: Lucide React, category icons via `CategoryIcon` component
+- Inter (UI) + Geist Mono (code) via `next/font/google`
+- Lucide React icons, `CategoryIcon` component
 - CSS tokens: `--background`, `--foreground`, `--primary`, `--sidebar`, `--muted`, etc.
 
-**Navigation & UI**
-- Collapsible sidebar (`collapsible="icon"`): logo, search, categories, settings
+**Navigation**
+
+- Collapsible sidebar (`collapsible="icon"`)
 - Active link highlighting
-- Search: field in sidebar → opens modal, live filtering by name and description, `⌘K` / `Ctrl+K` shortcut
+- Search: sidebar field → modal, live filter, `⌘K` / `Ctrl+K`
 - Settings popover: About, Privacy, Language, Theme
 - Locale switcher: EN / RU
-- "Back to home" button on category pages
 
 **Home page**
+
 - Hero: badge, H1, subtitle, 6 pill categories
-- Stats: dynamic tools count, `$0` / `0 ₽`, `100%`, `Fast`
-- ToolGrid: search, 7 filters, card grid, counter
+- Stats: dynamic count, `$0` / `0 ₽`, `100%`, `Fast`
+- ToolGrid: search, filters, card grid, counter
 
 **Pages**
-- Category hub: icon, title, counter, tools grid, "Back" button
-- Calculator page: breadcrumbs, category badge, H1 + description, form (number / text / date / select), result (value, unit, range badge, secondary metrics), FAQ (accordion), related tools
-- About: mission, offering, contact
-- Privacy: privacy policy
-- 404: with popular categories
+
+- Category hub, calculator page, About, Privacy, 404
 
 **Content: 3 working calculators**
-- BMI Calculator — with categories (underweight / normal / overweight / obese) and color indication
-- Calorie Calculator — TDEE/BMR with gender and activity level; extra metrics for weight loss/gain
-- Age Calculator — exact age in years / months / days + total days and weeks
+
+- BMI, Calorie, Age (all in `health`)
 
 **SEO**
-- Metadata per page: title, description, canonical
-- Alternates (hreflang) for `en` / `ru`
-- `sitemap.ts` — all pages, both locales, priorities, `alternates.languages`
-- `robots.ts` — `Allow: /` + sitemap reference
-- JSON-LD `WebApplication` on calculator pages (with `inLanguage`)
-- OpenGraph / Twitter Card meta tags
 
-**Data**
-- `data/categories.ts` — 6 categories (slug + icon)
-- `data/calculators/health.ts` — 3 calculators
-- `data/calculators/finance.ts` — placeholder
-- `data/index.ts` — aggregator + helpers
-- Helpers: `getAllCalculators()`, `getCalculatorBySlug()`, `getCalculatorsByCategory()`, `getCategory()`, `getRelated()`
-- Types: `CategorySlug`, `CalculatorConfig`, `InputField`, `ResultRange`, `FAQItem`, `Values`, `CalculationOutput`
+- Metadata, canonical, hreflang
+- `sitemap.ts`, `robots.ts`
+- JSON-LD `WebApplication`
+- OpenGraph / Twitter Card
+
+**Types & data**
+
+- `CategorySlug`, `CalculatorConfig`, `InputField`, `ResultRange`, `FAQItem`, `Values`, `OperationResult`
+- `data/categories.ts`, `data/calculators/health.ts`, `data/calculators/finance.ts`
+- Helpers: `getAllCalculators()`, `getCalculatorBySlug()`, `getCalculatorsByCategory()`, `getCategory()`
 
 **Translations**
-- `messages/en.json` and `messages/ru.json`
-- Sections: `meta`, `home`, `nav`, `sidebar`, `category`, `calculator`, `notFound`, `about`, `privacy`
-- `config` section — content for 3 calculators
-- Unified ICU format (no `<ProjectName>` inside strings)
+
+- `messages/en.json` + `messages/ru.json`
+- Sections: `meta`, `home`, `nav`, `sidebar`, `category`, `global`, `notFound`, `about`, `privacy`, `config`
 
 ### Fixed
-- `Functions cannot be passed to Client Components` — form receives `slug` instead of the whole object with `calculate` function
-- `UNCLOSED_TAG (ICU)` — removed angle brackets from placeholders in translations
-- Times New Roman font fallback — resolved `--font-sans: var(--font-sans)` self-reference in `globals.css`
-- `'use client'` in double quotes — switched to single quotes for proper directive parsing
-- Missing `import '../globals.css'` in layout — styles were not applied
-- `@/components` barrel — removed, all imports are direct (resolved cycle that broke `SidebarProvider`)
-- `node_modules/@types` — restored React types after installation failure
-- `EPERM` (Windows) when renaming files in `.next/` — workflow updated to `rm -rf .next`
 
-### Dependencies
-
-**Production**
-```
-- @base-ui/react ^1.8.0
-- class-variance-authority ^0.7.1
-- cn ^0.4.0
-- lucide-react ^1.48.0
-- next 16.3.6
-- next-intl ^4.14.7
-- next-themes ^0.4.6
-- react 19.2.8
-- react-dom 19.2.8
-- shadcn ^4.21.0
-```
-
-**Dev**
-```
-- @biomejs/biome 2.4.2
-- @tailwindcss/postcss ^4
-- @types/node ^20
-- @types/react ^19
-- @types/react-dom ^19
-- husky ^9.1.7
-- lint-staged ^17.6.0
-- tailwindcss ^4
-- tsc-files ^1.1.4
-- tw-animate-css ^1.4.0
-- typescript ^5
-```
+- `Functions cannot be passed to Client Components` — form receives `slug`
+- ICU `UNCLOSED_TAG` — removed angle brackets from placeholders
+- Times New Roman fallback — `--font-sans: var(--font-inter)`
+- `'use client'` in double quotes → single quotes
+- Missing `import '../globals.css'`
+- `@/components` barrel removed (cycle broke `SidebarProvider`)
+- `EPERM` on Windows — `rm -rf .next` workflow
 
 ### Known limitations
-- All calculators currently in `health` category — other 5 categories empty (only hubs)
-- `<ProjectName>` placeholder not yet replaced in UI / metadata
-- AdSense and GA not connected (deferred to production)
-- `lint-staged` still references `eslint` — should be migrated to `biome`
-- Mobile sidebar (Sheet) not thoroughly tested
-- OG image (`og-default.jpg`) not created
+
+- Only `health` category has tools — other 5 hubs empty
+- `<ProjectName>` placeholder not replaced
+- AdSense and GA not connected
+- OG image not created

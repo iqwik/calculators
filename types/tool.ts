@@ -13,8 +13,17 @@ export type ToolKind =
   | 'url-encoder'
   | 'timestamp-converter'
   | 'jwt-decoder'
+  | 'jwt-encoder'
   | 'password-generator'
   | 'qr-code-generator'
+  | 'image-compressor'
+  | 'invoice-generator'
+  | 'invoice-number-generator'
+  | 'utm-builder'
+  | 'profit-margin-calculator'
+  | 'break-even-calculator'
+  | 'quotation-generator'
+  | 'salary-slip-generator'
 
 export interface UnitDef {
   value: string
@@ -77,12 +86,48 @@ export interface JwtDecoderConfig extends BaseConfig {
   kind: 'jwt-decoder'
 }
 
+export interface JwtEncoderConfig extends BaseConfig {
+  kind: 'jwt-encoder'
+}
+
 export interface PasswordGeneratorConfig extends BaseConfig {
   kind: 'password-generator'
 }
 
 export interface QrCodeGeneratorConfig extends BaseConfig {
   kind: 'qr-code-generator'
+}
+
+export interface ImageCompressorConfig extends BaseConfig {
+  kind: 'image-compressor'
+}
+
+export interface InvoiceGeneratorConfig extends BaseConfig {
+  kind: 'invoice-generator'
+}
+
+export interface InvoiceNumberGeneratorConfig extends BaseConfig {
+  kind: 'invoice-number-generator'
+}
+
+export interface UtmBuilderConfig extends BaseConfig {
+  kind: 'utm-builder'
+}
+
+export interface ProfitMarginCalculatorConfig extends BaseConfig {
+  kind: 'profit-margin-calculator'
+}
+
+export interface BreakEvenCalculatorConfig extends BaseConfig {
+  kind: 'break-even-calculator'
+}
+
+export interface QuotationGeneratorConfig extends BaseConfig {
+  kind: 'quotation-generator'
+}
+
+export interface SalarySlipGeneratorConfig extends BaseConfig {
+  kind: 'salary-slip-generator'
 }
 
 export type ToolConfig =
@@ -98,5 +143,14 @@ export type ToolConfig =
   | UrlEncoderConfig
   | TimestampConverterConfig
   | JwtDecoderConfig
+  | JwtEncoderConfig
   | PasswordGeneratorConfig
   | QrCodeGeneratorConfig
+  | ImageCompressorConfig
+  | InvoiceGeneratorConfig
+  | InvoiceNumberGeneratorConfig
+  | UtmBuilderConfig
+  | ProfitMarginCalculatorConfig
+  | BreakEvenCalculatorConfig
+  | QuotationGeneratorConfig
+  | SalarySlipGeneratorConfig

@@ -5,7 +5,6 @@ import {ComponentProps} from 'react'
 
 function Label({className, ...props}: ComponentProps<'label'>) {
   return (
-    // biome-ignore lint/a11y/noLabelWithoutControl: <explanation>
     <label
       data-slot="label"
       className={cn(

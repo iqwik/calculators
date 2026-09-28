@@ -142,4 +142,22 @@ export const developerTools: ToolConfig[] = [
     related: ['base64-encoder-decoder', 'hash-generator'],
     publishedAt: '2025-01-19',
   },
+  {
+    kind: 'jwt-encoder',
+    slug: 'jwt-encoder',
+    category: 'developer',
+    title: 'jwt-encoder.title',
+    h1: 'jwt-encoder.h1',
+    description: 'jwt-encoder.description',
+    keywords: ['jwt-encoder.keywords'],
+    tags: ['developer'],
+    faq: [
+      {q: 'jwt-encoder.faq.q1', a: 'jwt-encoder.faq.a1'},
+      {q: 'jwt-encoder.faq.q2', a: 'jwt-encoder.faq.a2'},
+      {q: 'jwt-encoder.faq.q3', a: 'jwt-encoder.faq.a3'},
+      {q: 'jwt-encoder.faq.q4', a: 'jwt-encoder.faq.a4'},
+    ],
+    related: ['jwt-decoder', 'hash-generator'],
+    publishedAt: '2025-01-19',
+  },
 ]

@@ -76,7 +76,7 @@ interface BatchResult {
   error: boolean
 }
 
-function convertBatchLine(line: string, locale: string): BatchResult | null {
+function convertBatchLine(line: string, _locale: string): BatchResult | null {
   const trimmed = line.trim()
   if (!trimmed) return null
 

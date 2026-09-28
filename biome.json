@@ -25,9 +25,6 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "a11y": {
-          "noLabelWithoutControl": "off"
-        },
         "noUnusedImports": {
           "level": "error",
           "fix": "safe"
@@ -66,7 +63,8 @@
       },
       "a11y": {
         "recommended": true,
-        "noAutofocus": "off"
+        "noAutofocus": "off",
+        "noLabelWithoutControl": "off"
       }
     },
     "domains": {

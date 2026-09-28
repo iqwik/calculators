@@ -3,17 +3,17 @@
 import {RefreshCw} from 'lucide-react'
 import {useTranslations} from 'next-intl'
 import {useEffect, useEffectEvent, useState} from 'react'
-import {Button} from '@/components/ui/button'
-import {Input} from '@/components/ui/input'
+import {OutputPanel} from '../shared/OutputPanel'
+import {Button} from '../ui/button'
+import {Checkbox} from '../ui/checkbox'
+import {Input} from '../ui/input'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import {OutputPanel} from '../shared/OutputPanel'
-import {Checkbox} from '../ui/checkbox'
+} from '../ui/select'
 
 const WORDS = [
   'lorem',
@@ -130,7 +130,7 @@ function generate(options: Options): string {
 
   if (unit === 'words') {
     const text = generateWords(count, startWithLorem)
-    return capitalize(text) + '.'
+    return `${capitalize(text)}.`
   }
 
   if (unit === 'sentences') {

@@ -9,6 +9,7 @@ import {Textarea} from '@/components/ui/textarea'
 
 function InputGroup({className, ...props}: React.ComponentProps<'div'>) {
   return (
+    // biome-ignore lint/a11y/useSemanticElements: shadcn/ui wraps inputs in a div by design
     <div
       data-slot="input-group"
       role="group"
@@ -48,6 +49,8 @@ function InputGroupAddon({
   ...props
 }: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
+    // biome-ignore lint/a11y/useSemanticElements: shadcn/ui wraps inputs in a div by design
+    // biome-ignore lint/a11y/useKeyWithClickEvents: shadcn/ui wraps inputs in a div by design
     <div
       role="group"
       data-slot="input-group-addon"

@@ -37,4 +37,22 @@ export const generatorTools: ToolConfig[] = [
     related: ['password-generator', 'uuid-generator'],
     publishedAt: '2025-01-19',
   },
+  {
+    kind: 'image-compressor',
+    slug: 'image-compressor',
+    category: 'generators',
+    title: 'image-compressor.title',
+    h1: 'image-compressor.h1',
+    description: 'image-compressor.description',
+    keywords: ['image-compressor.keywords'],
+    tags: ['generators'],
+    faq: [
+      {q: 'image-compressor.faq.q1', a: 'image-compressor.faq.a1'},
+      {q: 'image-compressor.faq.q2', a: 'image-compressor.faq.a2'},
+      {q: 'image-compressor.faq.q3', a: 'image-compressor.faq.a3'},
+      {q: 'image-compressor.faq.q4', a: 'image-compressor.faq.a4'},
+    ],
+    related: ['qr-code-generator', 'password-generator'],
+    publishedAt: '2025-01-19',
+  },
 ]

@@ -51,9 +51,8 @@
     "typescript": "^5"
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "tsc-files --noEmit"
+    "*.{ts,tsx,js,jsx,json,jsonc,css}": [
+      "biome check --write --no-errors-on-unmatched --files-ignore-unknown=true"
     ]
   }
 }

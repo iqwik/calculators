@@ -1,17 +1,26 @@
 import {assertNever} from '@/helpers'
 import type {ToolConfig} from '@/types'
 import {Base64View} from './Base64View'
+import {BreakEvenCalculatorView} from './BreakEvenCalculatorView'
 import {CaseConverterView} from './CaseConverterView'
 import {DiffCheckerView} from './DiffCheckerView'
 import {HashGeneratorView} from './HashGeneratorView'
+import {ImageCompressorView} from './ImageCompressorView'
+import {InvoiceGeneratorView} from './InvoiceGeneratorView'
+import {InvoiceNumberGeneratorView} from './InvoiceNumberGeneratorView'
 import {JsonFormatterView} from './JsonFormatterView'
 import {JwtDecoderView} from './JwtDecoderView'
+import {JwtEncoderView} from './JwtEncoderView'
 import {LoremIpsumView} from './LoremIpsumView'
 import {PasswordGeneratorView} from './PasswordGeneratorView'
+import {ProfitMarginCalculatorView} from './ProfitMarginCalculatorView'
 import {QrCodeGeneratorView} from './QrCodeGeneratorView'
+import {QuotationGeneratorView} from './QuotationGeneratorView'
+import {SalarySlipGeneratorView} from './SalarySlipGeneratorView'
 import {TimestampConverterView} from './TimestampConverterView'
 import {UnitConverterView} from './UnitConverterView'
 import {UrlEncoderView} from './UrlEncoderView'
+import {UtmBuilderView} from './UtmBuilderView'
 import {UuidGeneratorView} from './UuidGeneratorView'
 import {WordCounterView} from './WordCounterView'
 
@@ -45,10 +54,28 @@ export function ToolView({config}: Props) {
       return <TimestampConverterView />
     case 'jwt-decoder':
       return <JwtDecoderView />
+    case 'jwt-encoder':
+      return <JwtEncoderView />
     case 'password-generator':
       return <PasswordGeneratorView />
     case 'qr-code-generator':
       return <QrCodeGeneratorView />
+    case 'image-compressor':
+      return <ImageCompressorView />
+    case 'invoice-generator':
+      return <InvoiceGeneratorView />
+    case 'invoice-number-generator':
+      return <InvoiceNumberGeneratorView />
+    case 'utm-builder':
+      return <UtmBuilderView />
+    case 'profit-margin-calculator':
+      return <ProfitMarginCalculatorView />
+    case 'break-even-calculator':
+      return <BreakEvenCalculatorView />
+    case 'quotation-generator':
+      return <QuotationGeneratorView />
+    case 'salary-slip-generator':
+      return <SalarySlipGeneratorView />
     default:
       return assertNever(config)
   }

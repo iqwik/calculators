@@ -1,8 +1,8 @@
 'use client'
 
+import JsBarcode from 'jsbarcode'
 import {Copy, Download, RotateCcw} from 'lucide-react'
 import {useTranslations} from 'next-intl'
-import JsBarcode from 'jsbarcode'
 import QRCode from 'qrcode'
 import {useEffect, useMemo, useRef, useState} from 'react'
 import {Button} from '../ui/button'
@@ -15,21 +15,10 @@ import {
   SelectValue,
 } from '../ui/select'
 import {Slider} from '../ui/slider'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '../ui/tooltip'
+import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip'
 
 type Mode = 'qr' | 'barcode'
-type QrType =
-  | 'url'
-  | 'text'
-  | 'email'
-  | 'phone'
-  | 'sms'
-  | 'wifi'
-  | 'vcard'
+type QrType = 'url' | 'text' | 'email' | 'phone' | 'sms' | 'wifi' | 'vcard'
 type Level = 'L' | 'M' | 'Q' | 'H'
 type Encryption = 'WPA' | 'WEP' | 'nopass'
 type BarcodeFormat =
@@ -135,7 +124,7 @@ function buildPayload(type: QrType, f: Fields): string {
       if (f.emailSubject)
         params.push(`subject=${encodeURIComponent(f.emailSubject)}`)
       if (f.emailBody) params.push(`body=${encodeURIComponent(f.emailBody)}`)
-      return `mailto:${f.emailTo}${params.length ? '?' + params.join('&') : ''}`
+      return `mailto:${f.emailTo}${params.length ? `?${params.join('&')}` : ''}`
     }
     case 'phone':
       return f.phone ? `tel:${f.phone.replace(/\s/g, '')}` : ''
@@ -277,10 +266,7 @@ export function QrCodeGeneratorView() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  const payload = useMemo(
-    () => buildPayload(qrType, fields),
-    [qrType, fields],
-  )
+  const payload = useMemo(() => buildPayload(qrType, fields), [qrType, fields])
 
   const contrast = useMemo(() => scanContrast(fg, bg), [fg, bg])
   const contrastLvl = contrastLevel(contrast)
@@ -437,9 +423,7 @@ export function QrCodeGeneratorView() {
         canvas.toBlob(b => resolve(b), 'image/png'),
       )
       if (!blob) return
-      await navigator.clipboard.write([
-        new ClipboardItem({[blob.type]: blob}),
-      ])
+      await navigator.clipboard.write([new ClipboardItem({[blob.type]: blob})])
       setCopied(true)
       setTimeout(() => setCopied(false), 1500)
     } catch {
@@ -576,9 +560,7 @@ export function QrCodeGeneratorView() {
                       min={160}
                       max={640}
                       step={20}
-                      onValueChange={v =>
-                        setSize(Array.isArray(v) ? v[0] : v)
-                      }
+                      onValueChange={v => setSize(Array.isArray(v) ? v[0] : v)}
                     />
                   </div>
 
@@ -719,9 +701,7 @@ export function QrCodeGeneratorView() {
                   <Input
                     value={barcodeValue}
                     onChange={e => setBarcodeValue(e.target.value)}
-                    placeholder={t(
-                      'qr-code-generator.barcodeValuePlaceholder',
-                    )}
+                    placeholder={t('qr-code-generator.barcodeValuePlaceholder')}
                     className="font-mono"
                   />
                   {barcodeError && (
@@ -864,7 +844,9 @@ export function QrCodeGeneratorView() {
                 <canvas
                   ref={canvasRef}
                   className="block max-w-full"
-                  style={mode === 'qr' ? {width: size, height: size} : undefined}
+                  style={
+                    mode === 'qr' ? {width: size, height: size} : undefined
+                  }
                 />
               ) : (
                 <div className="flex h-50 items-center justify-center px-4 text-center text-sm text-muted-foreground">

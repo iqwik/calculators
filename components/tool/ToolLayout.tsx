@@ -1,3 +1,4 @@
+import {cn} from 'cn'
 import {getTranslations} from 'next-intl/server'
 import {getBaseUrl} from '@/helpers'
 import {Link} from '@/i18n/navigation'
@@ -17,9 +18,18 @@ export async function ToolLayout({config}: Props) {
   const tNav = await getTranslations('nav')
   const tHome = await getTranslations('home')
   const baseUrl = getBaseUrl()
+  const isWide =
+    config.kind === 'invoice-generator' ||
+    config.kind === 'quotation-generator' ||
+    config.kind === 'salary-slip-generator'
 
   return (
-    <article className="mx-auto max-w-4xl px-6 py-10">
+    <article
+      className={cn(
+        'mx-auto max-w-4xl px-6 py-10',
+        isWide ? 'max-w-6xl' : 'max-w-4xl',
+      )}
+    >
       <nav className="mb-6 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
           {tNav('home')}
@@ -45,9 +55,7 @@ export async function ToolLayout({config}: Props) {
 
       <ToolView config={config} />
 
-      {config.faq && config.faq.length > 0 && (
-        <FAQ items={config.faq} />
-      )}
+      {config.faq && config.faq.length > 0 && <FAQ items={config.faq} />}
 
       {config.related && config.related.length > 0 && (
         <RelatedTools slugs={config.related} />

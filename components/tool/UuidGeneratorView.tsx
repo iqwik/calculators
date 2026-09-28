@@ -3,7 +3,7 @@
 import {Check, CheckCircle2, Copy, RefreshCw, Trash2} from 'lucide-react'
 import {useTranslations} from 'next-intl'
 import {useEffect, useEffectEvent, useState} from 'react'
-import {Button} from '@/components/ui/button'
+import {Button} from '../ui/button'
 import {SegmentedControl} from '../ui/segmented-control'
 
 type UuidVersion = 'v4' | 'v7'

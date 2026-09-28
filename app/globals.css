@@ -128,3 +128,32 @@
     @apply font-sans;
   }
 }
+
+@media print {
+  body {
+    background: #ffffff !important;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  [id$="-preview"],
+  [id$="-preview"] * {
+    visibility: visible;
+  }
+
+  [id$="-preview"] {
+    position: static !important;
+    width: 100% !important;
+    min-height: auto !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+}

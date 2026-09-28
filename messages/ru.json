@@ -1352,7 +1352,7 @@
         "a4": "Да. Генерация использует crypto.getRandomValues — криптографически стойкий источник случайности в браузере. Пароль не покидает устройство."
       }
     },
-        "qr-code-generator": {
+    "qr-code-generator": {
       "title": "Генератор QR-кодов – создание QR с PNG и SVG",
       "h1": "Генератор QR-кодов",
       "description": "Бесплатный генератор QR-кодов для ссылок, текста, email, телефона, SMS, Wi-Fi и vCard. Настройте размер, цвета и коррекцию ошибок. Скачивание в PNG или SVG.",
@@ -1365,8 +1365,30 @@
         "typeHint": "Что должен делать сканер.",
         "details": "Добавьте данные",
         "design": "Настройте дизайн",
-        "designHint": "Держите контраст высоким для надёжного сканирования."
+        "designHint": "Держите контраст высоким для надёжного сканирования.",
+        "barcodeFormat": "Формат штрих-кода",
+        "barcodeFormatHint": "Выберите стандарт под ваш сканер.",
+        "barcodeValue": "Значение",
+        "barcodeValueHint": "Введите данные для кодирования."
       },
+      "barcodeFormats": {
+        "CODE128": "CODE128",
+        "CODE39": "CODE39",
+        "EAN13": "EAN-13",
+        "EAN8": "EAN-8",
+        "UPC": "UPC-A",
+        "ITF14": "ITF-14",
+        "ITF": "ITF",
+        "MSI": "MSI",
+        "pharmacode": "Pharmacode",
+        "codabar": "Codabar"
+      },
+      "barcodeValuePlaceholder": "Введите значение…",
+      "barcodeInvalid": "Некорректное значение для выбранного формата.",
+      "barWidth": "Ширина полос",
+      "height": "Высота",
+      "barcodeMargin": "Отступ",
+      "displayValue": "Показывать значение под полосами",
       "detailsHint": {
         "url": "Открыть сайт.",
         "text": "Поделиться текстом.",

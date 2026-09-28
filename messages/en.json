@@ -1352,7 +1352,7 @@
         "a4": "Yes. Generation uses crypto.getRandomValues, a cryptographically secure random source built into your browser. The password never leaves your device."
       }
     },
-        "qr-code-generator": {
+    "qr-code-generator": {
       "title": "QR Code Generator – Free QR Code Maker with PNG & SVG",
       "h1": "QR Code Generator",
       "description": "Free QR code generator for URL, text, email, phone, SMS, Wi-Fi and vCard. Customize size, colors, and error correction. Download PNG or SVG.",
@@ -1365,7 +1365,11 @@
         "typeHint": "Start with what the scanner should do.",
         "details": "Add Details",
         "design": "Tune Design",
-        "designHint": "Keep contrast high for reliable scanning."
+        "designHint": "Keep contrast high for reliable scanning.",
+        "barcodeFormat": "Choose Barcode Format",
+        "barcodeFormatHint": "Pick the standard for your scanner.",
+        "barcodeValue": "Add Value",
+        "barcodeValueHint": "Type the data to encode."
       },
       "detailsHint": {
         "url": "Open a website.",
@@ -1451,7 +1455,25 @@
         "a3": "Any text up to roughly 2,900 characters. This tool supports URLs, plain text, email addresses, phone numbers, SMS messages, Wi-Fi credentials, and vCard contacts.",
         "q4": "Is my data sent anywhere?",
         "a4": "No. Everything runs in your browser. Your content never leaves your device."
-      }
+      },
+      "barcodeFormats": {
+        "CODE128": "CODE128",
+        "CODE39": "CODE39",
+        "EAN13": "EAN-13",
+        "EAN8": "EAN-8",
+        "UPC": "UPC-A",
+        "ITF14": "ITF-14",
+        "ITF": "ITF",
+        "MSI": "MSI",
+        "pharmacode": "Pharmacode",
+        "codabar": "Codabar"
+      },
+      "barcodeValuePlaceholder": "Type or paste the value…",
+      "barcodeInvalid": "Invalid value for the selected format.",
+      "barWidth": "Bar width",
+      "height": "Height",
+      "barcodeMargin": "Margin",
+      "displayValue": "Show value under bars"
     }
   }
 }

@@ -2,6 +2,7 @@
 
 import {Copy, Download, RotateCcw} from 'lucide-react'
 import {useTranslations} from 'next-intl'
+import JsBarcode from 'jsbarcode'
 import QRCode from 'qrcode'
 import {useEffect, useMemo, useRef, useState} from 'react'
 import {Button} from '../ui/button'
@@ -14,7 +15,11 @@ import {
   SelectValue,
 } from '../ui/select'
 import {Slider} from '../ui/slider'
-import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '../ui/tooltip'
 
 type Mode = 'qr' | 'barcode'
 type QrType =
@@ -27,6 +32,17 @@ type QrType =
   | 'vcard'
 type Level = 'L' | 'M' | 'Q' | 'H'
 type Encryption = 'WPA' | 'WEP' | 'nopass'
+type BarcodeFormat =
+  | 'CODE128'
+  | 'CODE39'
+  | 'EAN13'
+  | 'EAN8'
+  | 'UPC'
+  | 'ITF14'
+  | 'ITF'
+  | 'MSI'
+  | 'pharmacode'
+  | 'codabar'
 
 const QR_TYPES: QrType[] = [
   'url',
@@ -49,6 +65,19 @@ const QR_TYPE_ICONS: Record<QrType, string> = {
 }
 
 const LEVELS: Level[] = ['L', 'M', 'Q', 'H']
+
+const BARCODE_FORMATS: BarcodeFormat[] = [
+  'CODE128',
+  'CODE39',
+  'EAN13',
+  'EAN8',
+  'UPC',
+  'ITF14',
+  'ITF',
+  'MSI',
+  'pharmacode',
+  'codabar',
+]
 
 interface Fields {
   url: string
@@ -172,10 +201,56 @@ function validateUrl(url: string): boolean {
   return /^(https?:\/\/|www\.)/i.test(url) || /\./.test(url)
 }
 
+function isValidEAN(value: string): boolean {
+  const digits = value.split('').map(Number)
+  const check = digits.pop()!
+  let sum = 0
+  for (let i = 0; i < digits.length; i++) {
+    sum += digits[i] * (i % 2 === 0 ? 1 : 3)
+  }
+  const computed = (10 - (sum % 10)) % 10
+  return computed === check
+}
+
+function validateBarcode(value: string, format: BarcodeFormat): string | null {
+  if (!value) return null
+  switch (format) {
+    case 'EAN13':
+      if (!/^\d{13}$/.test(value)) return 'Must be exactly 13 digits'
+      if (!isValidEAN(value)) return 'Invalid EAN-13 checksum'
+      return null
+    case 'EAN8':
+      if (!/^\d{8}$/.test(value)) return 'Must be exactly 8 digits'
+      return null
+    case 'UPC':
+      if (!/^\d{12}$/.test(value)) return 'Must be exactly 12 digits'
+      return null
+    case 'ITF14':
+      if (!/^\d{14}$/.test(value)) return 'Must be exactly 14 digits'
+      return null
+    case 'ITF':
+      if (!/^\d+$/.test(value) || value.length % 2 !== 0)
+        return 'Must be digits, even length'
+      return null
+    case 'CODE39':
+      if (!/^[A-Z0-9\-. $/+%]+$/.test(value))
+        return 'Allowed: A-Z, 0-9, -. $/+%'
+      return null
+    case 'pharmacode':
+      if (!/^\d+$/.test(value)) return 'Must be digits'
+      return null
+    default:
+      return null
+  }
+}
+
 export function QrCodeGeneratorView() {
   const t = useTranslations('config')
 
+  // Mode
   const [mode, setMode] = useState<Mode>('qr')
+
+  // QR state
   const [qrType, setQrType] = useState<QrType>('url')
   const [fields, setFields] = useState<Fields>(INITIAL_FIELDS)
   const [size, setSize] = useState(320)
@@ -184,6 +259,17 @@ export function QrCodeGeneratorView() {
   const [fg, setFg] = useState('#1a1917')
   const [bg, setBg] = useState('#ffffff')
 
+  // Barcode state
+  const [barcodeFormat, setBarcodeFormat] = useState<BarcodeFormat>('CODE128')
+  const [barcodeValue, setBarcodeValue] = useState('')
+  const [barWidth, setBarWidth] = useState(2)
+  const [barcodeHeight, setBarcodeHeight] = useState(100)
+  const [barcodeMargin, setBarcodeMargin] = useState(10)
+  const [displayValue, setDisplayValue] = useState(true)
+  const [barcodeFg, setBarcodeFg] = useState('#000000')
+  const [barcodeBg, setBarcodeBg] = useState('#ffffff')
+
+  // Shared output state
   const [svg, setSvg] = useState('')
   const [renderError, setRenderError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
@@ -202,13 +288,20 @@ export function QrCodeGeneratorView() {
   const urlWarning =
     qrType === 'url' && payload.length > 0 && !validateUrl(payload)
 
+  const barcodeError = useMemo(
+    () => validateBarcode(barcodeValue, barcodeFormat),
+    [barcodeValue, barcodeFormat],
+  )
+
   useEffect(() => {
     if (typeof ClipboardItem === 'undefined') {
       setCopySupported(false)
     }
   }, [])
 
+  // QR render effect
   useEffect(() => {
+    if (mode !== 'qr') return
     let cancelled = false
 
     async function render() {
@@ -256,7 +349,56 @@ export function QrCodeGeneratorView() {
     return () => {
       cancelled = true
     }
-  }, [payload, size, margin, level, fg, bg])
+  }, [mode, payload, size, margin, level, fg, bg])
+
+  // Barcode render effect
+  useEffect(() => {
+    if (mode !== 'barcode') return
+
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    if (!barcodeValue) {
+      const ctx = canvas.getContext('2d')
+      if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height)
+      setSvg('')
+      setRenderError(null)
+      return
+    }
+
+    try {
+      JsBarcode(canvas, barcodeValue, {
+        format: barcodeFormat,
+        width: barWidth,
+        height: barcodeHeight,
+        margin: barcodeMargin,
+        displayValue,
+        background: barcodeBg,
+        lineColor: barcodeFg,
+        valid: (valid: boolean) => {
+          if (!valid) {
+            setRenderError(t('qr-code-generator.barcodeInvalid'))
+          } else {
+            setRenderError(null)
+          }
+        },
+      })
+      setSvg('')
+    } catch (e) {
+      setRenderError(e instanceof Error ? e.message : String(e))
+    }
+  }, [
+    mode,
+    barcodeValue,
+    barcodeFormat,
+    barWidth,
+    barcodeHeight,
+    barcodeMargin,
+    displayValue,
+    barcodeFg,
+    barcodeBg,
+    t,
+  ])
 
   function update<K extends keyof Fields>(key: K, value: Fields[K]) {
     setFields(prev => ({...prev, [key]: value}))
@@ -264,11 +406,13 @@ export function QrCodeGeneratorView() {
 
   function downloadPng() {
     const canvas = canvasRef.current
-    if (!canvas || !payload) return
+    if (!canvas) return
+    if (mode === 'qr' && !payload) return
+    if (mode === 'barcode' && !barcodeValue) return
     const url = canvas.toDataURL('image/png')
     const a = document.createElement('a')
     a.href = url
-    a.download = 'qr-code.png'
+    a.download = mode === 'qr' ? 'qr-code.png' : 'barcode.png'
     a.click()
   }
 
@@ -285,7 +429,9 @@ export function QrCodeGeneratorView() {
 
   async function copyPng() {
     const canvas = canvasRef.current
-    if (!canvas || !payload || !copySupported) return
+    if (!canvas || !copySupported) return
+    if (mode === 'qr' && !payload) return
+    if (mode === 'barcode' && !barcodeValue) return
     try {
       const blob: Blob | null = await new Promise(resolve =>
         canvas.toBlob(b => resolve(b), 'image/png'),
@@ -308,7 +454,20 @@ export function QrCodeGeneratorView() {
     setLevel('M')
     setFg('#1a1917')
     setBg('#ffffff')
+    setBarcodeValue('')
+    setBarcodeFormat('CODE128')
+    setBarWidth(2)
+    setBarcodeHeight(100)
+    setBarcodeMargin(10)
+    setDisplayValue(true)
+    setBarcodeFg('#000000')
+    setBarcodeBg('#ffffff')
   }
+
+  const hasContent =
+    mode === 'qr'
+      ? payload.length > 0 && !renderError
+      : barcodeValue.length > 0 && !renderError && !barcodeError
 
   return (
     <div className="space-y-6">
@@ -328,9 +487,12 @@ export function QrCodeGeneratorView() {
           </button>
           <button
             type="button"
-            disabled
-            title={t('qr-code-generator.barcodeComingSoon')}
-            className="flex cursor-not-allowed items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium text-muted-foreground/50"
+            onClick={() => setMode('barcode')}
+            className={`flex items-center gap-1.5 rounded-lg px-4 py-1.5 text-sm font-medium transition ${
+              mode === 'barcode'
+                ? 'bg-primary text-primary-foreground'
+                : 'text-muted-foreground hover:text-foreground'
+            }`}
           >
             <span aria-hidden>▥</span> {t('qr-code-generator.modeBarcode')}
           </button>
@@ -340,169 +502,346 @@ export function QrCodeGeneratorView() {
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_360px]">
         {/* Controls */}
         <div className="space-y-5">
-
-          {/* Section 1: Type */}
-          <Section number={1} title={t('qr-code-generator.sections.type')} hint={t('qr-code-generator.sections.typeHint')}>
-            <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
-              {QR_TYPES.map(type => (
-                <Tooltip key={type}>
-                  <TooltipTrigger
-                    render={
-                      <button
-                        type="button"
-                        onClick={() => setQrType(type)}
-                        className={`flex flex-col items-center gap-1.5 rounded-lg border p-2.5 text-center transition ${
-                          qrType === type
-                            ? 'border-primary/40 bg-primary/10'
-                            : 'border-border bg-background hover:border-primary/30 hover:bg-muted/40'
-                        }`}
-                      />
-                    }
-                  >
-                    <span className="text-xl leading-none" aria-hidden>
-                      {QR_TYPE_ICONS[type]}
-                    </span>
-                    <span className="w-full truncate text-xs font-medium">
-                      {t(`qr-code-generator.types.${type}`)}
-                    </span>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {t(`qr-code-generator.typeHints.${type}`)}
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-            </div> 
-          </Section>
-
-          {/* Section 2: Fields */}
-          <Section number={2} title={t('qr-code-generator.sections.details')} hint={t(`qr-code-generator.detailsHint.${qrType}`)}>
-            <FieldsForType
-              qrType={qrType}
-              fields={fields}
-              update={update}
-              urlWarning={urlWarning}
-            />
-          </Section>
-
-          {/* Section 3: Design */}
-          <Section number={3} title={t('qr-code-generator.sections.design')} hint={t('qr-code-generator.sections.designHint')}>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">
-                    {t('qr-code-generator.size')}
-                  </label>
-                  <span className="text-xs text-muted-foreground">
-                    {size}px
-                  </span>
+          {mode === 'qr' ? (
+            <>
+              {/* Section 1: Type */}
+              <Section
+                number={1}
+                title={t('qr-code-generator.sections.type')}
+                hint={t('qr-code-generator.sections.typeHint')}
+              >
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+                  {QR_TYPES.map(type => (
+                    <Tooltip key={type}>
+                      <TooltipTrigger
+                        render={
+                          <button
+                            type="button"
+                            onClick={() => setQrType(type)}
+                            className={`flex flex-col items-center gap-1.5 rounded-lg border p-2.5 text-center transition ${
+                              qrType === type
+                                ? 'border-primary/40 bg-primary/10'
+                                : 'border-border bg-background hover:border-primary/30 hover:bg-muted/40'
+                            }`}
+                          />
+                        }
+                      >
+                        <span className="text-xl leading-none" aria-hidden>
+                          {QR_TYPE_ICONS[type]}
+                        </span>
+                        <span className="w-full truncate text-xs font-medium">
+                          {t(`qr-code-generator.types.${type}`)}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {t(`qr-code-generator.typeHints.${type}`)}
+                      </TooltipContent>
+                    </Tooltip>
+                  ))}
                 </div>
-                <Slider
-                  value={[size]}
-                  min={160}
-                  max={640}
-                  step={20}
-                  onValueChange={v =>
-                    setSize(Array.isArray(v) ? v[0] : v)
-                  }
-                />
-              </div>
+              </Section>
 
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">
-                    {t('qr-code-generator.margin')}
-                  </label>
-                  <span className="text-xs text-muted-foreground">
-                    {margin} {t('qr-code-generator.modules')}
-                  </span>
+              {/* Section 2: Fields */}
+              <Section
+                number={2}
+                title={t('qr-code-generator.sections.details')}
+                hint={t(`qr-code-generator.detailsHint.${qrType}`)}
+              >
+                <FieldsForType
+                  qrType={qrType}
+                  fields={fields}
+                  update={update}
+                  urlWarning={urlWarning}
+                />
+              </Section>
+
+              {/* Section 3: Design */}
+              <Section
+                number={3}
+                title={t('qr-code-generator.sections.design')}
+                hint={t('qr-code-generator.sections.designHint')}
+              >
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">
+                        {t('qr-code-generator.size')}
+                      </label>
+                      <span className="text-xs text-muted-foreground">
+                        {size}px
+                      </span>
+                    </div>
+                    <Slider
+                      value={[size]}
+                      min={160}
+                      max={640}
+                      step={20}
+                      onValueChange={v =>
+                        setSize(Array.isArray(v) ? v[0] : v)
+                      }
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">
+                        {t('qr-code-generator.margin')}
+                      </label>
+                      <span className="text-xs text-muted-foreground">
+                        {margin} {t('qr-code-generator.modules')}
+                      </span>
+                    </div>
+                    <Slider
+                      value={[margin]}
+                      min={0}
+                      max={8}
+                      step={1}
+                      onValueChange={v =>
+                        setMargin(Array.isArray(v) ? v[0] : v)
+                      }
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium">
+                      {t('qr-code-generator.errorLevel')}
+                    </label>
+                    <Select
+                      items={LEVELS.map(l => ({
+                        value: l,
+                        label: t(`qr-code-generator.levels.${l}`),
+                      }))}
+                      value={level}
+                      onValueChange={v => setLevel(v as Level)}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {LEVELS.map(l => (
+                          <SelectItem key={l} value={l}>
+                            {t(`qr-code-generator.levels.${l}`)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="space-y-1.5">
+                        <label className="block text-sm font-medium leading-none">
+                          {t('qr-code-generator.darkColor')}
+                        </label>
+                        <input
+                          type="color"
+                          value={fg}
+                          onChange={e => setFg(e.target.value)}
+                          className="h-9 w-full cursor-pointer rounded-md border bg-background p-1"
+                        />
+                      </div>
+                      <div className="space-y-1.5">
+                        <label className="block text-sm font-medium leading-none">
+                          {t('qr-code-generator.lightColor')}
+                        </label>
+                        <input
+                          type="color"
+                          value={bg}
+                          onChange={e => setBg(e.target.value)}
+                          className="h-9 w-full cursor-pointer rounded-md border bg-background p-1"
+                        />
+                      </div>
+                    </div>
+                    <p
+                      className={`pt-1 text-xs ${
+                        contrastLvl === 'excellent'
+                          ? 'text-green-600 dark:text-green-400'
+                          : contrastLvl === 'good'
+                            ? 'text-yellow-600 dark:text-yellow-400'
+                            : 'text-red-600 dark:text-red-400'
+                      }`}
+                    >
+                      {t('qr-code-generator.scanContrast')}:{' '}
+                      {t(`qr-code-generator.contrast.${contrastLvl}`)}
+                    </p>
+                  </div>
                 </div>
-                <Slider
-                  value={[margin]}
-                  min={0}
-                  max={8}
-                  step={1}
-                  onValueChange={v =>
-                    setMargin(Array.isArray(v) ? v[0] : v)
-                  }
-                />
-              </div>
+              </Section>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium">
-                  {t('qr-code-generator.errorLevel')}
-                </label>
+              {/* Encoded payload */}
+              {payload && (
+                <div className="rounded-2xl border bg-muted/20 p-4">
+                  <div className="mb-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
+                    {t('qr-code-generator.encodedPayload')}
+                  </div>
+                  <p className="break-all font-mono text-xs leading-relaxed text-foreground">
+                    {payload}
+                  </p>
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              {/* Barcode Section 1: Format */}
+              <Section
+                number={1}
+                title={t('qr-code-generator.sections.barcodeFormat')}
+                hint={t('qr-code-generator.sections.barcodeFormatHint')}
+              >
                 <Select
-                  items={LEVELS.map(l => ({
-                    value: l,
-                    label: t(`qr-code-generator.levels.${l}`),
+                  items={BARCODE_FORMATS.map(f => ({
+                    value: f,
+                    label: t(`qr-code-generator.barcodeFormats.${f}`),
                   }))}
-                  value={level}
-                  onValueChange={v => setLevel(v as Level)}
+                  value={barcodeFormat}
+                  onValueChange={v => setBarcodeFormat(v as BarcodeFormat)}
                 >
                   <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {LEVELS.map(l => (
-                      <SelectItem key={l} value={l}>
-                        {t(`qr-code-generator.levels.${l}`)}
+                    {BARCODE_FORMATS.map(f => (
+                      <SelectItem key={f} value={f}>
+                        {t(`qr-code-generator.barcodeFormats.${f}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
+              </Section>
 
-              <div className="space-y-2">
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium leading-none">
-                      {t('qr-code-generator.darkColor')}
-                    </label>
-                    <input
-                      type="color"
-                      value={fg}
-                      onChange={e => setFg(e.target.value)}
-                      className="h-9 w-full cursor-pointer rounded-md border bg-background p-1"
+              {/* Barcode Section 2: Value */}
+              <Section
+                number={2}
+                title={t('qr-code-generator.sections.barcodeValue')}
+                hint={t('qr-code-generator.sections.barcodeValueHint')}
+              >
+                <div className="space-y-2">
+                  <Input
+                    value={barcodeValue}
+                    onChange={e => setBarcodeValue(e.target.value)}
+                    placeholder={t(
+                      'qr-code-generator.barcodeValuePlaceholder',
+                    )}
+                    className="font-mono"
+                  />
+                  {barcodeError && (
+                    <p className="text-xs text-red-600 dark:text-red-400">
+                      {barcodeError}
+                    </p>
+                  )}
+                </div>
+              </Section>
+
+              {/* Barcode Section 3: Design */}
+              <Section
+                number={3}
+                title={t('qr-code-generator.sections.design')}
+                hint={t('qr-code-generator.sections.designHint')}
+              >
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">
+                        {t('qr-code-generator.barWidth')}
+                      </label>
+                      <span className="text-xs text-muted-foreground">
+                        {barWidth}
+                      </span>
+                    </div>
+                    <Slider
+                      value={[barWidth]}
+                      min={1}
+                      max={4}
+                      step={1}
+                      onValueChange={v =>
+                        setBarWidth(Array.isArray(v) ? v[0] : v)
+                      }
                     />
                   </div>
-                  <div className="space-y-1.5">
-                    <label className="block text-sm font-medium leading-none">
-                      {t('qr-code-generator.lightColor')}
-                    </label>
-                    <input
-                      type="color"
-                      value={bg}
-                      onChange={e => setBg(e.target.value)}
-                      className="h-9 w-full cursor-pointer rounded-md border bg-background p-1"
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">
+                        {t('qr-code-generator.height')}
+                      </label>
+                      <span className="text-xs text-muted-foreground">
+                        {barcodeHeight}px
+                      </span>
+                    </div>
+                    <Slider
+                      value={[barcodeHeight]}
+                      min={40}
+                      max={200}
+                      step={10}
+                      onValueChange={v =>
+                        setBarcodeHeight(Array.isArray(v) ? v[0] : v)
+                      }
                     />
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">
+                        {t('qr-code-generator.barcodeMargin')}
+                      </label>
+                      <span className="text-xs text-muted-foreground">
+                        {barcodeMargin}px
+                      </span>
+                    </div>
+                    <Slider
+                      value={[barcodeMargin]}
+                      min={0}
+                      max={40}
+                      step={2}
+                      onValueChange={v =>
+                        setBarcodeMargin(Array.isArray(v) ? v[0] : v)
+                      }
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 self-end pb-1">
+                    <input
+                      id="barcode-display-value"
+                      type="checkbox"
+                      checked={displayValue}
+                      onChange={e => setDisplayValue(e.target.checked)}
+                      className="h-4 w-4 rounded border-input"
+                    />
+                    <label
+                      htmlFor="barcode-display-value"
+                      className="cursor-pointer text-sm"
+                    >
+                      {t('qr-code-generator.displayValue')}
+                    </label>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 sm:col-span-2">
+                    <div className="space-y-1.5">
+                      <label className="block text-sm font-medium leading-none">
+                        {t('qr-code-generator.darkColor')}
+                      </label>
+                      <input
+                        type="color"
+                        value={barcodeFg}
+                        onChange={e => setBarcodeFg(e.target.value)}
+                        className="h-9 w-full cursor-pointer rounded-md border bg-background p-1"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="block text-sm font-medium leading-none">
+                        {t('qr-code-generator.lightColor')}
+                      </label>
+                      <input
+                        type="color"
+                        value={barcodeBg}
+                        onChange={e => setBarcodeBg(e.target.value)}
+                        className="h-9 w-full cursor-pointer rounded-md border bg-background p-1"
+                      />
+                    </div>
                   </div>
                 </div>
-                <p
-                  className={`pt-1 text-xs ${
-                    contrastLvl === 'excellent'
-                      ? 'text-green-600 dark:text-green-400'
-                      : contrastLvl === 'good'
-                        ? 'text-yellow-600 dark:text-yellow-400'
-                        : 'text-red-600 dark:text-red-400'
-                  }`}
-                >
-                  {t('qr-code-generator.scanContrast')}:{' '}
-                  {t(`qr-code-generator.contrast.${contrastLvl}`)}
-                </p>
-              </div>
-            </div>
-          </Section>
-
-          {/* Encoded payload */}
-          {payload && (
-            <div className="rounded-2xl border bg-muted/20 p-4">
-              <div className="mb-2 text-[10px] font-bold tracking-widest text-muted-foreground uppercase">
-                {t('qr-code-generator.encodedPayload')}
-              </div>
-              <p className="break-all font-mono text-xs leading-relaxed text-foreground">
-                {payload}
-              </p>
-            </div>
+              </Section>
+            </>
           )}
         </div>
 
@@ -511,23 +850,27 @@ export function QrCodeGeneratorView() {
           <div className="rounded-2xl border bg-card p-4">
             <div className="mb-3 flex items-center justify-between gap-2">
               <span className="rounded-full bg-muted px-2.5 py-0.5 text-xs font-semibold uppercase">
-                {t(`qr-code-generator.types.${qrType}`)}
+                {mode === 'qr'
+                  ? t(`qr-code-generator.types.${qrType}`)
+                  : t(`qr-code-generator.barcodeFormats.${barcodeFormat}`)}
               </span>
-              <span className="text-xs text-muted-foreground">{size}px</span>
+              <span className="text-xs text-muted-foreground">
+                {mode === 'qr' ? `${size}px` : `${barWidth}×`}
+              </span>
             </div>
 
             <div className="flex items-center justify-center rounded-xl border bg-muted/20 p-4">
-              {payload && !renderError ? (
+              {hasContent ? (
                 <canvas
                   ref={canvasRef}
                   className="block max-w-full"
-                  style={{width: size, height: size}}
+                  style={mode === 'qr' ? {width: size, height: size} : undefined}
                 />
               ) : (
-                <div className="flex h-60 items-center justify-center px-4 text-center text-sm text-muted-foreground">
-                  {renderError
-                    ? renderError
-                    : t('qr-code-generator.emptyHint')}
+                <div className="flex h-50 items-center justify-center px-4 text-center text-sm text-muted-foreground">
+                  {renderError ??
+                    barcodeError ??
+                    t('qr-code-generator.emptyHint')}
                 </div>
               )}
             </div>
@@ -537,14 +880,9 @@ export function QrCodeGeneratorView() {
                 {t('qr-code-generator.previewStatus')}
               </div>
               <div className="mt-1 text-sm font-semibold">
-                {payload && !renderError
+                {hasContent
                   ? t('qr-code-generator.ready')
                   : t('qr-code-generator.waiting')}
-              </div>
-              <div className="mt-1 text-xs text-muted-foreground">
-                {payload
-                  ? t('qr-code-generator.readyHint')
-                  : t('qr-code-generator.waitingHint')}
               </div>
             </div>
 
@@ -552,25 +890,27 @@ export function QrCodeGeneratorView() {
               <Button
                 type="button"
                 onClick={downloadPng}
-                disabled={!payload || !!renderError}
+                disabled={!hasContent}
               >
                 <Download className="mr-1.5 h-3.5 w-3.5" />
                 PNG
               </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={downloadSvg}
-                disabled={!svg || !!renderError}
-              >
-                <Download className="mr-1.5 h-3.5 w-3.5" />
-                SVG
-              </Button>
+              {mode === 'qr' && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={downloadSvg}
+                  disabled={!svg || !!renderError}
+                >
+                  <Download className="mr-1.5 h-3.5 w-3.5" />
+                  SVG
+                </Button>
+              )}
               <Button
                 type="button"
                 variant="outline"
                 onClick={copyPng}
-                disabled={!payload || !!renderError || !copySupported}
+                disabled={!hasContent || !copySupported}
                 title={
                   !copySupported
                     ? t('qr-code-generator.copyNotSupported')
@@ -582,11 +922,7 @@ export function QrCodeGeneratorView() {
                   ? t('qr-code-generator.copied')
                   : t('qr-code-generator.copyPng')}
               </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={handleReset}
-              >
+              <Button type="button" variant="outline" onClick={handleReset}>
                 <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
                 {t('qr-code-generator.reset')}
               </Button>

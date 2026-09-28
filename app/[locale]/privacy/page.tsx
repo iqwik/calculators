@@ -22,29 +22,35 @@ export default async function PrivacyPage() {
   ] as const
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-12">
-      <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-        {t('title')}
-      </h1>
+    <article className="mx-auto max-w-3xl px-6 py-12 flex flex-col gap-6 text-sm">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-xl font-bold tracking-tight">{t('title')}</h1>
+        <p className="text-xs text-muted-foreground">
+          {t('updated', {date: new Date('2026-09-27').toLocaleDateString()})}
+        </p>
+      </div>
 
-      <p className="mt-2 text-sm text-muted-foreground">
-        {t('updated', {date: '2026-09-27'})}
+      <p className="text-md text-muted-foreground p-4 rounded-xl border bg-card">
+        {t('intro')}
       </p>
 
-      <p className="mt-6 text-lg text-muted-foreground">{t('intro')}</p>
-
-      <div className="mt-12 space-y-10">
+      <ul className="space-y-6 list-none">
         {sections.map(key => (
-          <section key={key}>
-            <h2 className="text-xl font-semibold">
-              {t(`sections.${key}.title`)}
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              {t(`sections.${key}.text`)}
-            </p>
-          </section>
+          <li
+            key={key}
+            className="flex items-start gap-1 before:content-['▸_']"
+          >
+            <div className="flex flex-col gap-1">
+              <div className="text-md font-semibold">
+                {t(`sections.${key}.title`)}
+              </div>
+              <p className="text-muted-foreground">
+                {t(`sections.${key}.text`)}
+              </p>
+            </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </article>
   )
 }

@@ -1,7 +1,13 @@
 import type {ToolConfig} from '@/types'
 import {developerTools} from './developer'
+import {generatorTools} from './generators'
+import {textTools} from './text'
 
-export const tools: ToolConfig[] = [...developerTools]
+export const tools: ToolConfig[] = [
+  ...developerTools,
+  ...textTools,
+  ...generatorTools,
+]
 
 export function getAllTools(): ToolConfig[] {
   return tools

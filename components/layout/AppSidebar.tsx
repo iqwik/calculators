@@ -4,6 +4,7 @@ import {useTranslations} from 'next-intl'
 import {SearchTrigger} from '@/components/search/SearchTrigger'
 import {categories} from '@/data'
 import {Link, usePathname} from '@/i18n/navigation'
+import {CategoryIcon} from '../ui/category-icon'
 import {
   Sidebar,
   SidebarContent,
@@ -66,7 +67,8 @@ export function AppSidebar() {
                     tooltip={tHome(`categories.${cat.slug}`)}
                     render={<Link href={href} />}
                   >
-                    <span aria-hidden="true">{cat.icon}</span>
+                    <CategoryIcon slug={cat.slug} className="h-4 w-4" />
+                    {/* <span aria-hidden="true">{cat.icon}</span> */}
                     <span>{tHome(`categories.${cat.slug}`)}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

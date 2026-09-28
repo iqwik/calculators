@@ -63,7 +63,11 @@ export const UNIT_CATEGORIES: UnitCategory[] = [
       {value: 'qt', label: 'unit-converter.units.qt', factor: 0.946352946},
       {value: 'pt', label: 'unit-converter.units.pt', factor: 0.473176473},
       {value: 'cup', label: 'unit-converter.units.cup', factor: 0.2365882365},
-      {value: 'floz', label: 'unit-converter.units.floz', factor: 0.0295735295625},
+      {
+        value: 'floz',
+        label: 'unit-converter.units.floz',
+        factor: 0.0295735295625,
+      },
     ],
   },
   {
@@ -111,7 +115,11 @@ export const UNIT_CATEGORIES: UnitCategory[] = [
       {value: 'bar', label: 'unit-converter.units.bar', factor: 100000},
       {value: 'psi', label: 'unit-converter.units.psi', factor: 6894.757293},
       {value: 'atm', label: 'unit-converter.units.atm', factor: 101325},
-      {value: 'mmhg', label: 'unit-converter.units.mmhg', factor: 133.322387415},
+      {
+        value: 'mmhg',
+        label: 'unit-converter.units.mmhg',
+        factor: 133.322387415,
+      },
     ],
   },
   {

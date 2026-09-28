@@ -7,20 +7,23 @@ export function Hero() {
   const t = useTranslations('home')
 
   return (
-    <section className="px-6 py-16 text-center sm:py-20">
+    <section
+      className="px-6 py-6 text-center flex flex-col items-center gap-4"
+      data-testid="home-hero"
+    >
       <Badge
         variant="outline"
-        className="mb-6 gap-2 rounded-full border-primary/25 bg-primary/10 px-4 py-1.5 text-xs font-semibold tracking-[0.14em] text-primary uppercase"
+        className="gap-2 rounded-full border-primary/25 bg-primary/10 px-4 text-xs font-semibold tracking-[0.14em] text-primary uppercase"
       >
         <span className="h-1.5 w-1.5 rounded-full bg-primary" />
         {t('badge')}
       </Badge>
 
-      <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+      <h1 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
         {t('h1')}
       </h1>
 
-      <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
+      <p className="mx-auto max-w-190 text-muted-foreground text-md">
         {t('subtitle')}
       </p>
 

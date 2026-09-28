@@ -22,7 +22,7 @@
     },
     "filters": {
       "all": "All Tools",
-      "calculators": "Calculators",
+      "calculator": "Calculators",
       "text": "Text",
       "health": "Health",
       "developer": "Developer",
@@ -72,10 +72,16 @@
   "global": {
     "calculate": "Calculate",
     "reset": "Reset",
+    "refresh": "Refresh",
     "result": "Result",
     "related": "Related tools",
     "faq": "Frequently Asked Questions",
-    "backHome": "Back to home"
+    "backHome": "Back to home",
+    "clear": "Clear",
+    "copy": "Copy",
+    "copied": "Copied",
+    "copyAll": "Copy all",
+    "copiedAll": "Copied"
   },
   "notFound": {
     "title": "Page not found",
@@ -209,6 +215,9 @@
         "a1": "TDEE (Total Daily Energy Expenditure) is the total number of calories you burn per day.",
         "q2": "How many calories should I eat to lose weight?",
         "a2": "A common recommendation is a deficit of 300–500 kcal/day for steady weight loss."
+      },
+      "units": {
+        "years": "years"
       }
     },
     "age-calculator": {
@@ -387,6 +396,1061 @@
         "a1": "Yes. Everything runs locally in your browser using native encoding functions. Your text is never sent to a server.",
         "q2": "What is the difference between Standard and URL-Safe?",
         "a2": "Standard Base64 uses + and / characters, which can break URLs. URL-Safe replaces them with - and _, and strips padding."
+      }
+    },
+    "percentage-calculator": {
+      "title": "Percentage Calculator – Free Online Percent Tool",
+      "h1": "Percentage Calculator",
+      "description": "Free percentage calculator. Find what X% of Y is, what percent one number is of another, and percentage increase or decrease — instantly.",
+      "keywords": "percentage calculator,percent calculator,percent of,percent change,percentage increase",
+      "inputs": {
+        "mode": "Calculation type",
+        "valueX": "Value X",
+        "valueY": "Value Y"
+      },
+      "options": {
+        "of": "What is X% of Y?",
+        "what": "X is what percent of Y?",
+        "change": "Percentage change from X to Y"
+      },
+      "resultLabel": "Result",
+      "secondary": {
+        "formula": "Formula",
+        "from": "From",
+        "to": "To",
+        "difference": "Difference"
+      },
+      "faq": {
+        "q1": "How do I calculate a percentage of a number?",
+        "a1": "Multiply the number by the percentage and divide by 100. For example, 15% of 200 = 200 × 15 ÷ 100 = 30.",
+        "q2": "How do I find what percent one number is of another?",
+        "a2": "Divide the first number by the second and multiply by 100. For example, 30 ÷ 200 × 100 = 15%.",
+        "q3": "How do I calculate percentage increase or decrease?",
+        "a3": "Subtract the starting value from the final value, divide by the absolute value of the starting value, and multiply by 100. A positive result means an increase, a negative result means a decrease.",
+        "q4": "Can I use decimals in this calculator?",
+        "a4": "Yes. All fields accept decimal values, and results are shown with up to four decimal places."
+      }
+    },
+    "emi-calculator": {
+      "title": "EMI Calculator – Loan Monthly Payment Calculator",
+      "h1": "EMI Calculator",
+      "description": "Free EMI calculator for home, car and personal loans. Get your monthly EMI, total interest and total payment instantly.",
+      "keywords": "emi calculator,loan calculator,monthly payment calculator,home loan emi,car loan emi",
+      "inputs": {
+        "principal": "Loan amount",
+        "rate": "Annual interest rate",
+        "tenure": "Loan tenure"
+      },
+      "units": {
+        "currency": "Amount",
+        "years": "years"
+      },
+      "resultLabel": "Monthly EMI",
+      "resultUnit": "per month",
+      "secondary": {
+        "principal": "Principal",
+        "totalInterest": "Total interest",
+        "totalPayment": "Total payment",
+        "months": "Number of payments",
+        "interestShare": "Interest share"
+      },
+      "faq": {
+        "q1": "What is EMI?",
+        "a1": "EMI stands for Equated Monthly Installment — a fixed amount you pay every month to repay a loan. Each payment covers part of the interest and part of the principal.",
+        "q2": "How is EMI calculated?",
+        "a2": "The formula is: EMI = P × r × (1 + r)^n / ((1 + r)^n − 1), where P is the principal, r is the monthly interest rate, and n is the number of monthly payments.",
+        "q3": "Does a longer tenure mean a lower EMI?",
+        "a3": "Yes. A longer tenure spreads payments over more months, lowering the monthly EMI — but you end up paying more total interest.",
+        "q4": "Does a higher interest rate increase the EMI?",
+        "a4": "Yes. The EMI grows with the interest rate for the same principal and tenure. Even a small rate difference noticeably affects total interest over long tenures."
+      }
+    },
+    "compound-interest-calculator": {
+      "title": "Compound Interest Calculator – Future Value of Investment",
+      "h1": "Compound Interest Calculator",
+      "description": "Free compound interest calculator. See how your money grows with different compounding frequencies and time horizons.",
+      "keywords": "compound interest calculator,compound interest,future value calculator,investment growth",
+      "inputs": {
+        "principal": "Principal",
+        "rate": "Annual interest rate",
+        "years": "Time (years)",
+        "frequency": "Compounding frequency"
+      },
+      "options": {
+        "annually": "Annually",
+        "semiannually": "Semiannually",
+        "quarterly": "Quarterly",
+        "monthly": "Monthly",
+        "daily": "Daily"
+      },
+      "resultLabel": "Final amount",
+      "secondary": {
+        "principal": "Initial principal",
+        "interest": "Interest earned",
+        "ear": "Effective annual rate",
+        "periods": "Compounding periods"
+      },
+      "faq": {
+        "q1": "What is compound interest?",
+        "a1": "Compound interest is interest earned on both the initial principal and the accumulated interest from previous periods. Over time, this creates exponential growth.",
+        "q2": "What is the compound interest formula?",
+        "a2": "A = P × (1 + r/n)^(n×t), where P is the principal, r is the annual interest rate, n is the number of compounding periods per year, and t is the time in years.",
+        "q3": "What is the effective annual rate?",
+        "a3": "The effective annual rate (EAR) is the actual return over one year after accounting for compounding within the year. A higher compounding frequency means a higher EAR for the same nominal rate.",
+        "q4": "How does compounding frequency affect returns?",
+        "a4": "More frequent compounding means interest is added to the balance more often, so it starts earning interest sooner. Daily compounding yields the highest return, annual the lowest — for the same nominal rate."
+      }
+    },
+    "discount-calculator": {
+      "title": "Discount Calculator – Final Price After Discount & Tax",
+      "h1": "Discount Calculator",
+      "description": "Free discount calculator. Find the final price after a percentage discount, then optionally add sales tax. See exactly how much you save.",
+      "keywords": "discount calculator,sale price calculator,percent off calculator,sales tax calculator",
+      "inputs": {
+        "price": "Original price",
+        "discount": "Discount",
+        "tax": "Sales tax (optional)"
+      },
+      "resultLabel": "Final price",
+      "secondary": {
+        "original": "Original price",
+        "savings": "You save",
+        "discounted": "Price after discount",
+        "taxAmount": "Tax amount"
+      },
+      "faq": {
+        "q1": "How do I calculate a discount?",
+        "a1": "Multiply the original price by the discount percentage and divide by 100 to get the savings. Subtract savings from the original price to get the discounted price.",
+        "q2": "How do I add sales tax after a discount?",
+        "a2": "First calculate the discounted price (price minus savings), then multiply it by the tax rate and divide by 100. Add the tax amount to the discounted price for the final total.",
+        "q3": "Is tax applied before or after the discount?",
+        "a3": "In most jurisdictions, sales tax is applied after the discount. You pay tax only on the price you actually pay, not the original price.",
+        "q4": "Can I use this for multiple items?",
+        "a4": "This calculator handles a single item or a total purchase amount. For multiple items, sum their prices first and enter the total."
+      }
+    },
+    "tip-calculator": {
+      "title": "Tip Calculator & Bill Splitter – Free Online Tool",
+      "h1": "Tip Calculator & Bill Splitter",
+      "description": "Free tip calculator with bill splitter. Calculate tip amount, total bill, and split the cost evenly among friends. Supports custom tip percentages.",
+      "keywords": "tip calculator,bill splitter,gratuity calculator,restaurant tip,split the bill",
+      "inputs": {
+        "bill": "Bill amount",
+        "tip": "Tip",
+        "people": "Split between"
+      },
+      "resultLabel": "Per person",
+      "resultUnit": "each",
+      "secondary": {
+        "bill": "Bill",
+        "tipAmount": "Tip",
+        "total": "Total with tip",
+        "people": "People"
+      },
+      "faq": {
+        "q1": "How much should I tip?",
+        "a1": "In the US, 15–20% is standard for restaurants, 15% for delivery, and 10–15% for taxis. In many European countries, service is included and a 5–10% tip is optional.",
+        "q2": "How is the tip calculated?",
+        "a2": "The tip is a percentage of the bill amount. Multiply the bill by the tip percentage and divide by 100. The total is bill plus tip.",
+        "q3": "How do I split the bill with tip?",
+        "a3": "Add the tip to the bill to get the total, then divide the total by the number of people. Each person pays an equal share.",
+        "q4": "Should I tip on the pre-tax or post-tax amount?",
+        "a4": "Etiquette varies. Tipping on the pre-tax amount is common and fair, but many people simply tip on the total. Either is generally acceptable."
+      }
+    },
+    "gst-calculator": {
+      "title": "GST Calculator – Tax Inclusive & Exclusive Calculator",
+      "h1": "GST Calculator",
+      "description": "Free GST calculator. Calculate GST inclusive and exclusive amounts with accurate CGST, SGST and IGST breakup for 5%, 12%, 18% and 28% slabs.",
+      "keywords": "gst calculator,gst inclusive,gst exclusive,cgst sgst calculator,igst calculator,gst india",
+      "inputs": {
+        "amount": "Amount",
+        "rate": "GST rate",
+        "type": "Type"
+      },
+      "options": {
+        "r5": "5%",
+        "r12": "12%",
+        "r18": "18%",
+        "r28": "28%",
+        "exclusive": "Add GST (exclusive)",
+        "inclusive": "Remove GST (inclusive)"
+      },
+      "resultLabel": "Total amount",
+      "secondary": {
+        "base": "Base amount",
+        "gst": "GST amount",
+        "cgst": "CGST (half)",
+        "sgst": "SGST (half)"
+      },
+      "faq": {
+        "q1": "What is GST?",
+        "a1": "GST (Goods and Services Tax) is a single indirect tax applied on the supply of goods and services in India. It replaced multiple taxes like VAT, service tax and excise duty.",
+        "q2": "What is the difference between GST inclusive and exclusive?",
+        "a2": "GST exclusive means the amount does not include GST — you add it. GST inclusive means the amount already includes GST — you extract it to find the base price.",
+        "q3": "What are CGST, SGST and IGST?",
+        "a3": "For intra-state sales, GST is split equally into CGST (Central GST) and SGST (State GST). For inter-state sales, a single IGST (Integrated GST) applies instead.",
+        "q4": "What are the GST slabs in India?",
+        "a4": "The main GST slabs are 5%, 12%, 18% and 28%. Basic necessities are often 0% or 5%, while luxury goods fall under 28%."
+      }
+    },
+    "salary-calculator": {
+      "title": "Salary Calculator – Hourly, Monthly & Yearly Pay Converter",
+      "h1": "Salary Calculator",
+      "description": "Free salary calculator. Convert hourly pay to yearly or monthly salary and back. See your equivalent earnings across all periods.",
+      "keywords": "salary calculator,hourly to yearly,annual salary calculator,monthly salary,pay converter",
+      "inputs": {
+        "amount": "Amount",
+        "period": "Pay period",
+        "hoursPerWeek": "Hours per week",
+        "daysPerWeek": "Days per week"
+      },
+      "options": {
+        "hourly": "Per hour",
+        "daily": "Per day",
+        "weekly": "Per week",
+        "monthly": "Per month",
+        "yearly": "Per year"
+      },
+      "hints": {
+        "hoursPerWeek": "Used to convert hourly pay. Standard: 40.",
+        "daysPerWeek": "Used to convert daily pay. Standard: 5."
+      },
+      "resultLabel": "Yearly salary",
+      "resultUnit": "per year",
+      "secondary": {
+        "monthly": "Monthly",
+        "weekly": "Weekly",
+        "daily": "Daily",
+        "hourly": "Hourly"
+      },
+      "faq": {
+        "q1": "How do I convert hourly pay to a yearly salary?",
+        "a1": "Multiply your hourly rate by the number of hours you work per week, then by 52 weeks. For example, $25/hour × 40 hours × 52 weeks = $52,000/year.",
+        "q2": "How many working hours are in a year?",
+        "a2": "A standard full-time schedule (40 hours/week, 52 weeks) is 2,080 hours per year. Part-time or irregular schedules will differ.",
+        "q3": "How do I convert monthly salary to hourly?",
+        "a3": "Multiply the monthly salary by 12 to get the yearly total, then divide by the number of working hours per year. For a 40-hour week, that's 2,080 hours.",
+        "q4": "Does this calculator account for taxes?",
+        "a4": "No. This is a gross pay converter. Taxes and deductions depend on your country, state and personal situation. Use a take-home pay calculator for net amounts."
+      }
+    },
+    "roi-calculator": {
+      "title": "ROI Calculator – Return on Investment & Profit Margin",
+      "h1": "ROI Calculator",
+      "description": "Free ROI calculator. Calculate return on investment, profit margin and net profit for any investment or business project.",
+      "keywords": "roi calculator,return on investment,profit margin calculator,net profit,investment return",
+      "inputs": {
+        "mode": "Calculation mode",
+        "initial": "Initial amount",
+        "final": "Final amount",
+        "cost": "Business costs"
+      },
+      "options": {
+        "simple": "Investment (initial → final)",
+        "business": "Business (revenue − costs)"
+      },
+      "hints": {
+        "cost": "Used only in business mode."
+      },
+      "resultLabel": "ROI",
+      "secondary": {
+        "initial": "Initial amount",
+        "final": "Final amount",
+        "revenue": "Revenue",
+        "cost": "Costs",
+        "profit": "Net profit",
+        "margin": "Profit margin"
+      },
+      "faq": {
+        "q1": "What is ROI?",
+        "a1": "ROI (Return on Investment) measures how much profit you made relative to what you invested. It is expressed as a percentage: ROI = (final value − initial value) / initial value × 100.",
+        "q2": "How is ROI different from profit margin?",
+        "a2": "ROI compares profit to the amount invested. Profit margin compares profit to revenue. Both are useful — ROI for investors, margin for business owners.",
+        "q3": "Can ROI be negative?",
+        "a3": "Yes. A negative ROI means you lost money — the final value is less than what you invested. A ROI of −20% means you lost 20% of your investment.",
+        "q4": "Does ROI account for time?",
+        "a4": "Simple ROI does not. A 50% return over 1 year is very different from 50% over 10 years. For time-adjusted returns, use CAGR or annualized ROI."
+      }
+    },
+    "sip-calculator": {
+      "title": "SIP Calculator – Mutual Fund Investment Growth",
+      "h1": "SIP Calculator",
+      "description": "Free SIP calculator. Project the future value of your monthly mutual fund investments with expected rate of return and total wealth gain.",
+      "keywords": "sip calculator,sip mutual fund,monthly investment calculator,mutual fund returns,sip return calculator",
+      "inputs": {
+        "monthly": "Monthly investment",
+        "rate": "Expected annual return",
+        "years": "Investment period"
+      },
+      "resultLabel": "Future value",
+      "secondary": {
+        "invested": "Total invested",
+        "gains": "Wealth gained",
+        "months": "Months",
+        "gainShare": "Gain share"
+      },
+      "faq": {
+        "q1": "What is a SIP?",
+        "a1": "SIP (Systematic Investment Plan) is a way to invest in mutual funds by putting in a fixed amount every month. It averages out market ups and downs and builds discipline.",
+        "q2": "How is SIP future value calculated?",
+        "a2": "The formula is: FV = P × ((1 + i)^n − 1) / i × (1 + i), where P is the monthly investment, i is the monthly rate of return, and n is the number of months.",
+        "q3": "Is SIP better than a lump sum?",
+        "a3": "It depends on the market. SIP reduces timing risk by spreading purchases over time. Lump sum can outperform in steadily rising markets but has higher timing risk.",
+        "q4": "What return rate should I assume?",
+        "a4": "Historically, diversified equity mutual funds in India have returned around 10–14% annually over long periods. Use a conservative estimate like 10–12% for planning."
+      }
+    },
+    "date-difference-calculator": {
+      "title": "Date Difference Calculator – Days Between Two Dates",
+      "h1": "Date Difference Calculator",
+      "description": "Free date difference calculator. Find the exact number of days, weeks, months and years between any two dates. Useful for deadlines, age and timelines.",
+      "keywords": "date difference calculator,days between dates,date calculator,how many days,date duration",
+      "inputs": {
+        "startDate": "Start date",
+        "endDate": "End date"
+      },
+      "hints": {
+        "endDate": "Leave empty to use today's date."
+      },
+      "resultLabel": "Total days",
+      "resultUnit": "days",
+      "secondary": {
+        "years": "Years",
+        "months": "Months",
+        "days": "Days",
+        "totalWeeks": "Total weeks",
+        "totalMonths": "Total months"
+      },
+      "faq": {
+        "q1": "How is the date difference calculated?",
+        "a1": "We count the exact number of full years, months and days between the two dates, then convert to totals. This avoids off-by-one errors that appear when using only day counts.",
+        "q2": "Does the calculator include the end date?",
+        "a2": "No. The result is the number of days from the start date up to but not including the end date. This matches the standard convention for deadlines and durations.",
+        "q3": "What if the end date is earlier than the start date?",
+        "a3": "The calculator automatically swaps them, so you always get a positive result. The order of input does not matter.",
+        "q4": "How are leap years handled?",
+        "a4": "Each year is evaluated based on the actual calendar, so February 29 is counted correctly. The month-and-day breakdown respects month lengths automatically."
+      }
+    },
+    "tdee-macro-calculator": {
+      "title": "TDEE & Macro Calculator – Daily Calories and Macros",
+      "h1": "TDEE & Macro Calculator",
+      "description": "Free TDEE calculator with macro breakdown. Find your Total Daily Energy Expenditure and protein, carb and fat targets for your goal.",
+      "keywords": "tdee calculator,macro calculator,total daily energy expenditure,protein carbs fat,daily calories",
+      "inputs": {
+        "age": "Age",
+        "gender": "Gender",
+        "height": "Height",
+        "weight": "Weight",
+        "activity": "Activity level",
+        "goal": "Goal"
+      },
+      "units": {
+        "years": "years"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female",
+        "sedentary": "Sedentary",
+        "light": "Lightly active",
+        "moderate": "Moderately active",
+        "high": "Very active",
+        "veryHigh": "Extra active",
+        "lose": "Lose weight",
+        "maintain": "Maintain weight",
+        "gain": "Gain muscle"
+      },
+      "resultLabel": "Daily calories",
+      "resultUnit": "kcal",
+      "secondary": {
+        "bmr": "BMR",
+        "tdee": "TDEE",
+        "protein": "Protein",
+        "carbs": "Carbs",
+        "fat": "Fat"
+      },
+      "faq": {
+        "q1": "What is TDEE?",
+        "a1": "TDEE (Total Daily Energy Expenditure) is the total number of calories your body burns per day, including basic functions and physical activity.",
+        "q2": "How many calories should I eat to lose weight?",
+        "a2": "A common recommendation is a deficit of 15–20% below TDEE. For a TDEE of 2500 kcal, that is roughly 2000–2100 kcal per day for steady weight loss.",
+        "q3": "What are good macro ratios for muscle gain?",
+        "a3": "A common starting point is 25% protein, 45% carbs and 30% fat, with a 15% calorie surplus. Adjust based on your progress over several weeks.",
+        "q4": "Why is protein important?",
+        "a4": "Protein supports muscle repair and growth, keeps you full, and preserves lean mass during a cut. 1.6–2.2 g per kg of body weight is a typical range for active adults."
+      }
+    },
+    "body-fat-calculator": {
+      "title": "Body Fat Calculator – US Navy Method",
+      "h1": "Body Fat Calculator",
+      "description": "Free body fat calculator using the US Navy method. Get your body fat percentage, fat mass and lean mass from simple tape measurements.",
+      "keywords": "body fat calculator,us navy body fat,body fat percentage,lean mass calculator,fat mass",
+      "inputs": {
+        "gender": "Gender",
+        "height": "Height",
+        "weight": "Weight",
+        "neck": "Neck circumference",
+        "waist": "Waist circumference",
+        "hip": "Hip circumference"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "hints": {
+        "hip": "Used for women only."
+      },
+      "resultLabel": "Body fat",
+      "secondary": {
+        "fatMass": "Fat mass",
+        "leanMass": "Lean mass"
+      },
+      "ranges": {
+        "essential": "Essential fat",
+        "athletic": "Athletic",
+        "fitness": "Fitness",
+        "average": "Average",
+        "obese": "Obese"
+      },
+      "faq": {
+        "q1": "How accurate is the US Navy method?",
+        "a1": "It is usually accurate within 3–4% of DEXA scans when measurements are taken correctly. Consistency of tape placement matters more than absolute precision.",
+        "q2": "How do I measure my neck and waist?",
+        "a2": "Measure the neck just below the larynx, with the tape sloping slightly downward at the front. For waist, measure at the navel for men and at the narrowest point for women.",
+        "q3": "What is a healthy body fat percentage?",
+        "a3": "For men, 14–18% is generally considered fit. For women, 21–25%. Essential fat minimums are around 2–5% for men and 10–13% for women.",
+        "q4": "Does this calculator work for athletes?",
+        "a4": "It can under- or over-estimate for very muscular or very lean people. For athletes, a DEXA scan or hydrostatic weighing gives more precise results."
+      },
+      "units": {
+        "cm": "cm"
+      }
+    },
+    "ideal-weight-calculator": {
+      "title": "Ideal Weight Calculator – Devine, Robinson, Miller, Hamwi",
+      "h1": "Ideal Weight Calculator",
+      "description": "Free ideal body weight calculator using four formulas: Devine, Robinson, Miller and Hamwi. Useful for health goals and clinical estimates.",
+      "keywords": "ideal weight calculator,ideal body weight,devine formula,robinson formula,healthy weight",
+      "inputs": {
+        "gender": "Gender",
+        "height": "Height"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "resultLabel": "Average ideal weight",
+      "secondary": {
+        "devine": "Devine formula",
+        "robinson": "Robinson formula",
+        "miller": "Miller formula",
+        "hamwi": "Hamwi formula"
+      },
+      "faq": {
+        "q1": "What is ideal body weight?",
+        "a1": "Ideal body weight (IBW) is an estimate of the healthiest weight for your height. It was originally developed for medication dosing but is widely used for general health assessments.",
+        "q2": "Which formula is most accurate?",
+        "a2": "None is perfect. Devine is the most common in clinical settings. Robinson, Miller and Hamwi give slightly different results — we average them to smooth out individual formula bias.",
+        "q3": "Does ideal weight account for muscle mass?",
+        "a3": "No. These formulas use only height and gender, so they do not distinguish muscle from fat. Muscular people may exceed their IBW while still being healthy.",
+        "q4": "Is ideal weight the same as a healthy weight range?",
+        "a4": "No. Ideal weight is a single number. A healthy weight is a range — usually derived from a BMI of 18.5–24.9 for your height. Both are useful as reference points."
+      },
+      "units": {
+        "cm": "cm"
+      }
+    },
+    "water-intake-calculator": {
+      "title": "Water Intake Calculator – Daily Hydration Needs",
+      "h1": "Daily Water Intake Calculator",
+      "description": "Free water intake calculator. Find out how much water you need daily based on body weight, exercise and climate.",
+      "keywords": "water intake calculator,daily water needs,hydration calculator,how much water,water per day",
+      "inputs": {
+        "weight": "Body weight",
+        "exercise": "Daily exercise",
+        "climate": "Climate"
+      },
+      "units": {
+        "minutes": "minutes"
+      },
+      "options": {
+        "temperate": "Temperate",
+        "hot": "Hot / humid"
+      },
+      "resultLabel": "Daily water",
+      "secondary": {
+        "glasses": "In 250 ml glasses",
+        "base": "Base amount",
+        "exerciseAdd": "For exercise"
+      },
+      "faq": {
+        "q1": "How much water should I drink a day?",
+        "a1": "A common guideline is 30–35 ml per kg of body weight. For a 70 kg adult that is about 2.1–2.5 litres per day from all sources, including food and other drinks.",
+        "q2": "Does coffee or tea count?",
+        "a2": "Yes. Despite the mild diuretic effect, coffee and tea still contribute to daily hydration. Most of your fluid intake comes from drinks and about 20% from food.",
+        "q3": "How much more water do I need when exercising?",
+        "a3": "Roughly 500 ml for every 30 minutes of moderate exercise. For intense training or hot conditions, this can double — weigh yourself before and after to gauge actual loss.",
+        "q4": "Can I drink too much water?",
+        "a4": "Yes. Drinking several litres within a short time can dilute blood sodium (hyponatremia). Spread intake through the day and do not force water beyond thirst during normal activity."
+      }
+    },
+    "heart-rate-zones-calculator": {
+      "title": "Heart Rate Zones Calculator – Max HR & Training Zones",
+      "h1": "Heart Rate Zones Calculator",
+      "description": "Free heart rate zones calculator. Find your 5 training zones using max heart rate or the Karvonen method. Optimize fat burn, endurance and VO2 max.",
+      "keywords": "heart rate zones,max heart rate,karvonen formula,training zones,fat burn zone,cardio zones",
+      "inputs": {
+        "age": "Age",
+        "restingHr": "Resting heart rate",
+        "method": "Method"
+      },
+      "options": {
+        "simple": "Simple (220 − age)",
+        "karvonen": "Karvonen (with resting HR)"
+      },
+      "hints": {
+        "restingHr": "Measure in the morning before getting up."
+      },
+      "resultLabel": "Max heart rate",
+      "resultUnit": "bpm",
+      "zones": {
+        "z1": "Zone 1 – Recovery (50–60%)",
+        "z2": "Zone 2 – Fat burn (60–70%)",
+        "z3": "Zone 3 – Aerobic (70–80%)",
+        "z4": "Zone 4 – Threshold (80–90%)",
+        "z5": "Zone 5 – VO2 max (90–100%)"
+      },
+      "faq": {
+        "q1": "How is max heart rate calculated?",
+        "a1": "The most common formula is 220 − age, which is quick but approximate. More precise methods include the Tanaka formula (208 − 0.7 × age) or a supervised stress test.",
+        "q2": "What is the Karvonen method?",
+        "a2": "The Karvonen method uses your heart rate reserve (max HR − resting HR) to set zones. It is more personalized than percentage-of-max because it accounts for your fitness level.",
+        "q3": "Which zone burns the most fat?",
+        "a3": "Zone 2 (60–70% of max) burns the highest percentage of fat, but Zone 4 burns more total calories. For weight loss, total energy expenditure matters most.",
+        "q4": "What is Zone 2 training good for?",
+        "a4": "Zone 2 builds aerobic base, improves fat oxidation and mitochondrial density. It is the foundation of endurance training and can be done for long durations without excessive fatigue."
+      },
+      "units": {
+        "years": "years",
+        "bpm": "bpm"
+      }
+    },
+    "pregnancy-due-date-calculator": {
+      "title": "Pregnancy Due Date Calculator – Estimate Your Baby's Arrival",
+      "h1": "Pregnancy Due Date Calculator",
+      "description": "Free pregnancy due date calculator. Estimate your baby's arrival based on last menstrual period or conception date.",
+      "keywords": "pregnancy due date calculator,due date calculator,pregnancy calculator,estimated due date,pregnancy week",
+      "inputs": {
+        "method": "Method",
+        "date": "Date"
+      },
+      "options": {
+        "lmp": "Last menstrual period",
+        "conception": "Conception date"
+      },
+      "resultLabel": "Estimated due date",
+      "secondary": {
+        "currentWeek": "Current pregnancy week",
+        "trimester": "Trimester",
+        "daysLeft": "Days until due date"
+      },
+      "trimester": {
+        "first": "First trimester",
+        "second": "Second trimester",
+        "third": "Third trimester"
+      },
+      "faq": {
+        "q1": "How is the due date calculated?",
+        "a1": "The standard method (Naegele's rule) adds 280 days (40 weeks) to the first day of your last menstrual period. If you know the conception date, we add 266 days instead.",
+        "q2": "How accurate is the due date?",
+        "a2": "Only about 4% of babies are born exactly on the due date. Most arrive within two weeks before or after. An early ultrasound is the most accurate way to estimate.",
+        "q3": "What are the three trimesters?",
+        "a3": "First trimester: weeks 1–12. Second: weeks 13–27. Third: weeks 28 to birth. Each trimester has different developmental milestones and screening tests.",
+        "q4": "Can the due date change?",
+        "a4": "Yes. If an early ultrasound shows a different gestational age than LMP-based dating, your doctor may adjust the due date — usually only if the difference is more than 5–7 days."
+      }
+    },
+    "sleep-cycle-calculator": {
+      "title": "Sleep Cycle Calculator – Best Time to Sleep & Wake",
+      "h1": "Sleep Cycle Calculator",
+      "description": "Free sleep cycle calculator. Find the best times to go to bed or wake up so you finish a full 90-minute cycle and feel more refreshed.",
+      "keywords": "sleep cycle calculator,sleep calculator,best time to sleep,rem cycle,sleep duration",
+      "inputs": {
+        "wakeTime": "Wake-up time"
+      },
+      "hints": {
+        "wakeTime": "Format: HH:MM, e.g. 07:00."
+      },
+      "resultLabel": "Best bedtime (5 cycles)",
+      "resultUnit": "for 7.5h sleep",
+      "secondary": {
+        "six": "6 cycles",
+        "five": "5 cycles",
+        "four": "4 cycles"
+      },
+      "faq": {
+        "q1": "What is a sleep cycle?",
+        "a1": "A sleep cycle is roughly 90 minutes long and includes light sleep, deep sleep and REM. Waking up in the middle of a cycle often feels worse than waking at the end, even after less total sleep.",
+        "q2": "How many cycles do I need?",
+        "a2": "Most adults need 5–6 cycles (7.5–9 hours) per night. Athletes and teenagers often need more. Consistently under 4 cycles (6 hours) is linked to health risks.",
+        "q3": "Why add 15 minutes to bedtime?",
+        "a3": "Most people take around 15 minutes to fall asleep after getting into bed. The calculator adds this so your cycles line up with actual sleep onset, not lights-out.",
+        "q4": "Do I need to wake up at the exact cycle end?",
+        "a4": "No, but aim for it. A variation of 10–15 minutes still feels fine. If you regularly wake groggy, try shifting your bedtime by 15–30 minutes to land better in the cycle."
+      }
+    },
+    "vo2-max-estimator": {
+      "title": "VO2 Max Estimator – Rockport Walk Test Calculator",
+      "h1": "VO2 Max Estimator",
+      "description": "Free VO2 max estimator using the Rockport 1-mile walk test. See your cardio fitness rating against age and gender norms.",
+      "keywords": "vo2 max calculator,rockport walk test,cardio fitness,aerobic capacity,vo2 max estimate",
+      "inputs": {
+        "gender": "Gender",
+        "age": "Age",
+        "weight": "Weight",
+        "heartRate": "Heart rate after walk",
+        "timeMinutes": "Time to walk 1 mile"
+      },
+      "units": {
+        "years": "years",
+        "bpm": "bpm",
+        "min": "min"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "hints": {
+        "heartRate": "Immediately after finishing, count for 10 seconds × 6."
+      },
+      "resultLabel": "Estimated VO2 max",
+      "resultUnit": "ml/kg/min",
+      "secondary": {
+        "category": "Fitness category"
+      },
+      "categories": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "aboveAverage": "Above average",
+        "average": "Average",
+        "belowAverage": "Below average"
+      },
+      "faq": {
+        "q1": "What is VO2 max?",
+        "a1": "VO2 max is the maximum rate at which your body can use oxygen during intense exercise. It is the single best indicator of aerobic fitness and cardiovascular health.",
+        "q2": "How does the Rockport test work?",
+        "a2": "Walk 1 mile as fast as you can on a flat surface. Immediately record your heart rate and time. The formula estimates VO2 max from age, weight, gender, time and heart rate.",
+        "q3": "How accurate is the Rockport test?",
+        "a3": "It correlates within about 10–15% of lab-measured VO2 max. Good for tracking changes over time; less precise for absolute comparison with elite athletes.",
+        "q4": "What is a good VO2 max?",
+        "a4": "For men, 45–55 ml/kg/min is good; 55+ is excellent. For women, 40–49 is good; 49+ is excellent. Values decline naturally with age, so age-adjusted norms matter."
+      }
+    },
+    "word-counter": {
+      "title": "Word Counter – Count Words, Characters & Reading Time",
+      "h1": "Word Counter",
+      "description": "Free word counter. Count words, characters, sentences, paragraphs, and reading time instantly. Paste text or type directly.",
+      "keywords": "word counter,character counter,word count,reading time calculator,text counter",
+      "inputLabel": "Your text",
+      "clear": "Clear",
+      "placeholder": "Type or paste your text here...",
+      "stats": {
+        "words": "Words",
+        "characters": "Characters",
+        "charactersNoSpaces": "Characters (no spaces)",
+        "sentences": "Sentences",
+        "paragraphs": "Paragraphs",
+        "readingTime": "Reading time",
+        "speakingTime": "Speaking time",
+        "avgWordLength": "Avg. word length"
+      },
+      "units": {
+        "min": "min"
+      },
+      "faq": {
+        "q1": "How are words counted?",
+        "a1": "Words are counted by splitting the text on whitespace. Hyphenated words count as one, and numbers count as words.",
+        "q2": "How is reading time estimated?",
+        "a2": "Reading time uses an average speed of 200 words per minute for silent reading and 130 words per minute for speaking aloud.",
+        "q3": "Are characters counted with or without spaces?",
+        "a3": "Both. We show total characters (including spaces, tabs and line breaks) and characters without any whitespace.",
+        "q4": "Is my text uploaded anywhere?",
+        "a4": "No. Everything runs in your browser. Your text never leaves your device."
+      }
+    },
+    "case-converter": {
+      "title": "Case Converter – UPPER, lower, Title, camelCase & More",
+      "h1": "Case Converter",
+      "description": "Free case converter. Convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, kebab-case and more.",
+      "keywords": "case converter,uppercase,lowercase,title case,camelcase,snake case,kebab case,text case",
+      "inputLabel": "Your text",
+      "clear": "Clear",
+      "placeholder": "Type or paste text to convert...",
+      "outputLabel": "Converted",
+      "copy": "Copy",
+      "copied": "Copied",
+      "outputPlaceholder": "Converted text will appear here...",
+      "cases": {
+        "upper": "UPPERCASE",
+        "lower": "lowercase",
+        "title": "Title Case",
+        "sentence": "Sentence case",
+        "camel": "camelCase",
+        "pascal": "PascalCase",
+        "snake": "snake_case",
+        "kebab": "kebab-case",
+        "constant": "CONSTANT_CASE"
+      },
+      "faq": {
+        "q1": "What is Title Case?",
+        "a1": "Title Case capitalizes the first letter of every word. It is commonly used for headings, book titles and news headlines.",
+        "q2": "What is the difference between camelCase and PascalCase?",
+        "a2": "camelCase starts with a lowercase letter (helloWorld); PascalCase starts with an uppercase letter (HelloWorld). Both remove spaces and capitalize the first letter of each subsequent word.",
+        "q3": "When should I use snake_case vs kebab-case?",
+        "a3": "snake_case uses underscores and is common in Python, SQL and file names. kebab-case uses hyphens and is standard for URLs, CSS class names and HTML attributes.",
+        "q4": "Is my text sent anywhere?",
+        "a4": "No. Everything runs in your browser. Your text never leaves your device."
+      }
+    },
+    "lorem-ipsum-generator": {
+      "title": "Lorem Ipsum Generator – Placeholder Text",
+      "h1": "Lorem Ipsum Generator",
+      "description": "Free Lorem Ipsum generator. Create placeholder text by paragraphs, sentences or words. Optional HTML tags. Copy in one click.",
+      "keywords": "lorem ipsum generator,placeholder text,dummy text,lipsum,html lorem ipsum",
+      "countLabel": "Amount",
+      "unitLabel": "Type",
+      "generate": "Generate",
+      "startWithLorem": "Start with \"Lorem ipsum dolor sit amet\"",
+      "htmlTags": "Wrap paragraphs in HTML paragraph tags",
+      "outputLabel": "Result",
+      "units": {
+        "paragraphs": "Paragraphs",
+        "sentences": "Sentences",
+        "words": "Words"
+      },
+      "faq": {
+        "q1": "What is Lorem Ipsum?",
+        "a1": "Lorem Ipsum is dummy text used in design and publishing since the 1500s. It has a normal-looking word distribution without meaningful content, so viewers focus on layout rather than reading.",
+        "q2": "Can I use it in commercial projects?",
+        "a2": "Yes. Lorem Ipsum is public-domain derived from Cicero's philosophical text, and the standard generated text is free to use anywhere.",
+        "q3": "What are HTML paragraph tags for?",
+        "a3": "When enabled, each paragraph is wrapped in HTML paragraph tags — useful for pasting directly into HTML templates, CMS fields or email builders.",
+        "q4": "How many words should I generate?",
+        "a4": "For a typical blog post preview, 3–5 paragraphs or 100–300 words is enough. For a full landing page, use 500–1000 words across multiple sections."
+      }
+    },
+    "diff-checker": {
+      "title": "Diff Checker – Compare Two Texts Online",
+      "h1": "Diff Checker",
+      "description": "Free diff checker. Compare two blocks of text or code with clear line-by-line highlighting. Ideal for developers, writers and data analysts.",
+      "keywords": "diff checker,text compare,compare two texts,text diff,difference checker",
+      "split": "Split",
+      "unified": "Unified",
+      "swap": "Swap",
+      "clear": "Clear",
+      "leftLabel": "Original",
+      "rightLabel": "Changed",
+      "leftPlaceholder": "Paste the original text here...",
+      "rightPlaceholder": "Paste the changed text here...",
+      "added": "added",
+      "removed": "removed",
+      "faq": {
+        "q1": "How does the diff checker work?",
+        "a1": "It compares the two texts line by line and highlights lines that were added or removed. Unchanged lines are shown without highlighting so you can quickly scan the differences.",
+        "q2": "What is the difference between Split and Unified view?",
+        "a2": "Split view shows the original and changed texts side by side with matched lines aligned. Unified view merges everything into one column with +/- markers, like a git diff.",
+        "q3": "Can I compare code?",
+        "a3": "Yes. The diff checker treats the input as plain text and works equally well for code, prose, JSON, configuration files and any line-based content.",
+        "q4": "Is my text uploaded anywhere?",
+        "a4": "No. The comparison runs entirely in your browser. Your text never leaves your device."
+      }
+    },
+    "uuid-generator": {
+      "title": "UUID Generator – v4 and v7 UUIDs Online",
+      "h1": "UUID Generator",
+      "description": "Free UUID generator. Create secure v4 and v7 UUIDs in bulk with custom formatting. Perfect for databases, APIs and development.",
+      "keywords": "uuid generator,guid generator,uuid v4,uuid v7,generate uuid online",
+      "versions": {
+        "v4": "v4 (random)",
+        "v7": "v7 (time-ordered)"
+      },
+      "countLabel": "Count",
+      "generate": "Generate",
+      "uppercase": "Uppercase",
+      "noDashes": "No dashes",
+      "emptyState": "Click Generate to create UUIDs.",
+      "faq": {
+        "q1": "What is a UUID?",
+        "a1": "A UUID (Universally Unique Identifier) is a 128-bit label used to identify information in computer systems. It is designed to be unique without central coordination.",
+        "q2": "What is the difference between UUID v4 and v7?",
+        "a2": "UUID v4 is fully random. UUID v7 starts with a Unix timestamp, so IDs are sortable by creation time — useful for database primary keys and log entries.",
+        "q3": "Are these UUIDs cryptographically secure?",
+        "a3": "Yes. Generation uses the browser's crypto.randomUUID and crypto.getRandomValues, both of which use a cryptographically secure random source.",
+        "q4": "How many UUIDs can I generate at once?",
+        "a4": "Up to 100 per click. If you need more, click Generate again to get a fresh batch, or increase the count up to the limit."
+      }
+    },
+    "hash-generator": {
+      "title": "Hash Generator – MD5, SHA-1, SHA-256, SHA-512",
+      "h1": "Hash Generator",
+      "description": "Free hash generator. Compute MD5, SHA-1, SHA-256 and SHA-512 hashes instantly. All processing runs locally in your browser.",
+      "keywords": "hash generator,md5 generator,sha256 generator,sha1,sha512,hash online",
+      "inputLabel": "Text to hash",
+      "placeholder": "Type or paste text...",
+      "emptyHash": "—",
+      "hashButton": "Hash Text",
+      "resultsLabel": "Results",
+      "faq": {
+        "q1": "What is a hash function?",
+        "a1": "A hash function takes input data and produces a fixed-length string of characters. The same input always yields the same hash, but you cannot reverse a hash back to the original data.",
+        "q2": "Which hash should I use?",
+        "a2": "For security, use SHA-256 or SHA-512. MD5 and SHA-1 are considered broken for cryptographic purposes but are still useful for checksums and non-security tasks.",
+        "q3": "Can I hash files?",
+        "a3": "This tool hashes text. For files, read them as text or use a dedicated file hashing tool. For small files under a few megabytes you can paste contents here.",
+        "q4": "Is my input sent anywhere?",
+        "a4": "No. Hashing runs entirely in your browser using the Web Crypto API and a local MD5 implementation. Your text never leaves your device."
+      }
+    },
+    "url-encoder-decoder": {
+      "title": "URL Encoder & Decoder – Encode and Decode URLs Online",
+      "h1": "URL Encoder & Decoder",
+      "description": "Free URL encoder and decoder. Encode or decode URLs and query parameters instantly. 100% private – everything runs in your browser.",
+      "keywords": "url encoder,url decoder,encode url,decode url,urlencode,uri encoder,query string encoder",
+      "encode": "Encode",
+      "decode": "Decode",
+      "kindComponent": "Component",
+      "kindFull": "Full URL",
+      "swap": "Swap input and output",
+      "plainInput": "Plain text input",
+      "encodedInput": "Encoded input",
+      "encodedOutput": "Encoded output",
+      "plainOutput": "Plain text output",
+      "plainPlaceholder": "Type or paste text to encode...",
+      "encodedPlaceholder": "Paste encoded URL to decode...",
+      "outputPlaceholder": "Output appears here...",
+      "characters": "characters",
+      "errorInvalid": "Invalid encoded input. Check the encoding and try again.",
+      "faq": {
+        "q1": "What is URL encoding?",
+        "a1": "URL encoding (percent-encoding) replaces unsafe characters in a URL with a percent sign followed by two hex digits. For example, a space becomes %20 and & becomes %26.",
+        "q2": "What is the difference between Component and Full URL?",
+        "a2": "Component encodes everything, including reserved characters like ?, & and =. Use it for query parameter values. Full URL preserves reserved characters that have structural meaning. Use it for complete URLs.",
+        "q3": "When should I use URL encoding?",
+        "a3": "Use it when passing user input or arbitrary text in query strings, form data, API requests or anywhere a URL needs to contain characters that would otherwise be unsafe or ambiguous.",
+        "q4": "Is my data sent anywhere?",
+        "a4": "No. All encoding and decoding happens in your browser. Your text never leaves your device."
+      }
+    },
+    "timestamp-converter": {
+      "title": "Timestamp Converter – Unix Time to Date",
+      "h1": "Timestamp Converter",
+      "description": "Free timestamp converter. Convert Unix timestamps to ISO, UTC, local dates and back. Supports seconds and milliseconds.",
+      "keywords": "timestamp converter,unix time,epoch converter,unix timestamp,iso 8601 converter",
+      "unitSeconds": "Seconds",
+      "unitMilliseconds": "Milliseconds",
+      "now": "Now",
+      "timestampLabel": "Unix timestamp",
+      "timestampPlaceholder": "e.g. 1700000000",
+      "dateLabel": "Or pick a date",
+      "single": "Single",
+      "batch": "Batch",
+      "currentTime": "Current time",
+      "useAsInput": "Use as input",
+      "inputPlaceholder": "Unix seconds/ms, ISO, or human...",
+      "quickNow": "Now",
+      "convertBatch": "Convert Batch",
+      "batchPlaceholder": "One timestamp per line...",
+      "inOtherTimezones": "In other timezones",
+      "quickMinusHour": "-1h",
+      "quickPlusHour": "+1h",
+      "quickMinusDay": "-1d",
+      "formats": {
+        "unixSeconds": "Unix (seconds)",
+        "unixMs": "Unix (ms)",
+        "iso": "ISO 8601",
+        "local": "Human (local)",
+        "relative": "Relative"
+      },
+      "errorInvalid": "Invalid timestamp. Please enter a valid number or date.",
+      "faq": {
+        "q1": "What is a Unix timestamp?",
+        "a1": "A Unix timestamp is the number of seconds that have passed since 1 January 1970 UTC, excluding leap seconds. It is widely used in programming to represent a point in time.",
+        "q2": "Why are there seconds and milliseconds?",
+        "a2": "Unix time is traditionally in seconds. JavaScript and many modern systems use milliseconds — the same moment in time multiplied by 1000. Pick the unit that matches your source.",
+        "q3": "What is ISO 8601?",
+        "a3": "ISO 8601 is an international standard for representing dates and times, e.g. 2025-01-15T10:30:00Z. The trailing Z means UTC. It is the recommended format for APIs and data exchange.",
+        "q4": "Does the converter use my timezone?",
+        "a4": "The timestamp itself is timezone-agnostic (always UTC). Local time display uses your browser's timezone. Other formats (ISO, UTC) are shown in UTC."
+      }
+    },
+    "jwt-decoder": {
+      "title": "JWT Decoder – Decode & Inspect JSON Web Tokens",
+      "h1": "JWT Decoder",
+      "description": "Free JWT decoder. Paste a token to see the header, payload, signature, and expiry. Runs entirely in your browser — nothing is logged or sent anywhere.",
+      "keywords": "jwt decoder,json web token decoder,decode jwt online,jwt parser,jwt inspector,jwt debugger",
+      "inputLabel": "JWT token",
+      "placeholder": "Paste a JWT (three parts separated by dots)...",
+      "headerLabel": "Header",
+      "payloadLabel": "Payload",
+      "signatureLabel": "Signature",
+      "valid": "Valid",
+      "expired": "Expired",
+      "issuedAt": "Issued at",
+      "expiresAt": "Expires at",
+      "algorithmLabel": "Algorithm",
+      "statusLabel": "Status",
+      "expiresLabel": "Expires at",
+      "headerHint": "(algorithm & type)",
+      "payloadHint": "(data)",
+      "faq": {
+        "q1": "Can this tool verify JWT signatures?",
+        "a1": "No. Decoding extracts the header and payload, which are not encrypted. Signature verification requires the secret or public key and is not performed — this tool only inspects the token contents.",
+        "q2": "Is it safe to paste my JWT here?",
+        "a2": "Yes. Everything runs in your browser. Your token never leaves your device. However, treat your JWT like a password — anyone who has it can impersonate you until it expires.",
+        "q3": "What are the three parts of a JWT?",
+        "a3": "Header, payload, and signature, separated by dots. Header describes the algorithm and type. Payload contains the claims (user ID, roles, expiry, etc.). Signature verifies that the token has not been tampered with.",
+        "q4": "Why does my token show as expired?",
+        "a4": "The exp claim sets the expiration time. If exp is earlier than now, the token should not be accepted by any server. Some services still accept slightly expired tokens within a grace period — but that is server-specific."
+      },
+      "errors": {
+        "notThreeParts": "JWT must have exactly 3 parts separated by dots.",
+        "invalidHeader": "Invalid header — cannot decode Base64URL or parse JSON.",
+        "invalidPayload": "Invalid payload — cannot decode Base64URL or parse JSON."
+      }
+    },
+    "password-generator": {
+      "title": "Password Generator – Create Strong Secure Passwords",
+      "h1": "Password Generator",
+      "description": "Free password generator. Create strong, random passwords with custom length, character types, and ambiguous character exclusion.",
+      "keywords": "password generator,strong password,random password,secure password,generate password",
+      "passwordLabel": "Your password",
+      "length": "Length",
+      "lowercase": "Lowercase (a-z)",
+      "uppercase": "Uppercase (A-Z)",
+      "numbers": "Numbers (0-9)",
+      "symbols": "Symbols (!@#…)",
+      "excludeAmbiguous": "Exclude ambiguous (i, l, 1, O, 0)",
+      "generate": "Generate",
+      "regenerate": "Regenerate",
+      "strengthLabel": "Strength",
+      "strength": {
+        "weak": "Weak",
+        "fair": "Fair",
+        "good": "Good",
+        "strong": "Strong",
+        "excellent": "Excellent"
+      },
+      "faq": {
+        "q1": "How long should a password be?",
+        "a1": "At least 16 characters for most accounts in 2026. Every extra character multiplies the difficulty for an attacker, so length matters more than complexity.",
+        "q2": "Should I use symbols?",
+        "a2": "Yes when the service allows it. Symbols increase the search space, but length is a bigger factor. A 20-character password without symbols is stronger than a 10-character one with symbols.",
+        "q3": "What are ambiguous characters?",
+        "a3": "Letters and digits that look alike (i, l, 1, O, 0). Excluding them makes manual typing easier, but slightly reduces the search space. Use this option for passwords you type often.",
+        "q4": "Is it safe to generate passwords here?",
+        "a4": "Yes. Generation uses crypto.getRandomValues, a cryptographically secure random source built into your browser. The password never leaves your device."
+      }
+    },
+        "qr-code-generator": {
+      "title": "QR Code Generator – Free QR Code Maker with PNG & SVG",
+      "h1": "QR Code Generator",
+      "description": "Free QR code generator for URL, text, email, phone, SMS, Wi-Fi and vCard. Customize size, colors, and error correction. Download PNG or SVG.",
+      "keywords": "qr code generator,qr code maker,free qr code,wifi qr code,vcard qr code,custom qr code",
+      "modeQr": "QR Code",
+      "modeBarcode": "Barcode",
+      "barcodeComingSoon": "Barcode generator is coming soon",
+      "sections": {
+        "type": "Choose QR Type",
+        "typeHint": "Start with what the scanner should do.",
+        "details": "Add Details",
+        "design": "Tune Design",
+        "designHint": "Keep contrast high for reliable scanning."
+      },
+      "detailsHint": {
+        "url": "Open a website.",
+        "text": "Share plain text.",
+        "email": "Compose an email.",
+        "phone": "Start a phone call.",
+        "sms": "Send a text message.",
+        "wifi": "Join a Wi-Fi network.",
+        "vcard": "Save a contact."
+      },
+      "types": {
+        "url": "URL",
+        "text": "Text",
+        "email": "Email",
+        "phone": "Phone",
+        "sms": "SMS",
+        "wifi": "Wi-Fi",
+        "vcard": "vCard"
+      },
+      "typeHints": {
+        "url": "Open a website",
+        "text": "Share plain text",
+        "email": "Compose email",
+        "phone": "Start a call",
+        "sms": "Send message",
+        "wifi": "Join network",
+        "vcard": "Save contact"
+      },
+      "size": "Size",
+      "margin": "Quiet Zone",
+      "modules": "modules",
+      "errorLevel": "Error Correction",
+      "darkColor": "Foreground",
+      "lightColor": "Background",
+      "scanContrast": "Scan contrast",
+      "contrast": {
+        "excellent": "Excellent",
+        "good": "Good",
+        "poor": "Poor"
+      },
+      "levels": {
+        "L": "Low – 7%",
+        "M": "Medium – 15%",
+        "Q": "Quartile – 25%",
+        "H": "High – 30%"
+      },
+      "encodedPayload": "Encoded Payload",
+      "previewStatus": "Preview Status",
+      "ready": "Ready to scan",
+      "readyHint": "Download PNG or SVG, or copy the PNG to your clipboard.",
+      "waiting": "Waiting for valid content",
+      "waitingHint": "Fill in the fields above to generate a QR code.",
+      "emptyHint": "Enter content to generate a QR code.",
+      "copyPng": "Copy PNG",
+      "copied": "Copied!",
+      "copyNotSupported": "Copy not supported in this browser",
+      "reset": "Reset",
+      "quickTip": "Test before printing. Dark foreground on a light background scans fastest.",
+      "urlWarning": "This doesn't look like a valid URL. The QR will still be generated.",
+      "textPlaceholder": "Type or paste any text…",
+      "emailTo": "Recipient email",
+      "emailSubject": "Subject",
+      "emailBody": "Message body",
+      "smsMessage": "Message",
+      "wifiSsid": "Network Name",
+      "wifiPassword": "Password",
+      "wifiEncryption": "Encryption",
+      "wifiHidden": "Hidden network",
+      "noPassword": "No password",
+      "vcardFirstName": "First name",
+      "vcardLastName": "Last name",
+      "vcardOrg": "Company",
+      "vcardTitle": "Job title",
+      "vcardPhone": "Phone",
+      "vcardEmail": "Email",
+      "vcardUrl": "Website",
+      "faq": {
+        "q1": "Which error correction level should I use?",
+        "a1": "Medium is fine for most digital use. Use High for printed materials that might get damaged or dirty, or if you add a logo in the center.",
+        "q2": "Can I make a Wi-Fi QR code for guests?",
+        "a2": "Yes. Select the Wi-Fi type, enter the network name, password, and encryption. Guests can scan and connect instantly without typing the password.",
+        "q3": "What can I encode in a QR code?",
+        "a3": "Any text up to roughly 2,900 characters. This tool supports URLs, plain text, email addresses, phone numbers, SMS messages, Wi-Fi credentials, and vCard contacts.",
+        "q4": "Is my data sent anywhere?",
+        "a4": "No. Everything runs in your browser. Your content never leaves your device."
       }
     }
   }

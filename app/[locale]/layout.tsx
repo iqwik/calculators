@@ -12,6 +12,7 @@ import '../globals.css'
 
 import {Geist_Mono, Inter} from 'next/font/google'
 import {cookies} from 'next/headers'
+import {SearchProvider} from '@/components/search/SearchProvider'
 import {TooltipProvider} from '@/components/ui/tooltip'
 
 export function generateStaticParams() {
@@ -67,18 +68,20 @@ export default async function LocaleLayout({children, params}: LayoutProps) {
         >
           <NextIntlClientProvider messages={messages}>
             <TooltipProvider>
-              <SidebarProvider defaultOpen={defaultOpen}>
-                <AppSidebar />
-                <main className="flex-1 overflow-y-auto">
-                  <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background px-4 lg:hidden">
-                    <SidebarTrigger />
-                    <div className="flex flex-1 justify-end">
-                      <SearchTrigger variant="icon" />
-                    </div>
-                  </header>
-                  {children}
-                </main>
-              </SidebarProvider>
+              <SearchProvider>
+                <SidebarProvider defaultOpen={defaultOpen}>
+                  <AppSidebar />
+                  <main className="flex-1 overflow-y-auto">
+                    <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background px-4 lg:hidden">
+                      <SidebarTrigger />
+                      <div className="flex flex-1 justify-end">
+                        <SearchTrigger variant="icon" />
+                      </div>
+                    </header>
+                    {children}
+                  </main>
+                </SidebarProvider>
+              </SearchProvider>
             </TooltipProvider>
           </NextIntlClientProvider>
         </ThemeProvider>

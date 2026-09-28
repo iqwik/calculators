@@ -1,5 +1,6 @@
 'use client'
 
+import {cn} from 'cn'
 import {Search} from 'lucide-react'
 import {useTranslations} from 'next-intl'
 import {useEffect, useMemo, useState} from 'react'
@@ -44,7 +45,7 @@ export function SearchModal({open, onOpenChange}: Props) {
           <DialogTitle>{t('search.label')}</DialogTitle>
         </DialogHeader>
 
-        <div className="relative border-b">
+        <div className={cn('relative', {'border-b': hasQuery})}>
           <Search className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             autoFocus
@@ -58,7 +59,7 @@ export function SearchModal({open, onOpenChange}: Props) {
         </div>
 
         {hasQuery && (
-          <div className="h-[600px] max-h-[70vh] overflow-y-auto p-2">
+          <div className="h-150 max-h-[70vh] overflow-y-auto p-2">
             {results.length === 0 ? (
               <div className="flex h-full items-center justify-center">
                 <p className="text-center text-sm text-muted-foreground">

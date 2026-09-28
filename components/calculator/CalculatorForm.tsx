@@ -1,10 +1,11 @@
 'use client'
 
 import {useTranslations} from 'next-intl'
-import {useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {getCalculatorBySlug} from '@/data'
-import type {CalculationOutput, ResultRange, Values} from '@/types'
+import type {OperationResult, ResultRange, Values} from '@/types'
 import {Button} from '../ui/button'
+import {DatePicker} from '../ui/date-picker'
 import {Input} from '../ui/input'
 import {
   Select,
@@ -13,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../ui/select'
+import {SliderField} from './SliderField'
 
 interface Props {
   slug: string
@@ -37,10 +39,10 @@ function findRange(
 }
 
 export function CalculatorForm({slug}: Props) {
-  const t = useTranslations('global')
   const tConfig = useTranslations('config')
+  const tGlobal = useTranslations('global')
 
-  const calc = getCalculatorBySlug(slug)
+  const calc = useMemo(() => getCalculatorBySlug(slug), [slug])
 
   const [values, setValues] = useState<Values>(() => {
     if (!calc) return {}
@@ -51,11 +53,22 @@ export function CalculatorForm({slug}: Props) {
     return init
   })
 
-  const [result, setResult] = useState<CalculationOutput | null>(null)
+  const [result, setResult] = useState<OperationResult | null>(null)
+
+  const hasSliders = useMemo(
+    () => calc?.inputs.some(i => i.type === 'slider') ?? false,
+    [calc],
+  )
+
+  useEffect(() => {
+    if (hasSliders && calc) {
+      setResult(calc.calculate(values))
+    }
+  }, [values, hasSliders, calc])
 
   if (!calc) return null
 
-  function handleChange(name: string, value: string) {
+  function handleChange(name: string, value: string | number) {
     setValues(prev => ({...prev, [name]: value}))
   }
 
@@ -79,60 +92,82 @@ export function CalculatorForm({slug}: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      {calc.inputs.map(input => (
-        <div key={input.name} className="space-y-1.5">
-          <label htmlFor={input.name} className="text-sm font-medium">
-            {tConfig(input.label)}
-            {input.unit && (
-              <span className="ml-1 text-muted-foreground">({input.unit})</span>
-            )}
-          </label>
-
-          {input.type === 'select' && input.options ? (
-            <Select
-              items={input.options.map(opt => ({
-                value: opt.value,
-                label: tConfig(opt.label),
-              }))}
-              value={String(values[input.name] ?? '')}
-              onValueChange={value => handleChange(input.name, value ?? '')}
-            >
-              <SelectTrigger id={input.name} className="w-full">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {input.options.map(opt => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {tConfig(opt.label)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          ) : (
-            <Input
-              id={input.name}
-              type={input.type}
-              value={String(values[input.name] ?? '')}
-              onChange={e => handleChange(input.name, e.target.value)}
-              min={input.min}
-              max={input.max}
-              step={input.step}
-              placeholder={input.placeholder}
+      {calc.inputs.map(input => {
+        if (input.type === 'slider') {
+          return (
+            <SliderField
+              key={input.name}
+              input={input}
+              label={tConfig(input.label)}
+              value={Number(values[input.name]) || 0}
+              onChange={v => handleChange(input.name, v)}
             />
-          )}
+          )
+        }
 
-          {input.hint && (
-            <p className="text-xs text-muted-foreground">
-              {tConfig(input.hint)}
-            </p>
-          )}
-        </div>
-      ))}
+        return (
+          <div key={input.name} className="space-y-1.5">
+            <label htmlFor={input.name} className="text-sm font-medium">
+              {tConfig(input.label)}
+              {input.unit && (
+                <span className="ml-1 text-muted-foreground">
+                  ({tConfig.has(input.unit) ? tConfig(input.unit) : input.unit})
+                </span>
+              )}
+            </label>
+
+            {input.type === 'select' && input.options ? (
+              <Select
+                items={input.options.map(opt => ({
+                  value: opt.value,
+                  label: tConfig(opt.label),
+                }))}
+                value={String(values[input.name] ?? '')}
+                onValueChange={value => handleChange(input.name, value ?? '')}
+              >
+                <SelectTrigger id={input.name} className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {input.options.map(opt => (
+                    <SelectItem key={opt.value} value={opt.value}>
+                      {tConfig(opt.label)}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : input.type === 'date' ? (
+              <DatePicker
+                id={input.name}
+                value={String(values[input.name] ?? '')}
+                onChange={v => handleChange(input.name, v)}
+              />
+            ) : (
+              <Input
+                id={input.name}
+                type={input.type}
+                value={String(values[input.name] ?? '')}
+                onChange={e => handleChange(input.name, e.target.value)}
+                min={input.min}
+                max={input.max}
+                step={input.step}
+                placeholder={input.placeholder}
+              />
+            )}
+
+            {input.hint && (
+              <p className="text-xs text-muted-foreground">
+                {tConfig(input.hint)}
+              </p>
+            )}
+          </div>
+        )
+      })}
 
       <div className="flex gap-2 pt-2">
-        <Button type="submit">{t('calculate')}</Button>
+        {!hasSliders && <Button type="submit">{tGlobal('calculate')}</Button>}
         <Button type="button" variant="outline" onClick={handleReset}>
-          {t('reset')}
+          {tGlobal('reset')}
         </Button>
       </div>
 
@@ -143,7 +178,9 @@ export function CalculatorForm({slug}: Props) {
           </div>
 
           <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-3xl font-bold">{result.value}</span>
+            <span className="text-3xl font-bold tabular-nums">
+              {result.value}
+            </span>
             {calc.resultUnit && (
               <span className="text-base text-muted-foreground">
                 {tConfig(calc.resultUnit)}
@@ -166,7 +203,9 @@ export function CalculatorForm({slug}: Props) {
                   <dt className="text-muted-foreground">
                     {tConfig(item.label)}
                   </dt>
-                  <dd className="font-medium">{item.value}</dd>
+                  <dd className="font-medium tabular-nums">
+                    {tConfig.has(item.value) ? tConfig(item.value) : item.value}
+                  </dd>
                 </div>
               ))}
             </dl>

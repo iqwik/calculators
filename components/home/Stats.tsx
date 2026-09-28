@@ -14,7 +14,7 @@ export function Stats() {
 
   return (
     <section className="border-y bg-card">
-      <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-6 py-6 text-center sm:grid-cols-4">
+      <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-2 py-2 text-center sm:grid-cols-4">
         {items.map(item => (
           <div key={item.label}>
             <div className="text-2xl font-extrabold">{item.value}</div>

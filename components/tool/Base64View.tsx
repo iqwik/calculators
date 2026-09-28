@@ -1,16 +1,12 @@
 'use client'
 
-import {
-  ArrowRightLeft,
-  CheckCircle2,
-  Copy,
-  Lock,
-  LockOpen,
-  Trash2,
-} from 'lucide-react'
+import {ArrowRightLeft, Lock, LockOpen, Trash2} from 'lucide-react'
 import {useTranslations} from 'next-intl'
 import {useState} from 'react'
+import {InputPanel} from '../shared/InputPanel'
+import {OutputPanel} from '../shared/OutputPanel'
 import {Button} from '../ui/button'
+import {SegmentedControl} from '../ui/segmented-control'
 
 type Direction = 'encode' | 'decode'
 type Alphabet = 'standard' | 'urlSafe'
@@ -48,11 +44,9 @@ export function Base64View() {
   const [input, setInput] = useState('')
   const [output, setOutput] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [copied, setCopied] = useState(false)
 
   function run(nextDirection: Direction, nextAlphabet: Alphabet) {
     setError(null)
-    setCopied(false)
 
     if (!input) {
       setOutput('')
@@ -84,7 +78,6 @@ export function Base64View() {
   function handleInput(value: string) {
     setInput(value)
     setError(null)
-    setCopied(false)
 
     if (!value) {
       setOutput('')
@@ -109,77 +102,44 @@ export function Base64View() {
     setInput(output)
     setOutput(input)
     setError(null)
-    setCopied(false)
   }
 
   function handleClear() {
     setInput('')
     setOutput('')
     setError(null)
-    setCopied(false)
-  }
-
-  async function handleCopy() {
-    if (!output) return
-    await navigator.clipboard.writeText(output)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1500)
   }
 
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center gap-3">
-        <div className="flex overflow-hidden rounded-xl border bg-card">
-          <button
-            type="button"
-            onClick={() => handleDirection('encode')}
-            className={`flex items-center gap-1.5 px-4 py-2 text-sm font-semibold transition ${
-              direction === 'encode'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:bg-muted'
-            }`}
-          >
-            <Lock className="h-3.5 w-3.5" />
-            {t('base64-encoder-decoder.encode')}
-          </button>
-          <button
-            type="button"
-            onClick={() => handleDirection('decode')}
-            className={`flex items-center gap-1.5 px-4 py-2 text-sm font-semibold transition ${
-              direction === 'decode'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:bg-muted'
-            }`}
-          >
-            <LockOpen className="h-3.5 w-3.5" />
-            {t('base64-encoder-decoder.decode')}
-          </button>
-        </div>
+        <SegmentedControl
+          name="base64-direction"
+          value={direction}
+          onChange={handleDirection}
+          options={[
+            {
+              value: 'encode',
+              label: t('base64-encoder-decoder.encode'),
+              icon: Lock,
+            },
+            {
+              value: 'decode',
+              label: t('base64-encoder-decoder.decode'),
+              icon: LockOpen,
+            },
+          ]}
+        />
 
-        <div className="flex overflow-hidden rounded-xl border bg-card">
-          <button
-            type="button"
-            onClick={() => handleAlphabet('standard')}
-            className={`px-4 py-2 text-sm font-semibold transition ${
-              alphabet === 'standard'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:bg-muted'
-            }`}
-          >
-            {t('base64-encoder-decoder.standard')}
-          </button>
-          <button
-            type="button"
-            onClick={() => handleAlphabet('urlSafe')}
-            className={`px-4 py-2 text-sm font-semibold transition ${
-              alphabet === 'urlSafe'
-                ? 'bg-primary text-primary-foreground'
-                : 'text-muted-foreground hover:bg-muted'
-            }`}
-          >
-            {t('base64-encoder-decoder.urlSafe')}
-          </button>
-        </div>
+        <SegmentedControl
+          name="base64-alphabet"
+          value={alphabet}
+          onChange={handleAlphabet}
+          options={[
+            {value: 'standard', label: t('base64-encoder-decoder.standard')},
+            {value: 'urlSafe', label: t('base64-encoder-decoder.urlSafe')},
+          ]}
+        />
 
         <Button
           type="button"
@@ -195,33 +155,28 @@ export function Base64View() {
 
       <div className="grid grid-cols-1 items-start gap-4 md:grid-cols-[1fr_auto_1fr]">
         <div className="space-y-2">
-          <label
-            htmlFor="base64-input"
-            className="text-xs font-bold tracking-widest text-muted-foreground uppercase"
-          >
-            {direction === 'encode'
-              ? t('base64-encoder-decoder.plainInput')
-              : t('base64-encoder-decoder.base64Input')}
-          </label>
-          <textarea
-            id="base64-input"
+          <InputPanel
+            title={
+              direction === 'encode'
+                ? t('base64-encoder-decoder.plainInput')
+                : t('base64-encoder-decoder.base64Input')
+            }
             value={input}
-            onChange={e => handleInput(e.target.value)}
-            spellCheck={false}
-            rows={10}
+            onChange={handleInput}
             placeholder={
               direction === 'encode'
                 ? t('base64-encoder-decoder.plainPlaceholder')
                 : t('base64-encoder-decoder.base64Placeholder')
             }
-            className="w-full resize-none rounded-xl border bg-card p-4 font-mono text-sm leading-relaxed outline-none focus:ring-2 focus:ring-primary/30"
+            heightClass="h-[280px]"
+            mono
           />
           <p className="text-xs text-muted-foreground">
             {input.length} {t('base64-encoder-decoder.characters')}
           </p>
         </div>
 
-        <div className="flex items-center justify-center py-4 md:py-0">
+        <div className="flex items-center justify-center py-4 md:py-0 md:self-center">
           <Button
             type="button"
             variant="outline"
@@ -233,44 +188,23 @@ export function Base64View() {
           </Button>
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between gap-2">
-            <label
-              htmlFor="base64-output"
-              className="text-xs font-bold tracking-widest text-muted-foreground uppercase"
-            >
-              {direction === 'encode'
-                ? t('base64-encoder-decoder.base64Output')
-                : t('base64-encoder-decoder.plainOutput')}
-            </label>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={handleCopy}
-              disabled={!output}
-              className="h-7 px-2 text-xs"
-            >
-              {copied ? (
-                <CheckCircle2 className="mr-1 h-3 w-3 text-green-500" />
-              ) : (
-                <Copy className="mr-1 h-3 w-3" />
-              )}
-              {copied
-                ? t('base64-encoder-decoder.copied')
-                : t('base64-encoder-decoder.copy')}
-            </Button>
-          </div>
-          <textarea
-            id="base64-output"
-            readOnly
-            value={output}
-            spellCheck={false}
-            rows={10}
-            placeholder={t('base64-encoder-decoder.outputPlaceholder')}
-            className="w-full resize-none rounded-xl border bg-muted/40 p-4 font-mono text-sm leading-relaxed outline-none"
-          />
-        </div>
+        <OutputPanel
+          title={
+            direction === 'encode'
+              ? t('base64-encoder-decoder.base64Output')
+              : t('base64-encoder-decoder.plainOutput')
+          }
+          value={output}
+          heightClass="h-[280px]"
+          contentClassName="font-mono whitespace-pre-wrap break-words"
+          rawContent
+        >
+          {output || (
+            <span className="text-muted-foreground">
+              {t('base64-encoder-decoder.outputPlaceholder')}
+            </span>
+          )}
+        </OutputPanel>
       </div>
 
       {error && (

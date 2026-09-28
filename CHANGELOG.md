@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-09-28
+
 ### Added
 
 **Tool system (independent from calculators)**
@@ -153,31 +155,31 @@ First working MVP. Foundation laid: architecture, routing, i18n, design system, 
 
 **Production**
 ```
-@base-ui/react           ^1.8.0
-class-variance-authority ^0.7.1
-cn                       ^0.4.0
-lucide-react             ^1.48.0
-next                     16.3.6
-next-intl                ^4.14.7
-next-themes              ^0.4.6
-react                    19.2.8
-react-dom                19.2.8
-shadcn                   ^4.21.0
+- @base-ui/react ^1.8.0
+- class-variance-authority ^0.7.1
+- cn ^0.4.0
+- lucide-react ^1.48.0
+- next 16.3.6
+- next-intl ^4.14.7
+- next-themes ^0.4.6
+- react 19.2.8
+- react-dom 19.2.8
+- shadcn ^4.21.0
 ```
 
 **Dev**
 ```
-@biomejs/biome          2.4.2
-@tailwindcss/postcss    ^4
-@types/node             ^20
-@types/react            ^19
-@types/react-dom        ^19
-husky                   ^9.1.7
-lint-staged             ^17.6.0
-tailwindcss             ^4
-tsc-files               ^1.1.4
-tw-animate-css          ^1.4.0
-typescript              ^5
+- @biomejs/biome 2.4.2
+- @tailwindcss/postcss ^4
+- @types/node ^20
+- @types/react ^19
+- @types/react-dom ^19
+- husky ^9.1.7
+- lint-staged ^17.6.0
+- tailwindcss ^4
+- tsc-files ^1.1.4
+- tw-animate-css ^1.4.0
+- typescript ^5
 ```
 
 ### Known limitations

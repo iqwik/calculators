@@ -25,6 +25,9 @@
     "rules": {
       "recommended": true,
       "correctness": {
+        "a11y": {
+          "noLabelWithoutControl": "off"
+        },
         "noUnusedImports": {
           "level": "error",
           "fix": "safe"
@@ -41,6 +44,7 @@
         "useImportType": "off"
       },
       "suspicious": {
+        "noArrayIndexKey": "off",
         "noExplicitAny": "warn",
         "noConsole": {
           "level": "error",

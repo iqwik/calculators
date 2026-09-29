@@ -18,6 +18,153 @@ function formatInt(n: number): string {
   return Math.round(n).toLocaleString('en-US')
 }
 
+function calcOldRegimeTax(taxable: number): number {
+  if (taxable <= 250000) return 0
+  if (taxable <= 500000) return (taxable - 250000) * 0.05
+  if (taxable <= 1000000) return 12500 + (taxable - 500000) * 0.2
+  return 112500 + (taxable - 1000000) * 0.3
+}
+
+function calcNewRegimeTax(taxable: number): number {
+  if (taxable <= 400000) return 0
+  if (taxable <= 800000) return (taxable - 400000) * 0.05
+  if (taxable <= 1200000) return 20000 + (taxable - 800000) * 0.1
+  if (taxable <= 1600000) return 60000 + (taxable - 1200000) * 0.15
+  if (taxable <= 2000000) return 120000 + (taxable - 1600000) * 0.2
+  if (taxable <= 2400000) return 200000 + (taxable - 2000000) * 0.25
+  return 300000 + (taxable - 2400000) * 0.3
+}
+
+function formatINR(n: number): string {
+  if (!Number.isFinite(n)) return '—'
+  return `₹${Math.round(n).toLocaleString('en-IN')}`
+}
+
+// ─── Rent vs Buy ─────────────────────────────────────────
+
+const PROPERTY_ANNUAL_COST_RATE = 0.02 // 2% of home value per year (tax + insurance + maintenance)
+
+interface RentVsBuyResult {
+  buyFinal: number
+  rentFinal: number
+  buyTotalPaid: number
+  rentTotalPaid: number
+  recommendation: 'buy' | 'rent' | 'tie'
+}
+
+function computeRentVsBuy(
+  price: number,
+  downPayment: number,
+  mortgageRate: number,
+  mortgageTerm: number,
+  rentMonthly: number,
+  appreciation: number,
+  rentGrowth: number,
+  investmentReturn: number,
+  years: number,
+): RentVsBuyResult {
+  const months = Math.round(years * 12)
+  const i = mortgageRate / 12 / 100
+  const loanAmount = Math.max(0, price - downPayment)
+  const mortgageMonths = Math.round(mortgageTerm * 12)
+
+  // Monthly mortgage payment (annuity)
+  let monthlyMortgage: number
+  if (loanAmount === 0) {
+    monthlyMortgage = 0
+  } else if (i === 0) {
+    monthlyMortgage = loanAmount / mortgageMonths
+  } else {
+    const pow = (1 + i) ** mortgageMonths
+    monthlyMortgage = (loanAmount * i * pow) / (pow - 1)
+  }
+
+  // ─── Scenario: Buy ───
+  let homeValue = price
+  let mortgageBalance = loanAmount
+  let buyTotalPaid = downPayment
+
+  for (let m = 1; m <= months; m++) {
+    // Pay mortgage (if still active)
+    if (m <= mortgageMonths && mortgageBalance > 0) {
+      const interest = mortgageBalance * i
+      const principal = monthlyMortgage - interest
+      mortgageBalance = Math.max(0, mortgageBalance - principal)
+      buyTotalPaid += monthlyMortgage
+    }
+
+    // Annual property costs (paid monthly pro-rata)
+    buyTotalPaid += (homeValue * PROPERTY_ANNUAL_COST_RATE) / 12
+
+    // Home appreciation — apply monthly
+    homeValue *= 1 + appreciation / 100 / 12
+  }
+
+  const buyEquity = homeValue - mortgageBalance
+
+  // ─── Scenario: Rent & Invest ───
+  // Renter invests: down payment + (buy monthly cost − rent) each month
+  // We need to compute the monthly "buy cost" at each point to know the delta.
+
+  const monthlyInvestmentRate = investmentReturn / 100 / 12
+
+  let rentValue = rentMonthly
+  let rentTotalPaid = 0
+  let portfolio = downPayment // Down payment invested instead
+
+  // Recompute buy monthly cost at each point in parallel
+  let homeValueForComparison = price
+  let mortgageBalanceForComparison = loanAmount
+
+  for (let m = 1; m <= months; m++) {
+    // Buy cost this month
+    let buyMonthlyCost = 0
+    if (m <= mortgageMonths && mortgageBalanceForComparison > 0) {
+      const interest = mortgageBalanceForComparison * i
+      const principal = monthlyMortgage - interest
+      mortgageBalanceForComparison = Math.max(
+        0,
+        mortgageBalanceForComparison - principal,
+      )
+      buyMonthlyCost += monthlyMortgage
+    }
+    buyMonthlyCost += (homeValueForComparison * PROPERTY_ANNUAL_COST_RATE) / 12
+    homeValueForComparison *= 1 + appreciation / 100 / 12
+
+    // Renter pays rent
+    rentTotalPaid += rentValue
+
+    // Difference goes into (or out of) the investment portfolio
+    const delta = buyMonthlyCost - rentValue
+
+    // Grow the portfolio
+    portfolio *= 1 + monthlyInvestmentRate
+    portfolio += delta
+
+    // Rent grows annually
+    if (m % 12 === 0) {
+      rentValue *= 1 + rentGrowth / 100
+    }
+  }
+
+  const rentFinal = portfolio
+
+  let recommendation: 'buy' | 'rent' | 'tie'
+  const diff = buyEquity - rentFinal
+  const threshold = Math.max(1000, price * 0.01) // 1% of home price
+  if (Math.abs(diff) < threshold) recommendation = 'tie'
+  else if (diff > 0) recommendation = 'buy'
+  else recommendation = 'rent'
+
+  return {
+    buyFinal: buyEquity,
+    rentFinal,
+    buyTotalPaid,
+    rentTotalPaid,
+    recommendation,
+  }
+}
+
 export const financeCalculators: CalculatorConfig[] = [
   {
     slug: 'percentage-calculator',
@@ -114,17 +261,17 @@ export const financeCalculators: CalculatorConfig[] = [
     publishedAt: '2025-01-15',
   },
   {
-    slug: 'emi-calculator',
+    slug: 'loan-payment-calculator',
     category: 'finance',
     tags: ['calculator'],
-    title: 'emi-calculator.title',
-    h1: 'emi-calculator.h1',
-    description: 'emi-calculator.description',
-    keywords: ['emi-calculator.keywords'],
+    title: 'loan-payment-calculator.title',
+    h1: 'loan-payment-calculator.h1',
+    description: 'loan-payment-calculator.description',
+    keywords: ['loan-payment-calculator.keywords'],
     inputs: [
       {
         name: 'principal',
-        label: 'emi-calculator.inputs.principal',
+        label: 'loan-payment-calculator.inputs.principal',
         type: 'slider',
         min: 1000,
         max: 100000000,
@@ -134,7 +281,7 @@ export const financeCalculators: CalculatorConfig[] = [
       },
       {
         name: 'rate',
-        label: 'emi-calculator.inputs.rate',
+        label: 'loan-payment-calculator.inputs.rate',
         type: 'slider',
         unit: '%',
         min: 0,
@@ -145,7 +292,7 @@ export const financeCalculators: CalculatorConfig[] = [
       },
       {
         name: 'tenure',
-        label: 'emi-calculator.inputs.tenure',
+        label: 'loan-payment-calculator.inputs.tenure',
         type: 'slider',
         min: 1,
         max: 40,
@@ -182,35 +329,47 @@ export const financeCalculators: CalculatorConfig[] = [
         raw: emi,
         secondary: [
           {
-            label: 'emi-calculator.secondary.principal',
+            label: 'loan-payment-calculator.secondary.principal',
             value: formatInt(P),
           },
           {
-            label: 'emi-calculator.secondary.totalInterest',
+            label: 'loan-payment-calculator.secondary.totalInterest',
             value: formatInt(totalInterest),
           },
           {
-            label: 'emi-calculator.secondary.totalPayment',
+            label: 'loan-payment-calculator.secondary.totalPayment',
             value: formatInt(totalPayment),
           },
           {
-            label: 'emi-calculator.secondary.months',
+            label: 'loan-payment-calculator.secondary.months',
             value: String(n),
           },
           {
-            label: 'emi-calculator.secondary.interestShare',
+            label: 'loan-payment-calculator.secondary.interestShare',
             value: `${interestShare.toFixed(1)}%`,
           },
         ],
       }
     },
-    resultLabel: 'emi-calculator.resultLabel',
-    resultUnit: 'emi-calculator.resultUnit',
+    resultLabel: 'loan-payment-calculator.resultLabel',
+    resultUnit: 'loan-payment-calculator.resultUnit',
     faq: [
-      {q: 'emi-calculator.faq.q1', a: 'emi-calculator.faq.a1'},
-      {q: 'emi-calculator.faq.q2', a: 'emi-calculator.faq.a2'},
-      {q: 'emi-calculator.faq.q3', a: 'emi-calculator.faq.a3'},
-      {q: 'emi-calculator.faq.q4', a: 'emi-calculator.faq.a4'},
+      {
+        q: 'loan-payment-calculator.faq.q1',
+        a: 'loan-payment-calculator.faq.a1',
+      },
+      {
+        q: 'loan-payment-calculator.faq.q2',
+        a: 'loan-payment-calculator.faq.a2',
+      },
+      {
+        q: 'loan-payment-calculator.faq.q3',
+        a: 'loan-payment-calculator.faq.a3',
+      },
+      {
+        q: 'loan-payment-calculator.faq.q4',
+        a: 'loan-payment-calculator.faq.a4',
+      },
     ],
     publishedAt: '2025-01-16',
   },
@@ -493,42 +652,43 @@ export const financeCalculators: CalculatorConfig[] = [
     publishedAt: '2025-01-17',
   },
   {
-    slug: 'gst-calculator',
+    slug: 'sales-tax-calculator',
     category: 'finance',
     tags: ['calculator'],
-    title: 'gst-calculator.title',
-    h1: 'gst-calculator.h1',
-    description: 'gst-calculator.description',
-    keywords: ['gst-calculator.keywords'],
+    title: 'sales-tax-calculator.title',
+    h1: 'sales-tax-calculator.h1',
+    description: 'sales-tax-calculator.description',
+    keywords: ['sales-tax-calculator.keywords'],
     inputs: [
       {
         name: 'amount',
-        label: 'gst-calculator.inputs.amount',
+        label: 'sales-tax-calculator.inputs.amount',
         type: 'slider',
         min: 1,
         max: 1000000,
         step: 100,
-        defaultValue: 10000,
+        defaultValue: 100,
       },
       {
         name: 'rate',
-        label: 'gst-calculator.inputs.rate',
+        label: 'sales-tax-calculator.inputs.rate',
         type: 'select',
         options: [
-          {value: '5', label: 'gst-calculator.options.r5'},
-          {value: '12', label: 'gst-calculator.options.r12'},
-          {value: '18', label: 'gst-calculator.options.r18'},
-          {value: '28', label: 'gst-calculator.options.r28'},
+          {value: '5', label: 'sales-tax-calculator.options.r5'},
+          {value: '10', label: 'sales-tax-calculator.options.r10'},
+          {value: '15', label: 'sales-tax-calculator.options.r15'},
+          {value: '20', label: 'sales-tax-calculator.options.r20'},
+          {value: '25', label: 'sales-tax-calculator.options.r25'},
         ],
-        defaultValue: '18',
+        defaultValue: '20',
       },
       {
         name: 'type',
-        label: 'gst-calculator.inputs.type',
+        label: 'sales-tax-calculator.inputs.type',
         type: 'select',
         options: [
-          {value: 'exclusive', label: 'gst-calculator.options.exclusive'},
-          {value: 'inclusive', label: 'gst-calculator.options.inclusive'},
+          {value: 'exclusive', label: 'sales-tax-calculator.options.exclusive'},
+          {value: 'inclusive', label: 'sales-tax-calculator.options.inclusive'},
         ],
         defaultValue: 'exclusive',
       },
@@ -540,50 +700,48 @@ export const financeCalculators: CalculatorConfig[] = [
       if (!Number.isFinite(A) || A <= 0) return {value: '—'}
 
       let base: number
-      let gst: number
-      let total: number
+      let tax: number
+      let gross: number
 
       if (type === 'exclusive') {
         base = A
-        gst = (A * r) / 100
-        total = A + gst
+        tax = (A * r) / 100
+        gross = A + tax
       } else {
         base = A / (1 + r / 100)
-        gst = A - base
-        total = A
+        tax = A - base
+        gross = A
       }
 
-      const half = gst / 2
-
       return {
-        value: formatInt(total),
-        raw: total,
+        value: formatInt(gross),
+        raw: gross,
         secondary: [
           {
-            label: 'gst-calculator.secondary.base',
+            label: 'sales-tax-calculator.secondary.base',
             value: formatInt(base),
           },
           {
-            label: 'gst-calculator.secondary.gst',
-            value: formatInt(gst),
+            label: 'sales-tax-calculator.secondary.tax',
+            value: formatInt(tax),
           },
           {
-            label: 'gst-calculator.secondary.cgst',
-            value: formatInt(half),
+            label: 'sales-tax-calculator.secondary.rate',
+            value: `${r}%`,
           },
           {
-            label: 'gst-calculator.secondary.sgst',
-            value: formatInt(half),
+            label: 'sales-tax-calculator.secondary.gross',
+            value: formatInt(gross),
           },
         ],
       }
     },
-    resultLabel: 'gst-calculator.resultLabel',
+    resultLabel: 'sales-tax-calculator.resultLabel',
     faq: [
-      {q: 'gst-calculator.faq.q1', a: 'gst-calculator.faq.a1'},
-      {q: 'gst-calculator.faq.q2', a: 'gst-calculator.faq.a2'},
-      {q: 'gst-calculator.faq.q3', a: 'gst-calculator.faq.a3'},
-      {q: 'gst-calculator.faq.q4', a: 'gst-calculator.faq.a4'},
+      {q: 'sales-tax-calculator.faq.q1', a: 'sales-tax-calculator.faq.a1'},
+      {q: 'sales-tax-calculator.faq.q2', a: 'sales-tax-calculator.faq.a2'},
+      {q: 'sales-tax-calculator.faq.q3', a: 'sales-tax-calculator.faq.a3'},
+      {q: 'sales-tax-calculator.faq.q4', a: 'sales-tax-calculator.faq.a4'},
     ],
     publishedAt: '2025-01-17',
   },
@@ -831,17 +989,17 @@ export const financeCalculators: CalculatorConfig[] = [
     publishedAt: '2025-01-17',
   },
   {
-    slug: 'sip-calculator',
+    slug: 'monthly-investment-calculator',
     category: 'finance',
     tags: ['calculator'],
-    title: 'sip-calculator.title',
-    h1: 'sip-calculator.h1',
-    description: 'sip-calculator.description',
-    keywords: ['sip-calculator.keywords'],
+    title: 'monthly-investment-calculator.title',
+    h1: 'monthly-investment-calculator.h1',
+    description: 'monthly-investment-calculator.description',
+    keywords: ['monthly-investment-calculator.keywords'],
     inputs: [
       {
         name: 'monthly',
-        label: 'sip-calculator.inputs.monthly',
+        label: 'monthly-investment-calculator.inputs.monthly',
         type: 'slider',
         min: 500,
         max: 100000,
@@ -850,7 +1008,7 @@ export const financeCalculators: CalculatorConfig[] = [
       },
       {
         name: 'rate',
-        label: 'sip-calculator.inputs.rate',
+        label: 'monthly-investment-calculator.inputs.rate',
         type: 'slider',
         min: 1,
         max: 30,
@@ -859,7 +1017,7 @@ export const financeCalculators: CalculatorConfig[] = [
       },
       {
         name: 'years',
-        label: 'sip-calculator.inputs.years',
+        label: 'monthly-investment-calculator.inputs.years',
         type: 'slider',
         min: 1,
         max: 40,
@@ -895,30 +1053,42 @@ export const financeCalculators: CalculatorConfig[] = [
         raw: fv,
         secondary: [
           {
-            label: 'sip-calculator.secondary.invested',
+            label: 'monthly-investment-calculator.secondary.invested',
             value: formatInt(invested),
           },
           {
-            label: 'sip-calculator.secondary.gains',
+            label: 'monthly-investment-calculator.secondary.gains',
             value: formatInt(gains),
           },
           {
-            label: 'sip-calculator.secondary.months',
+            label: 'monthly-investment-calculator.secondary.months',
             value: String(n),
           },
           {
-            label: 'sip-calculator.secondary.gainShare',
+            label: 'monthly-investment-calculator.secondary.gainShare',
             value: `${gainShare.toFixed(1)}%`,
           },
         ],
       }
     },
-    resultLabel: 'sip-calculator.resultLabel',
+    resultLabel: 'monthly-investment-calculator.resultLabel',
     faq: [
-      {q: 'sip-calculator.faq.q1', a: 'sip-calculator.faq.a1'},
-      {q: 'sip-calculator.faq.q2', a: 'sip-calculator.faq.a2'},
-      {q: 'sip-calculator.faq.q3', a: 'sip-calculator.faq.a3'},
-      {q: 'sip-calculator.faq.q4', a: 'sip-calculator.faq.a4'},
+      {
+        q: 'monthly-investment-calculator.faq.q1',
+        a: 'monthly-investment-calculator.faq.a1',
+      },
+      {
+        q: 'monthly-investment-calculator.faq.q2',
+        a: 'monthly-investment-calculator.faq.a2',
+      },
+      {
+        q: 'monthly-investment-calculator.faq.q3',
+        a: 'monthly-investment-calculator.faq.a3',
+      },
+      {
+        q: 'monthly-investment-calculator.faq.q4',
+        a: 'monthly-investment-calculator.faq.a4',
+      },
     ],
     publishedAt: '2025-01-17',
   },
@@ -1022,5 +1192,724 @@ export const financeCalculators: CalculatorConfig[] = [
       },
     ],
     publishedAt: '2025-01-17',
+  },
+  {
+    slug: 'tax-regime-comparator',
+    category: 'finance',
+    tags: ['calculator'],
+    title: 'tax-regime-comparator.title',
+    h1: 'tax-regime-comparator.h1',
+    description: 'tax-regime-comparator.description',
+    keywords: ['tax-regime-comparator.keywords'],
+    inputs: [
+      {
+        name: 'annualIncome',
+        label: 'tax-regime-comparator.inputs.annualIncome',
+        type: 'slider',
+        min: 300000,
+        max: 10000000,
+        step: 50000,
+        defaultValue: 1200000,
+        hint: 'tax-regime-comparator.hints.annualIncome',
+      },
+      {
+        name: 'deductions',
+        label: 'tax-regime-comparator.inputs.deductions',
+        type: 'slider',
+        min: 0,
+        max: 500000,
+        step: 5000,
+        defaultValue: 150000,
+        hint: 'tax-regime-comparator.hints.deductions',
+      },
+    ],
+    calculate: ({annualIncome, deductions}) => {
+      const income = Number(annualIncome)
+      const ded = Number(deductions)
+
+      if (!Number.isFinite(income) || income <= 0) return {value: '—'}
+
+      // --- New Regime ---
+      const newStdDed = 75000
+      const newTaxable = Math.max(0, income - newStdDed)
+      const newTaxBeforeRebate = calcNewRegimeTax(newTaxable)
+      const newRebate = newTaxable <= 700000 ? newTaxBeforeRebate : 0
+      const newTaxAfterRebate = Math.max(0, newTaxBeforeRebate - newRebate)
+      const newTax = Math.round(newTaxAfterRebate * 1.04)
+
+      // --- Old Regime ---
+      const oldStdDed = 50000
+      const oldTaxable = Math.max(0, income - oldStdDed - ded)
+      const oldTaxBeforeRebate = calcOldRegimeTax(oldTaxable)
+      const oldRebate = oldTaxable <= 500000 ? oldTaxBeforeRebate : 0
+      const oldTaxAfterRebate = Math.max(0, oldTaxBeforeRebate - oldRebate)
+      const oldTax = Math.round(oldTaxAfterRebate * 1.04)
+
+      const savings = Math.abs(oldTax - newTax)
+      let better: 'old' | 'new' | 'same'
+      if (oldTax < newTax) better = 'old'
+      else if (newTax < oldTax) better = 'new'
+      else better = 'same'
+
+      return {
+        value: formatINR(savings),
+        raw: savings,
+        secondary: [
+          {
+            label: 'tax-regime-comparator.secondary.recommended',
+            value:
+              better === 'new'
+                ? 'tax-regime-comparator.recommendation.new'
+                : better === 'old'
+                  ? 'tax-regime-comparator.recommendation.old'
+                  : 'tax-regime-comparator.recommendation.same',
+          },
+          {
+            label: 'tax-regime-comparator.secondary.oldTax',
+            value: formatINR(oldTax),
+          },
+          {
+            label: 'tax-regime-comparator.secondary.newTax',
+            value: formatINR(newTax),
+          },
+          {
+            label: 'tax-regime-comparator.secondary.oldTaxable',
+            value: formatINR(oldTaxable),
+          },
+          {
+            label: 'tax-regime-comparator.secondary.newTaxable',
+            value: formatINR(newTaxable),
+          },
+        ],
+      }
+    },
+    resultLabel: 'tax-regime-comparator.resultLabel',
+    resultUnit: 'tax-regime-comparator.resultUnit',
+    faq: [
+      {q: 'tax-regime-comparator.faq.q1', a: 'tax-regime-comparator.faq.a1'},
+      {q: 'tax-regime-comparator.faq.q2', a: 'tax-regime-comparator.faq.a2'},
+      {q: 'tax-regime-comparator.faq.q3', a: 'tax-regime-comparator.faq.a3'},
+      {q: 'tax-regime-comparator.faq.q4', a: 'tax-regime-comparator.faq.a4'},
+    ],
+    related: ['loan-payment-calculator', 'monthly-investment-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'savings-goal-calculator',
+    category: 'finance',
+    tags: ['calculator'],
+    title: 'savings-goal-calculator.title',
+    h1: 'savings-goal-calculator.h1',
+    description: 'savings-goal-calculator.description',
+    keywords: ['savings-goal-calculator.keywords'],
+    inputs: [
+      {
+        name: 'goal',
+        label: 'savings-goal-calculator.inputs.goal',
+        type: 'slider',
+        min: 1000,
+        max: 10000000,
+        step: 1000,
+        defaultValue: 1000000,
+      },
+      {
+        name: 'initial',
+        label: 'savings-goal-calculator.inputs.initial',
+        type: 'slider',
+        min: 0,
+        max: 1000000,
+        step: 1000,
+        defaultValue: 0,
+        hint: 'savings-goal-calculator.hints.initial',
+      },
+      {
+        name: 'rate',
+        label: 'savings-goal-calculator.inputs.rate',
+        type: 'slider',
+        min: 0,
+        max: 30,
+        step: 0.5,
+        defaultValue: 7,
+      },
+      {
+        name: 'years',
+        label: 'savings-goal-calculator.inputs.years',
+        type: 'slider',
+        min: 1,
+        max: 40,
+        step: 1,
+        defaultValue: 10,
+      },
+    ],
+    calculate: ({goal, initial, rate, years}) => {
+      const FV = Number(goal)
+      const PV = Number(initial)
+      const annualRate = Number(rate)
+      const y = Number(years)
+
+      if (!Number.isFinite(FV) || FV <= 0) return {value: '—'}
+      if (!Number.isFinite(PV) || PV < 0) return {value: '—'}
+      if (!Number.isFinite(y) || y <= 0) return {value: '—'}
+
+      const n = Math.round(y * 12)
+      const i = annualRate / 12 / 100
+
+      // FV of initial lump sum
+      const fvInitial = PV * (1 + i) ** n
+
+      // Remaining amount to accumulate via monthly contributions
+      const remaining = FV - fvInitial
+
+      if (remaining <= 0) {
+        // Initial lump sum is enough
+        return {
+          value: '0',
+          raw: 0,
+          secondary: [
+            {
+              label: 'savings-goal-calculator.secondary.initial',
+              value: formatInt(PV),
+            },
+            {
+              label: 'savings-goal-calculator.secondary.fvInitial',
+              value: formatInt(fvInitial),
+            },
+            {
+              label: 'savings-goal-calculator.secondary.totalInvested',
+              value: formatInt(PV),
+            },
+            {
+              label: 'savings-goal-calculator.secondary.interest',
+              value: formatInt(fvInitial - PV),
+            },
+          ],
+        }
+      }
+
+      // PMT (annuity due — contributions at the start of each month)
+      let pmt: number
+      if (i === 0) {
+        pmt = remaining / n
+      } else {
+        const pow = (1 + i) ** n
+        pmt = (remaining * i) / (pow - 1) / (1 + i)
+      }
+
+      const totalContributions = pmt * n
+      const totalInvested = PV + totalContributions
+      const interest = FV - totalInvested
+
+      return {
+        value: formatInt(pmt),
+        raw: pmt,
+        secondary: [
+          {
+            label: 'savings-goal-calculator.secondary.initial',
+            value: formatInt(PV),
+          },
+          {
+            label: 'savings-goal-calculator.secondary.totalContributions',
+            value: formatInt(totalContributions),
+          },
+          {
+            label: 'savings-goal-calculator.secondary.totalInvested',
+            value: formatInt(totalInvested),
+          },
+          {
+            label: 'savings-goal-calculator.secondary.interest',
+            value: formatInt(interest),
+          },
+        ],
+      }
+    },
+    resultLabel: 'savings-goal-calculator.resultLabel',
+    resultUnit: 'savings-goal-calculator.resultUnit',
+    faq: [
+      {
+        q: 'savings-goal-calculator.faq.q1',
+        a: 'savings-goal-calculator.faq.a1',
+      },
+      {
+        q: 'savings-goal-calculator.faq.q2',
+        a: 'savings-goal-calculator.faq.a2',
+      },
+      {
+        q: 'savings-goal-calculator.faq.q3',
+        a: 'savings-goal-calculator.faq.a3',
+      },
+      {
+        q: 'savings-goal-calculator.faq.q4',
+        a: 'savings-goal-calculator.faq.a4',
+      },
+    ],
+    related: ['monthly-investment-calculator', 'compound-interest-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'loan-eligibility-calculator',
+    category: 'finance',
+    tags: ['calculator'],
+    title: 'loan-eligibility-calculator.title',
+    h1: 'loan-eligibility-calculator.h1',
+    description: 'loan-eligibility-calculator.description',
+    keywords: ['loan-eligibility-calculator.keywords'],
+    inputs: [
+      {
+        name: 'monthlyIncome',
+        label: 'loan-eligibility-calculator.inputs.monthlyIncome',
+        type: 'slider',
+        min: 500,
+        max: 50000,
+        step: 100,
+        defaultValue: 5000,
+      },
+      {
+        name: 'existingDebt',
+        label: 'loan-eligibility-calculator.inputs.existingDebt',
+        type: 'slider',
+        min: 0,
+        max: 10000,
+        step: 50,
+        defaultValue: 500,
+      },
+      {
+        name: 'dtiLimit',
+        label: 'loan-eligibility-calculator.inputs.dtiLimit',
+        type: 'slider',
+        min: 10,
+        max: 60,
+        step: 1,
+        unit: '%',
+        defaultValue: 40,
+        hint: 'loan-eligibility-calculator.hints.dtiLimit',
+      },
+      {
+        name: 'rate',
+        label: 'loan-eligibility-calculator.inputs.rate',
+        type: 'slider',
+        min: 0,
+        max: 30,
+        step: 0.1,
+        unit: '%',
+        defaultValue: 6,
+      },
+      {
+        name: 'tenure',
+        label: 'loan-eligibility-calculator.inputs.tenure',
+        type: 'slider',
+        min: 1,
+        max: 40,
+        step: 1,
+        defaultValue: 30,
+      },
+    ],
+    calculate: ({monthlyIncome, existingDebt, dtiLimit, rate, tenure}) => {
+      const income = Number(monthlyIncome)
+      const debt = Number(existingDebt)
+      const dti = Number(dtiLimit)
+      const annualRate = Number(rate)
+      const years = Number(tenure)
+
+      if (!Number.isFinite(income) || income <= 0) return {value: '—'}
+      if (!Number.isFinite(dti) || dti <= 0) return {value: '—'}
+      if (!Number.isFinite(years) || years <= 0) return {value: '—'}
+
+      const maxTotalDebt = (income * dti) / 100
+      const availableForNewLoan = maxTotalDebt - debt
+
+      if (availableForNewLoan <= 0) {
+        return {
+          value: '0',
+          raw: 0,
+          secondary: [
+            {
+              label: 'loan-eligibility-calculator.secondary.maxTotalDebt',
+              value: formatInt(maxTotalDebt),
+            },
+            {
+              label: 'loan-eligibility-calculator.secondary.existingDebt',
+              value: formatInt(debt),
+            },
+            {
+              label: 'loan-eligibility-calculator.secondary.availablePayment',
+              value: '0',
+            },
+          ],
+        }
+      }
+
+      const n = Math.round(years * 12)
+      const i = annualRate / 12 / 100
+
+      let maxLoan: number
+      if (i === 0) {
+        maxLoan = availableForNewLoan * n
+      } else {
+        const pow = (1 + i) ** n
+        maxLoan = (availableForNewLoan * (pow - 1)) / (i * pow)
+      }
+
+      const totalPayment = availableForNewLoan * n
+      const totalInterest = totalPayment - maxLoan
+
+      return {
+        value: formatInt(maxLoan),
+        raw: maxLoan,
+        secondary: [
+          {
+            label: 'loan-eligibility-calculator.secondary.availablePayment',
+            value: formatInt(availableForNewLoan),
+          },
+          {
+            label: 'loan-eligibility-calculator.secondary.maxTotalDebt',
+            value: formatInt(maxTotalDebt),
+          },
+          {
+            label: 'loan-eligibility-calculator.secondary.totalInterest',
+            value: formatInt(totalInterest),
+          },
+          {
+            label: 'loan-eligibility-calculator.secondary.totalPayment',
+            value: formatInt(totalPayment),
+          },
+          {
+            label: 'loan-eligibility-calculator.secondary.months',
+            value: String(n),
+          },
+        ],
+      }
+    },
+    resultLabel: 'loan-eligibility-calculator.resultLabel',
+    faq: [
+      {
+        q: 'loan-eligibility-calculator.faq.q1',
+        a: 'loan-eligibility-calculator.faq.a1',
+      },
+      {
+        q: 'loan-eligibility-calculator.faq.q2',
+        a: 'loan-eligibility-calculator.faq.a2',
+      },
+      {
+        q: 'loan-eligibility-calculator.faq.q3',
+        a: 'loan-eligibility-calculator.faq.a3',
+      },
+      {
+        q: 'loan-eligibility-calculator.faq.q4',
+        a: 'loan-eligibility-calculator.faq.a4',
+      },
+    ],
+    related: ['loan-payment-calculator', 'savings-goal-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'rent-vs-buy-calculator',
+    category: 'finance',
+    tags: ['calculator'],
+    title: 'rent-vs-buy-calculator.title',
+    h1: 'rent-vs-buy-calculator.h1',
+    description: 'rent-vs-buy-calculator.description',
+    keywords: ['rent-vs-buy-calculator.keywords'],
+    inputs: [
+      {
+        name: 'price',
+        label: 'rent-vs-buy-calculator.inputs.price',
+        type: 'slider',
+        min: 50000,
+        max: 2000000,
+        step: 10000,
+        defaultValue: 400000,
+      },
+      {
+        name: 'downPayment',
+        label: 'rent-vs-buy-calculator.inputs.downPayment',
+        type: 'slider',
+        min: 0,
+        max: 500000,
+        step: 5000,
+        defaultValue: 80000,
+        hint: 'rent-vs-buy-calculator.hints.downPayment',
+      },
+      {
+        name: 'mortgageRate',
+        label: 'rent-vs-buy-calculator.inputs.mortgageRate',
+        type: 'slider',
+        min: 0,
+        max: 20,
+        step: 0.1,
+        unit: '%',
+        defaultValue: 6,
+      },
+      {
+        name: 'mortgageTerm',
+        label: 'rent-vs-buy-calculator.inputs.mortgageTerm',
+        type: 'slider',
+        min: 1,
+        max: 40,
+        step: 1,
+        defaultValue: 30,
+      },
+      {
+        name: 'rentMonthly',
+        label: 'rent-vs-buy-calculator.inputs.rentMonthly',
+        type: 'slider',
+        min: 100,
+        max: 10000,
+        step: 50,
+        defaultValue: 1500,
+      },
+      {
+        name: 'appreciation',
+        label: 'rent-vs-buy-calculator.inputs.appreciation',
+        type: 'slider',
+        min: -5,
+        max: 15,
+        step: 0.5,
+        unit: '%',
+        defaultValue: 3,
+        hint: 'rent-vs-buy-calculator.hints.appreciation',
+      },
+      {
+        name: 'rentGrowth',
+        label: 'rent-vs-buy-calculator.inputs.rentGrowth',
+        type: 'slider',
+        min: 0,
+        max: 15,
+        step: 0.5,
+        unit: '%',
+        defaultValue: 2,
+      },
+      {
+        name: 'investmentReturn',
+        label: 'rent-vs-buy-calculator.inputs.investmentReturn',
+        type: 'slider',
+        min: 0,
+        max: 15,
+        step: 0.5,
+        unit: '%',
+        defaultValue: 7,
+        hint: 'rent-vs-buy-calculator.hints.investmentReturn',
+      },
+      {
+        name: 'years',
+        label: 'rent-vs-buy-calculator.inputs.years',
+        type: 'slider',
+        min: 1,
+        max: 40,
+        step: 1,
+        defaultValue: 10,
+      },
+    ],
+    calculate: ({
+      price,
+      downPayment,
+      mortgageRate,
+      mortgageTerm,
+      rentMonthly,
+      appreciation,
+      rentGrowth,
+      investmentReturn,
+      years,
+    }) => {
+      const P = Number(price)
+      const DP = Number(downPayment)
+      const MR = Number(mortgageRate)
+      const MT = Number(mortgageTerm)
+      const RM = Number(rentMonthly)
+      const AP = Number(appreciation)
+      const RG = Number(rentGrowth)
+      const IR = Number(investmentReturn)
+      const Y = Number(years)
+
+      if (!Number.isFinite(P) || P <= 0) return {value: '—'}
+      if (!Number.isFinite(DP) || DP < 0 || DP > P) return {value: '—'}
+      if (!Number.isFinite(Y) || Y <= 0) return {value: '—'}
+
+      const result = computeRentVsBuy(P, DP, MR, MT, RM, AP, RG, IR, Y)
+
+      const diff = result.buyFinal - result.rentFinal
+      const sign = diff >= 0 ? '+' : '−'
+      const recommendation =
+        result.recommendation === 'buy'
+          ? 'rent-vs-buy-calculator.recommendation.buy'
+          : result.recommendation === 'rent'
+            ? 'rent-vs-buy-calculator.recommendation.rent'
+            : 'rent-vs-buy-calculator.recommendation.tie'
+
+      return {
+        value: `${sign}${formatInt(Math.abs(diff))}`,
+        raw: diff,
+        secondary: [
+          {
+            label: 'rent-vs-buy-calculator.secondary.recommendation',
+            value: recommendation,
+          },
+          {
+            label: 'rent-vs-buy-calculator.secondary.buyFinal',
+            value: formatInt(result.buyFinal),
+          },
+          {
+            label: 'rent-vs-buy-calculator.secondary.rentFinal',
+            value: formatInt(result.rentFinal),
+          },
+          {
+            label: 'rent-vs-buy-calculator.secondary.buyTotalPaid',
+            value: formatInt(result.buyTotalPaid),
+          },
+          {
+            label: 'rent-vs-buy-calculator.secondary.rentTotalPaid',
+            value: formatInt(result.rentTotalPaid),
+          },
+        ],
+      }
+    },
+    resultLabel: 'rent-vs-buy-calculator.resultLabel',
+    resultUnit: 'rent-vs-buy-calculator.resultUnit',
+    faq: [
+      {
+        q: 'rent-vs-buy-calculator.faq.q1',
+        a: 'rent-vs-buy-calculator.faq.a1',
+      },
+      {
+        q: 'rent-vs-buy-calculator.faq.q2',
+        a: 'rent-vs-buy-calculator.faq.a2',
+      },
+      {
+        q: 'rent-vs-buy-calculator.faq.q3',
+        a: 'rent-vs-buy-calculator.faq.a3',
+      },
+      {
+        q: 'rent-vs-buy-calculator.faq.q4',
+        a: 'rent-vs-buy-calculator.faq.a4',
+      },
+    ],
+    related: ['loan-payment-calculator', 'savings-goal-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'fixed-deposit-calculator',
+    category: 'finance',
+    tags: ['calculator'],
+    title: 'fixed-deposit-calculator.title',
+    h1: 'fixed-deposit-calculator.h1',
+    description: 'fixed-deposit-calculator.description',
+    keywords: ['fixed-deposit-calculator.keywords'],
+    inputs: [
+      {
+        name: 'principal',
+        label: 'fixed-deposit-calculator.inputs.principal',
+        type: 'slider',
+        min: 1000,
+        max: 10000000,
+        step: 1000,
+        defaultValue: 100000,
+      },
+      {
+        name: 'rate',
+        label: 'fixed-deposit-calculator.inputs.rate',
+        type: 'slider',
+        min: 0.1,
+        max: 30,
+        step: 0.1,
+        unit: '%',
+        defaultValue: 5,
+      },
+      {
+        name: 'years',
+        label: 'fixed-deposit-calculator.inputs.years',
+        type: 'slider',
+        min: 0.5,
+        max: 30,
+        step: 0.5,
+        defaultValue: 5,
+      },
+      {
+        name: 'frequency',
+        label: 'fixed-deposit-calculator.inputs.frequency',
+        type: 'select',
+        options: [
+          {
+            value: '12',
+            label: 'fixed-deposit-calculator.options.monthly',
+          },
+          {
+            value: '4',
+            label: 'fixed-deposit-calculator.options.quarterly',
+          },
+          {
+            value: '2',
+            label: 'fixed-deposit-calculator.options.semiannually',
+          },
+          {
+            value: '1',
+            label: 'fixed-deposit-calculator.options.annually',
+          },
+          {
+            value: '365',
+            label: 'fixed-deposit-calculator.options.daily',
+          },
+        ],
+        defaultValue: '12',
+      },
+    ],
+    calculate: ({principal, rate, years, frequency}) => {
+      const P = Number(principal)
+      const r = Number(rate) / 100
+      const t = Number(years)
+      const n = Number(frequency)
+
+      if (!Number.isFinite(P) || P <= 0) return {value: '—'}
+      if (!Number.isFinite(r) || r < 0) return {value: '—'}
+      if (!Number.isFinite(t) || t <= 0) return {value: '—'}
+      if (!Number.isFinite(n) || n <= 0) return {value: '—'}
+
+      const A = P * (1 + r / n) ** (n * t)
+      const interest = A - P
+      const ear = ((1 + r / n) ** n - 1) * 100
+      const periods = Math.round(n * t)
+
+      return {
+        value: formatInt(A),
+        raw: A,
+        secondary: [
+          {
+            label: 'fixed-deposit-calculator.secondary.principal',
+            value: formatInt(P),
+          },
+          {
+            label: 'fixed-deposit-calculator.secondary.interest',
+            value: formatInt(interest),
+          },
+          {
+            label: 'fixed-deposit-calculator.secondary.ear',
+            value: `${ear.toFixed(2)}%`,
+          },
+          {
+            label: 'fixed-deposit-calculator.secondary.periods',
+            value: String(periods),
+          },
+        ],
+      }
+    },
+    resultLabel: 'fixed-deposit-calculator.resultLabel',
+    faq: [
+      {
+        q: 'fixed-deposit-calculator.faq.q1',
+        a: 'fixed-deposit-calculator.faq.a1',
+      },
+      {
+        q: 'fixed-deposit-calculator.faq.q2',
+        a: 'fixed-deposit-calculator.faq.a2',
+      },
+      {
+        q: 'fixed-deposit-calculator.faq.q3',
+        a: 'fixed-deposit-calculator.faq.a3',
+      },
+      {
+        q: 'fixed-deposit-calculator.faq.q4',
+        a: 'fixed-deposit-calculator.faq.a4',
+      },
+    ],
+    related: ['compound-interest-calculator', 'savings-goal-calculator'],
+    publishedAt: '2026-09-29',
   },
 ]

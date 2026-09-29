@@ -1,11 +1,13 @@
 import {assertNever} from '@/helpers'
 import type {ToolConfig} from '@/types'
+import {Base64ToImageView} from './Base64ToImageView'
 import {Base64View} from './Base64View'
 import {BreakEvenCalculatorView} from './BreakEvenCalculatorView'
 import {CaseConverterView} from './CaseConverterView'
 import {CodeMinifierView} from './CodeMinifierView'
 import {ColorContrastCheckerView} from './ColorContrastCheckerView'
 import {ColorPickerView} from './ColorPickerView'
+import {CssGeneratorView} from './CssGeneratorView'
 import {DiffCheckerView} from './DiffCheckerView'
 import {GitignoreGeneratorView} from './GitignoreGeneratorView'
 import {HashGeneratorView} from './HashGeneratorView'
@@ -19,12 +21,16 @@ import {LicenseGeneratorView} from './LicenseGeneratorView'
 import {LoremIpsumView} from './LoremIpsumView'
 import {MarkdownPreviewerView} from './MarkdownPreviewerView'
 import {MetaTagGeneratorView} from './MetaTagGeneratorView'
+import {NumberToWordsView} from './NumberToWordsView'
 import {PasswordGeneratorView} from './PasswordGeneratorView'
 import {ProfitMarginCalculatorView} from './ProfitMarginCalculatorView'
 import {QrCodeGeneratorView} from './QrCodeGeneratorView'
 import {QuotationGeneratorView} from './QuotationGeneratorView'
+import {RegexGeneratorView} from './RegexGeneratorView'
+import {RegexTesterView} from './RegexTesterView'
 import {SalarySlipGeneratorView} from './SalarySlipGeneratorView'
 import {SqlFormatterMinifierView} from './SqlFormatterMinifierView'
+import {SvgToBase64View} from './SvgToBase64View'
 import {TimestampConverterView} from './TimestampConverterView'
 import {UnitConverterView} from './UnitConverterView'
 import {UrlEncoderView} from './UrlEncoderView'
@@ -82,7 +88,7 @@ export function ToolView({config}: Props) {
       return <BreakEvenCalculatorView />
     case 'quotation-generator':
       return <QuotationGeneratorView />
-    case 'salary-slip-generator':
+    case 'payslip-generator':
       return <SalarySlipGeneratorView />
     case 'license-generator':
       return <LicenseGeneratorView />
@@ -100,6 +106,18 @@ export function ToolView({config}: Props) {
       return <ColorContrastCheckerView />
     case 'meta-tag-generator':
       return <MetaTagGeneratorView />
+    case 'svg-to-base64':
+      return <SvgToBase64View />
+    case 'base64-to-image':
+      return <Base64ToImageView />
+    case 'regex-tester':
+      return <RegexTesterView />
+    case 'regex-generator':
+      return <RegexGeneratorView />
+    case 'css-generator':
+      return <CssGeneratorView />
+    case 'number-to-words':
+      return <NumberToWordsView />
     default:
       return assertNever(config)
   }

@@ -1132,4 +1132,549 @@ export const healthCalculators: CalculatorConfig[] = [
     ],
     publishedAt: '2025-01-18',
   },
+  {
+    slug: 'sleep-debt-calculator',
+    category: 'health',
+    tags: ['health', 'calculator'],
+    title: 'sleep-debt-calculator.title',
+    h1: 'sleep-debt-calculator.h1',
+    description: 'sleep-debt-calculator.description',
+    keywords: ['sleep-debt-calculator.keywords'],
+    inputs: [
+      {
+        name: 'targetSleep',
+        label: 'sleep-debt-calculator.inputs.targetSleep',
+        type: 'slider',
+        min: 6,
+        max: 10,
+        step: 0.5,
+        unit: 'sleep-debt-calculator.units.hours',
+        defaultValue: 8,
+        hint: 'sleep-debt-calculator.hints.targetSleep',
+      },
+      {
+        name: 'actualSleep',
+        label: 'sleep-debt-calculator.inputs.actualSleep',
+        type: 'slider',
+        min: 3,
+        max: 10,
+        step: 0.5,
+        unit: 'sleep-debt-calculator.units.hours',
+        defaultValue: 6.5,
+      },
+      {
+        name: 'days',
+        label: 'sleep-debt-calculator.inputs.days',
+        type: 'slider',
+        min: 1,
+        max: 60,
+        step: 1,
+        unit: 'sleep-debt-calculator.units.days',
+        defaultValue: 7,
+      },
+    ],
+    calculate: ({targetSleep, actualSleep, days}) => {
+      const target = Number(targetSleep)
+      const actual = Number(actualSleep)
+      const d = Number(days)
+
+      if (!Number.isFinite(target) || target <= 0) return {value: '—'}
+      if (!Number.isFinite(actual) || actual < 0) return {value: '—'}
+      if (!Number.isFinite(d) || d <= 0) return {value: '—'}
+
+      const perNight = Math.max(0, target - actual)
+      const totalDebt = perNight * d
+      const recoveryNights = perNight > 0 ? Math.ceil(totalDebt) : 0
+
+      let level: 'none' | 'mild' | 'moderate' | 'severe'
+      if (totalDebt === 0) level = 'none'
+      else if (totalDebt <= 5) level = 'mild'
+      else if (totalDebt <= 15) level = 'moderate'
+      else level = 'severe'
+
+      return {
+        value: 'sleep-debt-calculator.value',
+        params: {value: totalDebt.toFixed(1)},
+        raw: totalDebt,
+        secondary: [
+          {
+            label: 'sleep-debt-calculator.secondary.perNight',
+            value: 'sleep-debt-calculator.secondary.perNightValue',
+            params: {count: perNight === 0 ? 0 : `−${perNight.toFixed(1)}`},
+          },
+          {
+            label: 'sleep-debt-calculator.secondary.level',
+            value: `sleep-debt-calculator.levels.${level}`,
+          },
+          {
+            label: 'sleep-debt-calculator.secondary.recoveryValue',
+            value: 'sleep-debt-calculator.secondary.recoveryValueText',
+            params: {count: recoveryNights},
+          },
+          {
+            label: 'sleep-debt-calculator.secondary.equivalent',
+            value: (totalDebt / target).toFixed(1),
+          },
+        ],
+      }
+    },
+    resultLabel: 'sleep-debt-calculator.resultLabel',
+    resultUnit: 'sleep-debt-calculator.resultUnit',
+    faq: [
+      {
+        q: 'sleep-debt-calculator.faq.q1',
+        a: 'sleep-debt-calculator.faq.a1',
+      },
+      {
+        q: 'sleep-debt-calculator.faq.q2',
+        a: 'sleep-debt-calculator.faq.a2',
+      },
+      {
+        q: 'sleep-debt-calculator.faq.q3',
+        a: 'sleep-debt-calculator.faq.a3',
+      },
+      {
+        q: 'sleep-debt-calculator.faq.q4',
+        a: 'sleep-debt-calculator.faq.a4',
+      },
+    ],
+    related: ['sleep-cycle-calculator', 'heart-rate-zones-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'menstrual-cycle-calculator',
+    category: 'health',
+    tags: ['health', 'calculator'],
+    title: 'menstrual-cycle-calculator.title',
+    h1: 'menstrual-cycle-calculator.h1',
+    description: 'menstrual-cycle-calculator.description',
+    keywords: ['menstrual-cycle-calculator.keywords'],
+    inputs: [
+      {
+        name: 'lastPeriod',
+        label: 'menstrual-cycle-calculator.inputs.lastPeriod',
+        type: 'date',
+        hint: 'menstrual-cycle-calculator.hints.lastPeriod',
+      },
+      {
+        name: 'cycleLength',
+        label: 'menstrual-cycle-calculator.inputs.cycleLength',
+        type: 'slider',
+        min: 21,
+        max: 40,
+        step: 1,
+        unit: 'menstrual-cycle-calculator.units.days',
+        defaultValue: 28,
+      },
+      {
+        name: 'periodLength',
+        label: 'menstrual-cycle-calculator.inputs.periodLength',
+        type: 'slider',
+        min: 2,
+        max: 10,
+        step: 1,
+        unit: 'menstrual-cycle-calculator.units.days',
+        defaultValue: 5,
+      },
+      {
+        name: 'lutealPhase',
+        label: 'menstrual-cycle-calculator.inputs.lutealPhase',
+        type: 'slider',
+        min: 10,
+        max: 16,
+        step: 1,
+        unit: 'menstrual-cycle-calculator.units.days',
+        defaultValue: 14,
+        hint: 'menstrual-cycle-calculator.hints.lutealPhase',
+      },
+    ],
+    calculate: ({lastPeriod, cycleLength, periodLength, lutealPhase}, ctx) => {
+      if (!lastPeriod) return {value: '—'}
+
+      const locale = ctx?.locale ?? 'en'
+
+      const start = new Date(String(lastPeriod))
+      if (Number.isNaN(start.getTime())) return {value: '—'}
+
+      const cycle = Number(cycleLength)
+      const period = Number(periodLength)
+      const luteal = Number(lutealPhase)
+
+      if (!Number.isFinite(cycle) || cycle <= 0) return {value: '—'}
+      if (!Number.isFinite(period) || period <= 0) return {value: '—'}
+      if (!Number.isFinite(luteal) || luteal <= 0) return {value: '—'}
+
+      const dayMs = 1000 * 60 * 60 * 24
+
+      const addDays = (base: Date, days: number) =>
+        new Date(base.getTime() + days * dayMs)
+
+      const fmtShort = (d: Date) =>
+        d
+          .toLocaleDateString(locale, {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+          })
+          .replace(/\s*г\.$/, '')
+
+      const fmtDayMonth = (d: Date) =>
+        d.toLocaleDateString(locale, {month: 'short', day: 'numeric'})
+
+      const nextPeriod = addDays(start, cycle)
+      const ovulation = addDays(nextPeriod, -luteal)
+      const fertileFrom = addDays(ovulation, -5)
+      const fertileTo = ovulation
+      const period2 = addDays(nextPeriod, cycle)
+      const period3 = addDays(period2, cycle)
+
+      const now = new Date()
+      now.setHours(0, 0, 0, 0)
+      const startDay = new Date(start)
+      startDay.setHours(0, 0, 0, 0)
+      const diffDays = Math.floor((now.getTime() - startDay.getTime()) / dayMs)
+      const currentDay = diffDays >= 0 ? (diffDays % cycle) + 1 : null
+
+      return {
+        value: fmtShort(nextPeriod),
+        secondary: [
+          {
+            label: 'menstrual-cycle-calculator.secondary.ovulation',
+            value: fmtDayMonth(ovulation),
+          },
+          {
+            label: 'menstrual-cycle-calculator.secondary.fertileWindow',
+            value: `${fmtDayMonth(fertileFrom)} – ${fmtDayMonth(fertileTo)}`,
+          },
+          {
+            label: 'menstrual-cycle-calculator.secondary.next3',
+            value: `${fmtDayMonth(nextPeriod)}, ${fmtDayMonth(period2)}, ${fmtDayMonth(period3)}`,
+          },
+          ...(currentDay !== null
+            ? [
+                {
+                  label: 'menstrual-cycle-calculator.secondary.currentDay',
+                  value: String(currentDay),
+                },
+              ]
+            : []),
+        ],
+      }
+    },
+    resultLabel: 'menstrual-cycle-calculator.resultLabel',
+    resultUnit: 'menstrual-cycle-calculator.resultUnit',
+    faq: [
+      {
+        q: 'menstrual-cycle-calculator.faq.q1',
+        a: 'menstrual-cycle-calculator.faq.a1',
+      },
+      {
+        q: 'menstrual-cycle-calculator.faq.q2',
+        a: 'menstrual-cycle-calculator.faq.a2',
+      },
+      {
+        q: 'menstrual-cycle-calculator.faq.q3',
+        a: 'menstrual-cycle-calculator.faq.a3',
+      },
+      {
+        q: 'menstrual-cycle-calculator.faq.q4',
+        a: 'menstrual-cycle-calculator.faq.a4',
+      },
+    ],
+    related: ['pregnancy-due-date-calculator', 'calorie-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'calorie-deficit-planner',
+    category: 'health',
+    tags: ['health', 'calculator'],
+    title: 'calorie-deficit-planner.title',
+    h1: 'calorie-deficit-planner.h1',
+    description: 'calorie-deficit-planner.description',
+    keywords: ['calorie-deficit-planner.keywords'],
+    inputs: [
+      {
+        name: 'age',
+        label: 'calorie-deficit-planner.inputs.age',
+        type: 'number',
+        min: 14,
+        max: 100,
+        defaultValue: 30,
+      },
+      {
+        name: 'gender',
+        label: 'calorie-deficit-planner.inputs.gender',
+        type: 'select',
+        options: [
+          {value: 'male', label: 'calorie-deficit-planner.options.male'},
+          {value: 'female', label: 'calorie-deficit-planner.options.female'},
+        ],
+        defaultValue: 'male',
+      },
+      {
+        name: 'height',
+        label: 'calorie-deficit-planner.inputs.height',
+        type: 'number',
+        unit: 'cm',
+        min: 100,
+        max: 250,
+        defaultValue: 175,
+      },
+      {
+        name: 'currentWeight',
+        label: 'calorie-deficit-planner.inputs.currentWeight',
+        type: 'number',
+        unit: 'kg',
+        min: 30,
+        max: 300,
+        defaultValue: 80,
+      },
+      {
+        name: 'goalWeight',
+        label: 'calorie-deficit-planner.inputs.goalWeight',
+        type: 'number',
+        unit: 'kg',
+        min: 30,
+        max: 300,
+        defaultValue: 70,
+      },
+      {
+        name: 'activity',
+        label: 'calorie-deficit-planner.inputs.activity',
+        type: 'select',
+        options: [
+          {value: '1.2', label: 'calorie-deficit-planner.options.sedentary'},
+          {value: '1.375', label: 'calorie-deficit-planner.options.light'},
+          {value: '1.55', label: 'calorie-deficit-planner.options.moderate'},
+          {value: '1.725', label: 'calorie-deficit-planner.options.high'},
+          {value: '1.9', label: 'calorie-deficit-planner.options.veryHigh'},
+        ],
+        defaultValue: '1.55',
+      },
+      {
+        name: 'timeframe',
+        label: 'calorie-deficit-planner.inputs.timeframe',
+        type: 'slider',
+        min: 4,
+        max: 104,
+        step: 1,
+        unit: 'calorie-deficit-planner.units.weeks',
+        defaultValue: 16,
+      },
+    ],
+    calculate: (
+      {age, gender, height, currentWeight, goalWeight, activity, timeframe},
+      {locale},
+    ) => {
+      function formatInt(n: number): string {
+        if (!Number.isFinite(n)) return '—'
+        return Math.round(n).toLocaleString(locale ?? 'en')
+      }
+
+      const a = Number(age)
+      const h = Number(height)
+      const cw = Number(currentWeight)
+      const gw = Number(goalWeight)
+      const act = Number(activity)
+      const weeks = Number(timeframe)
+
+      if (!Number.isFinite(a) || a <= 0) return {value: '—'}
+      if (!Number.isFinite(h) || h <= 0) return {value: '—'}
+      if (!Number.isFinite(cw) || cw <= 0) return {value: '—'}
+      if (!Number.isFinite(gw) || gw <= 0) return {value: '—'}
+      if (!Number.isFinite(weeks) || weeks <= 0) return {value: '—'}
+
+      const bmr =
+        gender === 'male'
+          ? 10 * cw + 6.25 * h - 5 * a + 5
+          : 10 * cw + 6.25 * h - 5 * a - 161
+
+      const tdee = bmr * act
+      const weightToLose = cw - gw
+      const days = weeks * 7
+      const totalDeficit = weightToLose * 7700
+      const dailyDeficit = totalDeficit / days
+      const perWeek = weightToLose / weeks
+
+      const minCalories = gender === 'male' ? 1500 : 1200
+      const targetRaw = tdee - dailyDeficit
+      const targetCalories = Math.max(minCalories, targetRaw)
+
+      let level: 'healthy' | 'tooSlow' | 'tooFast'
+      if (dailyDeficit > 1000) level = 'tooFast'
+      else if (dailyDeficit < 200) level = 'tooSlow'
+      else level = 'healthy'
+
+      return {
+        value: formatInt(targetCalories),
+        raw: targetCalories,
+        secondary: [
+          {
+            label: 'calorie-deficit-planner.secondary.bmr',
+            value: formatInt(bmr),
+          },
+          {
+            label: 'calorie-deficit-planner.secondary.tdee',
+            value: formatInt(tdee),
+          },
+          {
+            label: 'calorie-deficit-planner.secondary.dailyDeficit',
+            value: formatInt(dailyDeficit),
+          },
+          {
+            label: 'calorie-deficit-planner.secondary.perWeek',
+            value: perWeek.toFixed(2),
+          },
+          {
+            label: 'calorie-deficit-planner.secondary.level',
+            value: `calorie-deficit-planner.levels.${level}`,
+          },
+        ],
+      }
+    },
+    resultLabel: 'calorie-deficit-planner.resultLabel',
+    resultUnit: 'calorie-deficit-planner.resultUnit',
+    faq: [
+      {
+        q: 'calorie-deficit-planner.faq.q1',
+        a: 'calorie-deficit-planner.faq.a1',
+      },
+      {
+        q: 'calorie-deficit-planner.faq.q2',
+        a: 'calorie-deficit-planner.faq.a2',
+      },
+      {
+        q: 'calorie-deficit-planner.faq.q3',
+        a: 'calorie-deficit-planner.faq.a3',
+      },
+      {
+        q: 'calorie-deficit-planner.faq.q4',
+        a: 'calorie-deficit-planner.faq.a4',
+      },
+    ],
+    related: ['calorie-calculator', 'tdee-macro-calculator'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    slug: 'pregnancy-week-tracker',
+    category: 'health',
+    tags: ['health', 'calculator'],
+    title: 'pregnancy-week-tracker.title',
+    h1: 'pregnancy-week-tracker.h1',
+    description: 'pregnancy-week-tracker.description',
+    keywords: ['pregnancy-week-tracker.keywords'],
+    inputs: [
+      {
+        name: 'method',
+        label: 'pregnancy-week-tracker.inputs.method',
+        type: 'select',
+        options: [
+          {
+            value: 'lmp',
+            label: 'pregnancy-week-tracker.options.lmp',
+          },
+          {
+            value: 'dueDate',
+            label: 'pregnancy-week-tracker.options.dueDate',
+          },
+        ],
+        defaultValue: 'lmp',
+      },
+      {
+        name: 'date',
+        label: 'pregnancy-week-tracker.inputs.date',
+        type: 'date',
+        hint: 'pregnancy-week-tracker.hints.date',
+      },
+    ],
+    calculate: ({method, date}, {locale}) => {
+      if (!date) return {value: '—'}
+
+      const start = new Date(String(date))
+      if (Number.isNaN(start.getTime())) return {value: '—'}
+
+      // Determine LMP and due date from the given input
+      let lmp: Date
+      let due: Date
+      if (method === 'dueDate') {
+        due = new Date(start)
+        lmp = new Date(start)
+        lmp.setDate(lmp.getDate() - 280)
+      } else {
+        lmp = new Date(start)
+        due = new Date(start)
+        due.setDate(due.getDate() + 280)
+      }
+
+      const today = new Date()
+      today.setHours(0, 0, 0, 0)
+      const lmpDay = new Date(lmp)
+      lmpDay.setHours(0, 0, 0, 0)
+
+      const dayMs = 1000 * 60 * 60 * 24
+      const daysPregnant = Math.floor(
+        (today.getTime() - lmpDay.getTime()) / dayMs,
+      )
+      const daysLeft = Math.floor((due.getTime() - today.getTime()) / dayMs)
+
+      if (daysPregnant < 0) return {value: '—'}
+
+      const weeks = Math.floor(daysPregnant / 7)
+      const days = daysPregnant % 7
+      const progress = Math.min(100, (daysPregnant / 280) * 100)
+
+      const trimester = weeks < 13 ? 'first' : weeks < 28 ? 'second' : 'third'
+
+      const fmtLong = (d: Date) =>
+        d.toLocaleDateString(locale, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })
+
+      return {
+        value: `${weeks}w ${days}d`,
+        secondary: [
+          {
+            label: 'pregnancy-week-tracker.secondary.trimester',
+            value: `pregnancy-week-tracker.trimester.${trimester}`,
+          },
+          {
+            label: 'pregnancy-week-tracker.secondary.daysLeft',
+            value: daysLeft > 0 ? String(daysLeft) : '0',
+          },
+          {
+            label: 'pregnancy-week-tracker.secondary.progress',
+            value: `${progress.toFixed(1)}%`,
+          },
+          {
+            label: 'pregnancy-week-tracker.secondary.dueDate',
+            value: fmtLong(due),
+          },
+        ],
+      }
+    },
+    resultLabel: 'pregnancy-week-tracker.resultLabel',
+    resultUnit: 'pregnancy-week-tracker.resultUnit',
+    faq: [
+      {
+        q: 'pregnancy-week-tracker.faq.q1',
+        a: 'pregnancy-week-tracker.faq.a1',
+      },
+      {
+        q: 'pregnancy-week-tracker.faq.q2',
+        a: 'pregnancy-week-tracker.faq.a2',
+      },
+      {
+        q: 'pregnancy-week-tracker.faq.q3',
+        a: 'pregnancy-week-tracker.faq.a3',
+      },
+      {
+        q: 'pregnancy-week-tracker.faq.q4',
+        a: 'pregnancy-week-tracker.faq.a4',
+      },
+    ],
+    related: ['pregnancy-due-date-calculator', 'menstrual-cycle-calculator'],
+    publishedAt: '2026-09-29',
+  },
 ]

@@ -35,7 +35,7 @@ interface SalarySlipData {
   netPayWords: string
 }
 
-const STORAGE_KEY = 'salary-slip-generator-draft-v1'
+const STORAGE_KEY = 'payslip-generator-draft-v1'
 
 const CURRENCIES = ['USD', 'EUR', 'RUB', 'GBP', 'INR', 'JPY', 'AUD', 'CAD']
 
@@ -153,7 +153,7 @@ export function SalarySlipGeneratorView() {
   }
 
   function handleReset() {
-    if (!confirm(t('salary-slip-generator.confirmReset'))) return
+    if (!confirm(t('payslip-generator.confirmReset'))) return
     setData(freshSlip())
   }
 
@@ -208,11 +208,11 @@ export function SalarySlipGeneratorView() {
             onClick={handleOpenPreview}
           >
             <ExternalLink className="mr-1.5 h-3.5 w-3.5" />
-            {t('salary-slip-generator.preview')}
+            {t('payslip-generator.preview')}
           </Button>
           <Button type="button" size="sm" onClick={handlePrint}>
             <FileDown className="mr-1.5 h-3.5 w-3.5" />
-            {t('salary-slip-generator.downloadPdf')}
+            {t('payslip-generator.downloadPdf')}
           </Button>
         </div>
         <Button
@@ -223,7 +223,7 @@ export function SalarySlipGeneratorView() {
           className="text-destructive hover:text-destructive"
         >
           <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          {t('salary-slip-generator.reset')}
+          {t('payslip-generator.reset')}
         </Button>
       </div>
 
@@ -231,18 +231,18 @@ export function SalarySlipGeneratorView() {
         {/* FORM */}
         <div className="space-y-3 print:hidden">
           {/* Company + Currency */}
-          <Section title={t('salary-slip-generator.company')}>
+          <Section title={t('payslip-generator.company')}>
             <div className="space-y-2">
               <Input
                 value={data.companyName}
                 onChange={e => update('companyName', e.target.value)}
-                placeholder={t('salary-slip-generator.companyName')}
+                placeholder={t('payslip-generator.companyName')}
                 className="h-9"
               />
               <textarea
                 value={data.companyAddress}
                 onChange={e => update('companyAddress', e.target.value)}
-                placeholder={t('salary-slip-generator.companyAddress')}
+                placeholder={t('payslip-generator.companyAddress')}
                 rows={2}
                 className="w-full resize-none rounded-lg border bg-background p-2.5 text-sm outline-none focus:ring-2 focus:ring-primary/30"
               />
@@ -250,11 +250,11 @@ export function SalarySlipGeneratorView() {
           </Section>
 
           {/* Employee */}
-          <Section title={t('salary-slip-generator.employee')}>
+          <Section title={t('payslip-generator.employee')}>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="space-y-1.5">
                 <FieldLabel htmlFor="sl-name">
-                  {t('salary-slip-generator.employeeName')}
+                  {t('payslip-generator.employeeName')}
                 </FieldLabel>
                 <Input
                   id="sl-name"
@@ -265,7 +265,7 @@ export function SalarySlipGeneratorView() {
               </div>
               <div className="space-y-1.5">
                 <FieldLabel htmlFor="sl-id">
-                  {t('salary-slip-generator.employeeId')}
+                  {t('payslip-generator.employeeId')}
                 </FieldLabel>
                 <Input
                   id="sl-id"
@@ -276,7 +276,7 @@ export function SalarySlipGeneratorView() {
               </div>
               <div className="space-y-1.5">
                 <FieldLabel htmlFor="sl-designation">
-                  {t('salary-slip-generator.designation')}
+                  {t('payslip-generator.designation')}
                 </FieldLabel>
                 <Input
                   id="sl-designation"
@@ -287,7 +287,7 @@ export function SalarySlipGeneratorView() {
               </div>
               <div className="space-y-1.5">
                 <FieldLabel htmlFor="sl-department">
-                  {t('salary-slip-generator.department')}
+                  {t('payslip-generator.department')}
                 </FieldLabel>
                 <Input
                   id="sl-department"
@@ -298,7 +298,7 @@ export function SalarySlipGeneratorView() {
               </div>
               <div className="space-y-1.5">
                 <FieldLabel htmlFor="sl-joining">
-                  {t('salary-slip-generator.joiningDate')}
+                  {t('payslip-generator.joiningDate')}
                 </FieldLabel>
                 <DatePicker
                   id="sl-joining"
@@ -309,7 +309,7 @@ export function SalarySlipGeneratorView() {
               </div>
               <div className="space-y-1.5">
                 <FieldLabel htmlFor="sl-period">
-                  {t('salary-slip-generator.payPeriod')}
+                  {t('payslip-generator.payPeriod')}
                 </FieldLabel>
                 <Input
                   id="sl-period"
@@ -321,7 +321,7 @@ export function SalarySlipGeneratorView() {
               </div>
               <div className="space-y-1.5 sm:col-span-2">
                 <span className="block text-xs font-semibold whitespace-nowrap text-muted-foreground">
-                  {t('quotation-generator.currency')}
+                  {t('payslip-generator.currency')}
                 </span>
                 <Select
                   items={CURRENCIES.map(c => ({
@@ -348,8 +348,8 @@ export function SalarySlipGeneratorView() {
 
           {/* Earnings */}
           <Section
-            title={t('salary-slip-generator.earnings')}
-            subtitle={t('salary-slip-generator.earningsHint')}
+            title={t('payslip-generator.earnings')}
+            subtitle={t('payslip-generator.earningsHint')}
           >
             <div className="space-y-2">
               {data.earnings.map(item => (
@@ -362,7 +362,7 @@ export function SalarySlipGeneratorView() {
                     onChange={e =>
                       updateItem('earnings', item.id, {label: e.target.value})
                     }
-                    placeholder={t('salary-slip-generator.itemLabel')}
+                    placeholder={t('payslip-generator.itemLabel')}
                     className="h-9"
                   />
                   <Input
@@ -383,7 +383,7 @@ export function SalarySlipGeneratorView() {
                     size="icon"
                     onClick={() => removeItem('earnings', item.id)}
                     className="h-9 w-9 text-muted-foreground hover:text-destructive"
-                    aria-label={t('salary-slip-generator.removeItem')}
+                    aria-label={t('payslip-generator.removeItem')}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -398,12 +398,12 @@ export function SalarySlipGeneratorView() {
               className="mt-3"
             >
               <Plus className="mr-1.5 h-3.5 w-3.5" />
-              {t('salary-slip-generator.addEarning')}
+              {t('payslip-generator.addEarning')}
             </Button>
 
             <div className="mt-4 flex items-center justify-between rounded-lg border bg-muted/30 px-3 py-2">
               <span className="text-sm font-medium">
-                {t('salary-slip-generator.grossEarnings')}
+                {t('payslip-generator.grossEarnings')}
               </span>
               <span className="font-semibold tabular-nums">
                 {currencySymbol}
@@ -414,8 +414,8 @@ export function SalarySlipGeneratorView() {
 
           {/* Deductions */}
           <Section
-            title={t('salary-slip-generator.deductions')}
-            subtitle={t('salary-slip-generator.deductionsHint')}
+            title={t('payslip-generator.deductions')}
+            subtitle={t('payslip-generator.deductionsHint')}
           >
             <div className="space-y-2">
               {data.deductions.map(item => (
@@ -428,7 +428,7 @@ export function SalarySlipGeneratorView() {
                     onChange={e =>
                       updateItem('deductions', item.id, {label: e.target.value})
                     }
-                    placeholder={t('salary-slip-generator.itemLabel')}
+                    placeholder={t('payslip-generator.itemLabel')}
                     className="h-9"
                   />
                   <Input
@@ -449,7 +449,7 @@ export function SalarySlipGeneratorView() {
                     size="icon"
                     onClick={() => removeItem('deductions', item.id)}
                     className="h-9 w-9 text-muted-foreground hover:text-destructive"
-                    aria-label={t('salary-slip-generator.removeItem')}
+                    aria-label={t('payslip-generator.removeItem')}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>
@@ -464,12 +464,12 @@ export function SalarySlipGeneratorView() {
               className="mt-3"
             >
               <Plus className="mr-1.5 h-3.5 w-3.5" />
-              {t('salary-slip-generator.addDeduction')}
+              {t('payslip-generator.addDeduction')}
             </Button>
 
             <div className="mt-4 flex items-center justify-between rounded-lg border bg-muted/30 px-3 py-2">
               <span className="text-sm font-medium">
-                {t('salary-slip-generator.totalDeductions')}
+                {t('payslip-generator.totalDeductions')}
               </span>
               <span className="font-semibold tabular-nums">
                 {currencySymbol}
@@ -479,11 +479,11 @@ export function SalarySlipGeneratorView() {
           </Section>
 
           {/* Net Pay words */}
-          <Section title={t('salary-slip-generator.netPayWords')}>
+          <Section title={t('payslip-generator.netPayWords')}>
             <Input
               value={data.netPayWords}
               onChange={e => update('netPayWords', e.target.value)}
-              placeholder={t('salary-slip-generator.netPayWordsPlaceholder')}
+              placeholder={t('payslip-generator.netPayWordsPlaceholder')}
               className="h-9"
             />
           </Section>
@@ -492,7 +492,7 @@ export function SalarySlipGeneratorView() {
           <div className="rounded-xl border bg-card p-4">
             <div className="flex items-center justify-between">
               <span className="text-base font-bold">
-                {t('salary-slip-generator.netPay')}
+                {t('payslip-generator.netPay')}
               </span>
               <span className="text-2xl font-black tabular-nums text-emerald-600 dark:text-emerald-400">
                 {currencySymbol}
@@ -574,8 +574,7 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
         {/* Company header */}
         <div className="mb-6 border-b pb-4">
           <div className="text-lg font-extrabold tracking-tight text-gray-900">
-            {data.companyName ||
-              t('salary-slip-generator.previewCompanyFallback')}
+            {data.companyName || t('payslip-generator.previewCompanyFallback')}
           </div>
           {data.companyAddress && (
             <p className="mt-0.5 text-xs leading-relaxed whitespace-pre-wrap text-gray-500">
@@ -583,34 +582,34 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
             </p>
           )}
           <h2 className="mt-3 text-center text-xl font-black tracking-widest text-gray-900 uppercase">
-            {t('salary-slip-generator.previewTitle')}
+            {t('payslip-generator.previewTitle')}
           </h2>
         </div>
 
         {/* Employee details */}
         <div className="mb-6 grid grid-cols-2 gap-x-6 gap-y-2 text-xs">
           <Row
-            label={t('salary-slip-generator.employeeName')}
+            label={t('payslip-generator.employeeName')}
             value={data.employeeName}
           />
           <Row
-            label={t('salary-slip-generator.employeeId')}
+            label={t('payslip-generator.employeeId')}
             value={data.employeeId}
           />
           <Row
-            label={t('salary-slip-generator.designation')}
+            label={t('payslip-generator.designation')}
             value={data.designation}
           />
           <Row
-            label={t('salary-slip-generator.department')}
+            label={t('payslip-generator.department')}
             value={data.department}
           />
           <Row
-            label={t('salary-slip-generator.joiningDate')}
+            label={t('payslip-generator.joiningDate')}
             value={data.joiningDate}
           />
           <Row
-            label={t('salary-slip-generator.payPeriod')}
+            label={t('payslip-generator.payPeriod')}
             value={data.payPeriod}
           />
         </div>
@@ -620,7 +619,7 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
           {/* Earnings */}
           <div className="overflow-hidden rounded-lg border">
             <div className="bg-gray-100 px-3 py-2 text-[10px] font-bold tracking-widest text-gray-700 uppercase">
-              {t('salary-slip-generator.earnings')}
+              {t('payslip-generator.earnings')}
             </div>
             <table className="w-full text-xs">
               <tbody className="divide-y divide-gray-100">
@@ -636,7 +635,7 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
                 ))}
                 <tr className="border-t border-gray-300 bg-gray-50 font-semibold">
                   <td className="px-3 py-1.5 text-gray-900">
-                    {t('salary-slip-generator.grossEarnings')}
+                    {t('payslip-generator.grossEarnings')}
                   </td>
                   <td className="px-3 py-1.5 text-right text-gray-900 tabular-nums">
                     {fmt(totals.gross)}
@@ -649,7 +648,7 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
           {/* Deductions */}
           <div className="overflow-hidden rounded-lg border">
             <div className="bg-gray-100 px-3 py-2 text-[10px] font-bold tracking-widest text-gray-700 uppercase">
-              {t('salary-slip-generator.deductions')}
+              {t('payslip-generator.deductions')}
             </div>
             <table className="w-full text-xs">
               <tbody className="divide-y divide-gray-100">
@@ -665,7 +664,7 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
                 ))}
                 <tr className="border-t border-gray-300 bg-gray-50 font-semibold">
                   <td className="px-3 py-1.5 text-gray-900">
-                    {t('salary-slip-generator.totalDeductions')}
+                    {t('payslip-generator.totalDeductions')}
                   </td>
                   <td className="px-3 py-1.5 text-right text-gray-900 tabular-nums">
                     {fmt(totals.deductions)}
@@ -680,7 +679,7 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
         <div className="rounded-lg border border-gray-900 bg-gray-50 p-4">
           <div className="flex items-center justify-between">
             <span className="text-[10px] font-bold tracking-widest text-gray-700 uppercase">
-              {t('salary-slip-generator.netPay')}
+              {t('payslip-generator.netPay')}
             </span>
             <span className="text-2xl font-black text-gray-900 tabular-nums">
               {fmt(totals.net)}
@@ -696,10 +695,10 @@ function SalarySlipPreview({data, totals}: PreviewProps) {
         {/* Signature */}
         <div className="mt-10 flex justify-between gap-6 text-xs">
           <div className="flex-1 border-t border-gray-400 pt-1.5 text-center text-gray-500">
-            {t('salary-slip-generator.signatureEmployee')}
+            {t('payslip-generator.signatureEmployee')}
           </div>
           <div className="flex-1 border-t border-gray-400 pt-1.5 text-center text-gray-500">
-            {t('salary-slip-generator.signatureEmployer')}
+            {t('payslip-generator.signatureEmployer')}
           </div>
         </div>
       </div>

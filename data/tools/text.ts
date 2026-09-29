@@ -73,4 +73,34 @@ export const textTools: ToolConfig[] = [
     related: ['word-counter', 'case-converter'],
     publishedAt: '2025-01-19',
   },
+  {
+    kind: 'number-to-words',
+    slug: 'number-to-words-converter',
+    category: 'text',
+    title: 'number-to-words-converter.title',
+    h1: 'number-to-words-converter.h1',
+    description: 'number-to-words-converter.description',
+    keywords: ['number-to-words-converter.keywords'],
+    tags: ['text'],
+    faq: [
+      {
+        q: 'number-to-words-converter.faq.q1',
+        a: 'number-to-words-converter.faq.a1',
+      },
+      {
+        q: 'number-to-words-converter.faq.q2',
+        a: 'number-to-words-converter.faq.a2',
+      },
+      {
+        q: 'number-to-words-converter.faq.q3',
+        a: 'number-to-words-converter.faq.a3',
+      },
+      {
+        q: 'number-to-words-converter.faq.q4',
+        a: 'number-to-words-converter.faq.a4',
+      },
+    ],
+    related: ['word-counter', 'case-converter'],
+    publishedAt: '2026-09-29',
+  },
 ]

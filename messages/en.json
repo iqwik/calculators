@@ -434,40 +434,6 @@
         "a4": "Yes. All fields accept decimal values, and results are shown with up to four decimal places."
       }
     },
-    "emi-calculator": {
-      "title": "EMI Calculator – Loan Monthly Payment Calculator",
-      "h1": "EMI Calculator",
-      "description": "Free EMI calculator for home, car and personal loans. Get your monthly EMI, total interest and total payment instantly.",
-      "keywords": "emi calculator,loan calculator,monthly payment calculator,home loan emi,car loan emi",
-      "inputs": {
-        "principal": "Loan amount",
-        "rate": "Annual interest rate",
-        "tenure": "Loan tenure"
-      },
-      "units": {
-        "currency": "Amount",
-        "years": "years"
-      },
-      "resultLabel": "Monthly EMI",
-      "resultUnit": "per month",
-      "secondary": {
-        "principal": "Principal",
-        "totalInterest": "Total interest",
-        "totalPayment": "Total payment",
-        "months": "Number of payments",
-        "interestShare": "Interest share"
-      },
-      "faq": {
-        "q1": "What is EMI?",
-        "a1": "EMI stands for Equated Monthly Installment — a fixed amount you pay every month to repay a loan. Each payment covers part of the interest and part of the principal.",
-        "q2": "How is EMI calculated?",
-        "a2": "The formula is: EMI = P × r × (1 + r)^n / ((1 + r)^n − 1), where P is the principal, r is the monthly interest rate, and n is the number of monthly payments.",
-        "q3": "Does a longer tenure mean a lower EMI?",
-        "a3": "Yes. A longer tenure spreads payments over more months, lowering the monthly EMI — but you end up paying more total interest.",
-        "q4": "Does a higher interest rate increase the EMI?",
-        "a4": "Yes. The EMI grows with the interest rate for the same principal and tenure. Even a small rate difference noticeably affects total interest over long tenures."
-      }
-    },
     "compound-interest-calculator": {
       "title": "Compound Interest Calculator – Future Value of Investment",
       "h1": "Compound Interest Calculator",
@@ -559,149 +525,6 @@
         "a3": "Add the tip to the bill to get the total, then divide the total by the number of people. Each person pays an equal share.",
         "q4": "Should I tip on the pre-tax or post-tax amount?",
         "a4": "Etiquette varies. Tipping on the pre-tax amount is common and fair, but many people simply tip on the total. Either is generally acceptable."
-      }
-    },
-    "gst-calculator": {
-      "title": "GST Calculator – Tax Inclusive & Exclusive Calculator",
-      "h1": "GST Calculator",
-      "description": "Free GST calculator. Calculate GST inclusive and exclusive amounts with accurate CGST, SGST and IGST breakup for 5%, 12%, 18% and 28% slabs.",
-      "keywords": "gst calculator,gst inclusive,gst exclusive,cgst sgst calculator,igst calculator,gst india",
-      "inputs": {
-        "amount": "Amount",
-        "rate": "GST rate",
-        "type": "Type"
-      },
-      "options": {
-        "r5": "5%",
-        "r12": "12%",
-        "r18": "18%",
-        "r28": "28%",
-        "exclusive": "Add GST (exclusive)",
-        "inclusive": "Remove GST (inclusive)"
-      },
-      "resultLabel": "Total amount",
-      "secondary": {
-        "base": "Base amount",
-        "gst": "GST amount",
-        "cgst": "CGST (half)",
-        "sgst": "SGST (half)"
-      },
-      "faq": {
-        "q1": "What is GST?",
-        "a1": "GST (Goods and Services Tax) is a single indirect tax applied on the supply of goods and services in India. It replaced multiple taxes like VAT, service tax and excise duty.",
-        "q2": "What is the difference between GST inclusive and exclusive?",
-        "a2": "GST exclusive means the amount does not include GST — you add it. GST inclusive means the amount already includes GST — you extract it to find the base price.",
-        "q3": "What are CGST, SGST and IGST?",
-        "a3": "For intra-state sales, GST is split equally into CGST (Central GST) and SGST (State GST). For inter-state sales, a single IGST (Integrated GST) applies instead.",
-        "q4": "What are the GST slabs in India?",
-        "a4": "The main GST slabs are 5%, 12%, 18% and 28%. Basic necessities are often 0% or 5%, while luxury goods fall under 28%."
-      }
-    },
-    "salary-calculator": {
-      "title": "Salary Calculator – Hourly, Monthly & Yearly Pay Converter",
-      "h1": "Salary Calculator",
-      "description": "Free salary calculator. Convert hourly pay to yearly or monthly salary and back. See your equivalent earnings across all periods.",
-      "keywords": "salary calculator,hourly to yearly,annual salary calculator,monthly salary,pay converter",
-      "inputs": {
-        "amount": "Amount",
-        "period": "Pay period",
-        "hoursPerWeek": "Hours per week",
-        "daysPerWeek": "Days per week"
-      },
-      "options": {
-        "hourly": "Per hour",
-        "daily": "Per day",
-        "weekly": "Per week",
-        "monthly": "Per month",
-        "yearly": "Per year"
-      },
-      "hints": {
-        "hoursPerWeek": "Used to convert hourly pay. Standard: 40.",
-        "daysPerWeek": "Used to convert daily pay. Standard: 5."
-      },
-      "resultLabel": "Yearly salary",
-      "resultUnit": "per year",
-      "secondary": {
-        "monthly": "Monthly",
-        "weekly": "Weekly",
-        "daily": "Daily",
-        "hourly": "Hourly"
-      },
-      "faq": {
-        "q1": "How do I convert hourly pay to a yearly salary?",
-        "a1": "Multiply your hourly rate by the number of hours you work per week, then by 52 weeks. For example, $25/hour × 40 hours × 52 weeks = $52,000/year.",
-        "q2": "How many working hours are in a year?",
-        "a2": "A standard full-time schedule (40 hours/week, 52 weeks) is 2,080 hours per year. Part-time or irregular schedules will differ.",
-        "q3": "How do I convert monthly salary to hourly?",
-        "a3": "Multiply the monthly salary by 12 to get the yearly total, then divide by the number of working hours per year. For a 40-hour week, that's 2,080 hours.",
-        "q4": "Does this calculator account for taxes?",
-        "a4": "No. This is a gross pay converter. Taxes and deductions depend on your country, state and personal situation. Use a take-home pay calculator for net amounts."
-      }
-    },
-    "roi-calculator": {
-      "title": "ROI Calculator – Return on Investment & Profit Margin",
-      "h1": "ROI Calculator",
-      "description": "Free ROI calculator. Calculate return on investment, profit margin and net profit for any investment or business project.",
-      "keywords": "roi calculator,return on investment,profit margin calculator,net profit,investment return",
-      "inputs": {
-        "mode": "Calculation mode",
-        "initial": "Initial amount",
-        "final": "Final amount",
-        "cost": "Business costs"
-      },
-      "options": {
-        "simple": "Investment (initial → final)",
-        "business": "Business (revenue − costs)"
-      },
-      "hints": {
-        "cost": "Used only in business mode."
-      },
-      "resultLabel": "ROI",
-      "secondary": {
-        "initial": "Initial amount",
-        "final": "Final amount",
-        "revenue": "Revenue",
-        "cost": "Costs",
-        "profit": "Net profit",
-        "margin": "Profit margin"
-      },
-      "faq": {
-        "q1": "What is ROI?",
-        "a1": "ROI (Return on Investment) measures how much profit you made relative to what you invested. It is expressed as a percentage: ROI = (final value − initial value) / initial value × 100.",
-        "q2": "How is ROI different from profit margin?",
-        "a2": "ROI compares profit to the amount invested. Profit margin compares profit to revenue. Both are useful — ROI for investors, margin for business owners.",
-        "q3": "Can ROI be negative?",
-        "a3": "Yes. A negative ROI means you lost money — the final value is less than what you invested. A ROI of −20% means you lost 20% of your investment.",
-        "q4": "Does ROI account for time?",
-        "a4": "Simple ROI does not. A 50% return over 1 year is very different from 50% over 10 years. For time-adjusted returns, use CAGR or annualized ROI."
-      }
-    },
-    "sip-calculator": {
-      "title": "SIP Calculator – Mutual Fund Investment Growth",
-      "h1": "SIP Calculator",
-      "description": "Free SIP calculator. Project the future value of your monthly mutual fund investments with expected rate of return and total wealth gain.",
-      "keywords": "sip calculator,sip mutual fund,monthly investment calculator,mutual fund returns,sip return calculator",
-      "inputs": {
-        "monthly": "Monthly investment",
-        "rate": "Expected annual return",
-        "years": "Investment period"
-      },
-      "resultLabel": "Future value",
-      "secondary": {
-        "invested": "Total invested",
-        "gains": "Wealth gained",
-        "months": "Months",
-        "gainShare": "Gain share"
-      },
-      "faq": {
-        "q1": "What is a SIP?",
-        "a1": "SIP (Systematic Investment Plan) is a way to invest in mutual funds by putting in a fixed amount every month. It averages out market ups and downs and builds discipline.",
-        "q2": "How is SIP future value calculated?",
-        "a2": "The formula is: FV = P × ((1 + i)^n − 1) / i × (1 + i), where P is the monthly investment, i is the monthly rate of return, and n is the number of months.",
-        "q3": "Is SIP better than a lump sum?",
-        "a3": "It depends on the market. SIP reduces timing risk by spreading purchases over time. Lump sum can outperform in steadily rising markets but has higher timing risk.",
-        "q4": "What return rate should I assume?",
-        "a4": "Historically, diversified equity mutual funds in India have returned around 10–14% annually over long periods. Use a conservative estimate like 10–12% for planning."
       }
     },
     "date-difference-calculator": {
@@ -1883,61 +1706,6 @@
         "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved draft."
       }
     },
-    "salary-slip-generator": {
-      "title": "Salary Slip Generator – Free Payslip Maker",
-      "h1": "Salary Slip Generator",
-      "description": "Generate professional salary slips in your browser. Add earnings, deductions, PF, TDS and HRA, then download or print a formatted payslip. No signup needed.",
-      "keywords": "salary slip generator,payslip generator,salary slip maker,free payslip online,payroll slip generator,employee salary slip,monthly salary slip",
-
-      "preview": "Preview",
-      "downloadPdf": "Download PDF",
-      "reset": "Reset",
-      "confirmReset": "Reset the salary slip? All current data will be lost.",
-
-      "company": "Company",
-      "companyName": "Company Name",
-      "companyAddress": "Company Address",
-
-      "employee": "Employee",
-      "employeeName": "Employee Name",
-      "employeeId": "Employee ID",
-      "designation": "Designation",
-      "department": "Department",
-      "joiningDate": "Date of Joining",
-      "payPeriod": "Pay Period",
-      "currency": "Currency",
-
-      "earnings": "Earnings",
-      "earningsHint": "Basic, HRA, allowances, bonus, etc.",
-      "deductions": "Deductions",
-      "deductionsHint": "PF, professional tax, TDS, loans, etc.",
-      "itemLabel": "Label",
-      "removeItem": "Remove",
-      "addEarning": "Add Earning",
-      "addDeduction": "Add Deduction",
-      "grossEarnings": "Gross Earnings",
-      "totalDeductions": "Total Deductions",
-      "netPay": "Net Pay",
-
-      "netPayWords": "Net Pay in words (optional)",
-      "netPayWordsPlaceholder": "e.g. Five Thousand Only",
-
-      "previewTitle": "Salary Slip",
-      "previewCompanyFallback": "Your Company",
-      "signatureEmployee": "Employee Signature",
-      "signatureEmployer": "Employer Signature",
-
-      "faq": {
-        "q1": "What should a salary slip include?",
-        "a1": "A salary slip typically shows the employee's name, ID, designation, pay period, earnings (basic, HRA, allowances), deductions (PF, taxes, loans), and the net pay. Both parties usually sign it.",
-        "q2": "Is a salary slip the same as a payslip?",
-        "a2": "Yes. Salary slip, payslip, and pay stub all refer to the same document — a breakdown of an employee's pay for a specific period.",
-        "q3": "Can I add custom earnings and deductions?",
-        "a3": "Yes. Use the Add Earning and Add Deduction buttons to insert custom rows. You can also delete any row you don't need.",
-        "q4": "Is my data saved?",
-        "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved draft."
-      }
-    },
     "license-generator": {
       "title": "Open Source License Generator – MIT, Apache, GPL & More",
       "h1": "Open Source License Generator",
@@ -2215,6 +1983,724 @@
         "a3": "Facebook and most platforms recommend 1200×630 px (1.91:1 ratio). Twitter uses the same size for summary_large_image cards.",
         "q4": "Is my data sent anywhere?",
         "a4": "No. All tag generation runs entirely in your browser. Your metadata never leaves your device."
+      }
+    },
+    "svg-to-base64": {
+      "title": "SVG to Base64 & Data URI Converter – Free Online Tool",
+      "h1": "SVG to Base64 Converter",
+      "description": "Free SVG to Base64 converter. Turn SVG code into Data URIs for CSS backgrounds or inline HTML. Fast and private.",
+      "keywords": "svg to base64,svg data uri generator,svg to css background,inline svg base64,frontend svg tools",
+      "inputLabel": "Paste SVG Code",
+      "previewAlt": "SVG preview",
+      "previewEmpty": "Preview will appear here",
+      "snippetsTitle": "Ready to Use Snippets",
+      "cssUrlEncoded": "CSS Background (URL Encoded)",
+      "cssBase64": "CSS Background (Base64)",
+      "htmlImg": "HTML Img Tag",
+      "rawDataUri": "Raw Base64 Data URI",
+      "optimalBadge": "Optimal",
+      "faq": {
+        "q1": "When should I use Base64 SVGs?",
+        "a1": "Base64 and Data URIs are useful for small icons and to reduce HTTP requests, especially for CSS backgrounds. They eliminate an extra round trip to the server and can improve load time for above-the-fold elements.",
+        "q2": "Base64 or URL-encoded — which is better?",
+        "a2": "For SVGs, URL-encoding (percent-encoding) is usually the better choice. It produces a smaller string and compresses better with GZIP and Brotli. Base64 increases file size by about 33% but is universally supported and simpler to embed in some build tools.",
+        "q3": "Do Data URI SVGs work in all browsers?",
+        "a3": "Yes. Data URIs are supported in every modern browser including Chrome, Firefox, Safari, and Edge. Extremely long URIs can hit URL length limits in very old browsers, but for typical icons this is not a concern.",
+        "q4": "Is my SVG code sent to a server?",
+        "a4": "No. All conversion runs 100% locally in your browser using JavaScript. Your SVG code never leaves your device — nothing is uploaded, logged, or stored anywhere."
+      }
+    },
+    "base64-to-image": {
+      "title": "Base64 to Image – Decode & Download Instantly (Free)",
+      "h1": "Base64 to Image Decoder",
+      "description": "Free Base64 to image converter. Paste any Base64 string and instantly preview and download the image. 100% private and offline.",
+      "keywords": "base64 to image,decode base64 image,base64 image converter,view base64 image,base64 decoder online",
+      "inputLabel": "Base64 String",
+      "inputPlaceholder": "Paste Base64 data here — with or without the data:image/...;base64, prefix...",
+      "invalidHint": "Could not detect a valid image. Supported formats: PNG, JPEG, GIF, WebP, BMP, SVG, ICO, AVIF.",
+      "detected": "Detected",
+      "previewAlt": "Decoded image preview",
+      "previewEmpty": "Paste a Base64 string to see the image preview",
+      "faq": {
+        "q1": "What kind of Base64 images can I decode?",
+        "a1": "Most common formats work well: PNG, JPEG, GIF, WebP, BMP, SVG, ICO, and AVIF. The tool auto-detects the format from the data URI prefix or from the file's magic bytes if no prefix is present.",
+        "q2": "Do I need to include the data URI prefix?",
+        "a2": "No. You can paste either the full data URI (data:image/png;base64,...) or just the raw Base64 string. The tool handles both, and strips whitespace and line breaks automatically.",
+        "q3": "Can I download the decoded image?",
+        "a3": "Yes. Click Download to save the decoded image as a file. The extension is chosen automatically based on the detected format, so a PNG becomes .png, a JPEG becomes .jpg, and so on.",
+        "q4": "Is my Base64 string sent to any server?",
+        "a4": "No. Decoding runs entirely in your browser using JavaScript and native browser APIs. Your Base64 string and the resulting image never leave your device."
+      }
+    },
+    "regex-tester": {
+      "title": "Regex Tester – Test & Debug Regular Expressions Live",
+      "h1": "Regex Tester",
+      "description": "Free regex tester with live highlighting. Test JavaScript regular expressions, see matches, groups, and flags in real time. Perfect for developers.",
+      "keywords": "regex tester,regular expression tester,regex matcher online,javascript regex debugger,test regex pattern",
+      "patternLabel": "Regular expression",
+      "patternPlaceholder": "Enter your regex pattern...",
+      "testTextLabel": "Test string",
+      "testTextPlaceholder": "Paste or type text to test against...",
+      "highlightedLabel": "Highlighted matches",
+      "matchesLabel": "Match details",
+      "match": "match",
+      "matches": "matches",
+      "noMatches": "No matches found",
+      "invalidRegex": "Invalid regular expression",
+      "indexLabel": "Index",
+      "fullMatch": "Full match",
+      "flags": {
+        "g": "global — find all matches",
+        "i": "ignore case — case-insensitive matching",
+        "m": "multiline — ^ and $ match line breaks",
+        "s": "dotAll — . matches newlines too",
+        "u": "unicode — full Unicode support",
+        "y": "sticky — match from lastIndex only"
+      },
+      "faq": {
+        "q1": "Which regex flavor does it use?",
+        "a1": "It uses JavaScript (ECMAScript) regular expressions — the same engine that runs in every browser and in Node.js. Syntax is almost identical to PCRE, with a few differences in lookbehind, named groups, and Unicode property escapes.",
+        "q2": "What do the flags mean?",
+        "a2": "g finds all matches instead of just the first. i makes matching case-insensitive. m makes ^ and $ match the start and end of each line. s makes . match newline characters too. u enables full Unicode mode. y makes the regex match only at the exact lastIndex position.",
+        "q3": "Why does my regex find no matches?",
+        "a3": "Common causes: missing the g flag (only first match shown), escaping issues (\\d vs d), or the pattern not matching the test text. Try toggling flags or simplifying the pattern to isolate the problem.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. The regex engine runs entirely in your browser. Your pattern and test text never leave your device — nothing is logged, stored, or transmitted."
+      }
+    },
+    "regex-generator": {
+      "title": "Regex Generator – Create Patterns from Example Strings",
+      "h1": "Regex Generator",
+      "description": "Turn example strings into accurate regular expressions. Give positive and negative examples to get a regex with explanation, test cases and flags.",
+      "keywords": "regex generator,regular expression from examples,create regex online,regex from text,pattern generator,regex builder,test regex",
+      "positivesLabel": "Positive examples (one per line)",
+      "positivesPlaceholder": "Strings that SHOULD match...\ne.g.\nhello@example.com\ntest@mycompany.org",
+      "negativesLabel": "Negative examples (optional)",
+      "negativesPlaceholder": "Strings that should NOT match...",
+      "resultLabel": "Generated regex",
+      "explanationLabel": "Explanation",
+      "negativeCheckLabel": "Validation against negative examples",
+      "example": "example",
+      "examples": "examples",
+      "negative": "negative",
+      "negatives": "negatives",
+      "explanation": {
+        "digit": "digit (0–9)",
+        "lower": "lowercase letter",
+        "upper": "uppercase letter",
+        "space": "whitespace",
+        "literal": "literal character",
+        "any": "any character"
+      },
+      "errors": {
+        "noExamples": "Enter at least one positive example to generate a regex.",
+        "structureMismatch": "Your positive examples have very different structures. Simplify them so they share a common pattern — for example, all emails, all dates, or all phone numbers."
+      },
+      "negativeCheck": {
+        "pass": "All negative examples correctly rejected.",
+        "fail": "Some negative examples also match the pattern:"
+      },
+      "faq": {
+        "q1": "How does it generate the regex?",
+        "a1": "It analyses the common structure across your positive examples and produces a pattern that matches them while trying to stay as specific as possible. Negative examples help refine the result by flagging overly broad patterns.",
+        "q2": "Is the generated regex always perfect?",
+        "a2": "It is a strong starting point based on the examples you provide. For complex cases you may still need to tweak quantifiers or character classes. Always test thoroughly with the Regex Tester.",
+        "q3": "Can it handle very different example formats?",
+        "a3": "It works best when examples share a clear structure (emails, phone numbers, log lines, dates). Highly varied data may produce a very broad regex or trigger a structure mismatch warning.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. All generation runs entirely in your browser. Your examples never leave your device."
+      }
+    },
+    "css-generator": {
+      "title": "CSS Box-Shadow & Gradient Generator – Visual Editor",
+      "h1": "CSS Shadow & Gradient Generator",
+      "description": "Free visual CSS generator. Create beautiful box-shadows and linear, radial, or conic gradients with live preview. Copy ready-to-use CSS instantly.",
+      "keywords": "css box shadow generator,css gradient generator,linear gradient css,radial gradient css,visual css editor",
+      "tabs": {
+        "shadows": "Shadows",
+        "gradients": "Gradients"
+      },
+      "shadowLabel": "Shadow",
+      "shadowColor": "Shadow color",
+      "backgroundColor": "Background",
+      "figureColor": "Figure color",
+      "addShadow": "Add shadow",
+      "removeShadow": "Remove shadow",
+      "offsetX": "Offset X",
+      "offsetY": "Offset Y",
+      "blur": "Blur",
+      "spread": "Spread",
+      "alpha": "Opacity",
+      "inset": "Inset",
+      "gradientTypes": {
+        "linear": "Linear",
+        "radial": "Radial",
+        "conic": "Conic"
+      },
+      "angle": "Angle",
+      "colorStops": "Color stops",
+      "stopLabel": "Stop",
+      "addStop": "Add color stop",
+      "removeStop": "Remove stop",
+      "position": "Position",
+      "cssLabel": "Generated CSS",
+      "faq": {
+        "q1": "Can I use multiple shadows?",
+        "a1": "Yes. Click Add shadow to add as many layers as you need. Each shadow has its own offset, blur, spread, color, opacity, and inset toggle. Multiple shadows are combined with commas in the final CSS.",
+        "q2": "What gradient types are supported?",
+        "a2": "Linear, radial, and conic gradients are all supported. Linear and conic accept an angle. You can add as many color stops as you like, each with its own color and position from 0% to 100%.",
+        "q3": "How do I copy the CSS?",
+        "a3": "Use the Copy button in the Generated CSS panel. The snippet is production-ready — paste it into your stylesheet, a CSS-in-JS object, or a Tailwind arbitrary value.",
+        "q4": "Is my design data sent anywhere?",
+        "a4": "No. All generation runs 100% locally in your browser. No shadow or gradient configurations are stored on our servers."
+      }
+    },
+    "tax-regime-comparator": {
+      "title": "Old vs New Tax Regime Calculator – 2025-26 Comparison",
+      "h1": "Old vs New Tax Regime Comparator",
+      "description": "Free old vs new tax regime calculator for India (FY 2025-26). Compare tax under both regimes with deductions and rebate to see which saves more.",
+      "keywords": "old vs new tax regime,tax regime comparator,which tax regime is better,new tax regime vs old,income tax calculator india,87a rebate calculator",
+      "inputs": {
+        "annualIncome": "Gross annual income",
+        "deductions": "Total deductions (Old Regime)"
+      },
+      "hints": {
+        "annualIncome": "Your total income before any deductions.",
+        "deductions": "Sum of 80C, 80D, HRA, home loan interest, and other deductions. Applied only to the Old Regime."
+      },
+      "resultLabel": "You save",
+      "resultUnit": "per year",
+      "secondary": {
+        "recommended": "Recommended regime",
+        "oldTax": "Old Regime tax",
+        "newTax": "New Regime tax",
+        "oldTaxable": "Old Regime taxable income",
+        "newTaxable": "New Regime taxable income"
+      },
+      "recommendation": {
+        "old": "Old Regime",
+        "new": "New Regime",
+        "same": "Both equal"
+      },
+      "faq": {
+        "q1": "Which tax regime is better – Old or New?",
+        "a1": "It depends on your income and deductions. If you have significant deductions (80C, HRA, home loan interest, etc.), the Old Regime is often better. If you have fewer deductions, the New Regime usually results in lower tax.",
+        "q2": "Can I switch between Old and New regime every year?",
+        "a2": "Salaried employees can switch every year. Business owners and professionals can switch only once in their lifetime (with some exceptions).",
+        "q3": "What is the standard deduction in both regimes?",
+        "a3": "New Regime: ₹75,000 (from FY 2024-25). Old Regime: ₹50,000. The New Regime gives a higher standard deduction.",
+        "q4": "Up to what income is tax zero in the New Regime?",
+        "a4": "Up to ₹7 lakh gross income, you pay zero tax in the New Regime due to the increased rebate under Section 87A."
+      }
+    },
+    "payslip-generator": {
+      "title": "Payslip Generator – Free Salary Slip & Pay Stub Maker",
+      "h1": "Payslip Generator",
+      "description": "Generate professional payslips and salary slips in your browser. Add custom earnings and deductions, then download or print a formatted pay stub. No signup needed.",
+      "keywords": "payslip generator,salary slip generator,pay stub maker,free payslip online,payroll slip generator,employee payslip,monthly payslip",
+
+      "preview": "Preview",
+      "downloadPdf": "Download PDF",
+      "reset": "Reset",
+      "confirmReset": "Reset the payslip? All current data will be lost.",
+
+      "company": "Company",
+      "companyName": "Company Name",
+      "companyAddress": "Company Address",
+
+      "employee": "Employee",
+      "employeeName": "Employee Name",
+      "employeeId": "Employee ID",
+      "designation": "Designation",
+      "department": "Department",
+      "joiningDate": "Date of Joining",
+      "payPeriod": "Pay Period",
+      "currency": "Currency",
+
+      "earnings": "Earnings",
+      "earningsHint": "Base salary, allowances, bonus, overtime, etc.",
+      "deductions": "Deductions",
+      "deductionsHint": "Tax, insurance, retirement contributions, loans, etc.",
+      "itemLabel": "Label",
+      "removeItem": "Remove",
+      "addEarning": "Add Earning",
+      "addDeduction": "Add Deduction",
+      "grossEarnings": "Gross Earnings",
+      "totalDeductions": "Total Deductions",
+      "netPay": "Net Pay",
+
+      "netPayWords": "Net Pay in words (optional)",
+      "netPayWordsPlaceholder": "e.g. Five Thousand Only",
+
+      "previewTitle": "Payslip",
+      "previewCompanyFallback": "Your Company",
+      "signatureEmployee": "Employee Signature",
+      "signatureEmployer": "Employer Signature",
+
+      "faq": {
+        "q1": "What should a payslip include?",
+        "a1": "A payslip typically shows the employee's name, ID, designation, pay period, earnings (base salary, allowances, bonuses), deductions (tax, insurance, retirement contributions), and the net pay. Both parties usually sign it.",
+        "q2": "Is a payslip the same as a salary slip?",
+        "a2": "Yes. Payslip, salary slip, and pay stub all refer to the same document — a breakdown of an employee's pay for a specific period.",
+        "q3": "Can I add custom earnings and deductions?",
+        "a3": "Yes. Use the Add Earning and Add Deduction buttons to insert custom rows. You can name them anything and delete rows you don't need.",
+        "q4": "Is my data saved?",
+        "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved draft."
+      }
+    },
+    "loan-payment-calculator": {
+      "title": "Loan Payment Calculator – Monthly Payment & Total Interest",
+      "h1": "Loan Payment Calculator",
+      "description": "Free loan payment calculator for mortgages, car loans and personal loans. Get your monthly payment, total interest and total cost instantly.",
+      "keywords": "loan payment calculator,monthly payment calculator,mortgage calculator,loan calculator,amortization calculator,car loan calculator",
+      "inputs": {
+        "principal": "Loan amount",
+        "rate": "Annual interest rate",
+        "tenure": "Loan term"
+      },
+      "units": {
+        "currency": "Amount",
+        "years": "years"
+      },
+      "resultLabel": "Monthly payment",
+      "resultUnit": "per month",
+      "secondary": {
+        "principal": "Principal",
+        "totalInterest": "Total interest",
+        "totalPayment": "Total payment",
+        "months": "Number of payments",
+        "interestShare": "Interest share"
+      },
+      "faq": {
+        "q1": "How is a monthly loan payment calculated?",
+        "a1": "Lenders use the annuity formula: PMT = P × r × (1 + r)^n / ((1 + r)^n − 1), where P is the principal, r is the monthly interest rate, and n is the number of monthly payments. Each payment covers interest first, then principal.",
+        "q2": "What is the formula for monthly payment?",
+        "a2": "Monthly payment = P × r × (1 + r)^n / ((1 + r)^n − 1). For a 200,000 loan at 6% annual over 30 years, r = 0.005 and n = 360, giving a payment of about 1,199 per month.",
+        "q3": "Does a longer term mean a lower payment?",
+        "a3": "Yes. A longer term spreads payments over more months, lowering the monthly amount — but you end up paying more total interest. Always compare both dimensions before choosing a term.",
+        "q4": "Does a higher interest rate increase the payment?",
+        "a4": "Yes. For the same principal and term, a higher rate increases the monthly payment. Even a 0.5% difference noticeably affects total interest on long-term loans."
+      }
+    },
+    "sales-tax-calculator": {
+      "title": "Sales Tax Calculator – Add or Remove Tax (VAT, GST)",
+      "h1": "Sales Tax Calculator",
+      "description": "Free sales tax calculator. Add tax to a net price or extract tax from a gross price. Works for sales tax, VAT and GST rates worldwide.",
+      "keywords": "sales tax calculator,vat calculator,tax calculator,add tax,remove tax,reverse tax calculator,tax inclusive exclusive",
+      "inputs": {
+        "amount": "Amount",
+        "rate": "Tax rate",
+        "type": "Type"
+      },
+      "options": {
+        "r5": "5%",
+        "r10": "10%",
+        "r15": "15%",
+        "r20": "20%",
+        "r25": "25%",
+        "exclusive": "Add tax (tax-exclusive)",
+        "inclusive": "Remove tax (tax-inclusive)"
+      },
+      "resultLabel": "Total amount",
+      "secondary": {
+        "base": "Net amount (before tax)",
+        "tax": "Tax amount",
+        "rate": "Effective rate",
+        "gross": "Gross amount (with tax)"
+      },
+      "faq": {
+        "q1": "How do I add sales tax to a price?",
+        "a1": "Multiply the net price by (1 + rate / 100). For a net price of 100 and a 20% tax: 100 × 1.20 = 120. The tax portion is 20.",
+        "q2": "How do I remove tax from a price?",
+        "a2": "Divide the gross price by (1 + rate / 100). For a gross price of 120 and a 20% rate: 120 / 1.20 = 100 net, with 20 tax. This is the reverse of adding tax.",
+        "q3": "What is the difference between sales tax, VAT and GST?",
+        "a3": "All are consumption taxes on goods and services. Sales tax is added at the point of sale (common in the US). VAT is collected at each stage of the supply chain (common in the EU and UK). GST is similar to VAT and used in Australia, Canada, India, and others.",
+        "q4": "Is tax added before or after a discount?",
+        "a4": "In most countries, tax is applied after any discount, on the final net amount. You pay tax only on what you actually pay, not the pre-discount price."
+      }
+    },
+    "monthly-investment-calculator": {
+      "title": "Monthly Investment Calculator – Future Value of Regular Savings",
+      "h1": "Monthly Investment Calculator",
+      "description": "Free monthly investment calculator. Project the future value of regular contributions with a chosen rate of return and time horizon.",
+      "keywords": "monthly investment calculator,compound savings calculator,investment growth calculator,recurring deposit calculator,future value calculator",
+      "inputs": {
+        "monthly": "Monthly contribution",
+        "rate": "Expected annual return",
+        "years": "Investment period"
+      },
+      "resultLabel": "Future value",
+      "secondary": {
+        "invested": "Total invested",
+        "gains": "Investment gains",
+        "months": "Months",
+        "gainShare": "Gain share"
+      },
+      "faq": {
+        "q1": "How is the future value of monthly investments calculated?",
+        "a1": "Future value = P × ((1 + i)^n − 1) / i × (1 + i), where P is the monthly contribution, i is the monthly rate of return, and n is the number of months. Contributions are assumed to be made at the start of each month.",
+        "q2": "Is investing monthly better than a lump sum?",
+        "a2": "It depends on the market. Monthly investing reduces timing risk by spreading purchases over time and builds discipline. A lump sum can outperform in steadily rising markets, but carries higher timing risk.",
+        "q3": "What rate of return should I assume?",
+        "a3": "A globally diversified equity portfolio has historically returned around 7–10% annually over long periods. Use a conservative estimate like 6–8% for planning, and adjust based on your risk tolerance.",
+        "q4": "Does this calculator account for inflation or taxes?",
+        "a4": "No. The result is a nominal future value. For real (inflation-adjusted) returns, subtract expected inflation from the annual rate. Taxes depend on your jurisdiction and are not modelled here."
+      }
+    },
+    "number-to-words-converter": {
+      "title": "Number to Words Converter – Spell Out Numbers (EN & RU)",
+      "h1": "Number to Words Converter",
+      "description": "Convert any number into words instantly. See the spelled-out form in English and Russian side by side, with correct grammar and plurals. Free and private.",
+      "keywords": "number to words,number to words converter,spell out numbers,write numbers in words,numbers in english,numbers in russian,number spelling",
+      "inputs": {
+        "number": "Number"
+      },
+      "hints": {
+        "number": "Integers from −1 trillion to 1 trillion"
+      },
+      "resultLabel": "Formatted",
+      "secondary": {
+        "en": "In English",
+        "ru": "По-русски"
+      },
+      "errors": {
+        "outOfRange": "Number is out of range. Enter an integer between −1 trillion and 1 trillion."
+      },
+      "faq": {
+        "q1": "How does the converter handle large numbers?",
+        "a1": "It supports integers from −1 trillion to 1 trillion using the short scale (thousand, million, billion, trillion). Anything outside this range is rejected to avoid ambiguity and precision loss.",
+        "q2": "Does it support negative numbers?",
+        "a2": "Yes. Negative values are prefixed with \"minus\" in English and \"минус\" in Russian. For example, −42 becomes \"minus forty-two\" and \"минус сорок два\".",
+        "q3": "How are Russian plurals handled?",
+        "a3": "Russian requires different word forms depending on the number: одна тысяча, две тысячи, пять тысяч. The converter uses the Intl.PluralRules API (CLDR data) to select the correct grammatical form automatically.",
+        "q4": "Is my input sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your numbers never leave your device."
+      }
+    },
+    "savings-goal-calculator": {
+      "title": "Savings Goal Calculator – How Much to Save Monthly",
+      "h1": "Savings Goal Calculator",
+      "description": "Find out how much you need to save every month to reach a financial goal. Enter the target amount, time horizon and expected return rate.",
+      "keywords": "savings goal calculator,how much to save monthly,savings calculator,goal based savings,monthly savings calculator,financial goal calculator",
+      "inputs": {
+        "goal": "Goal amount",
+        "initial": "Initial deposit",
+        "rate": "Expected annual return",
+        "years": "Time to goal"
+      },
+      "hints": {
+        "initial": "Money you already have saved for this goal. Leave 0 if starting from scratch."
+      },
+      "resultLabel": "Monthly contribution",
+      "resultUnit": "per month",
+      "secondary": {
+        "initial": "Initial deposit",
+        "totalContributions": "Total monthly contributions",
+        "totalInvested": "Total invested",
+        "interest": "Investment gains",
+        "fvInitial": "Initial grows to"
+      },
+      "faq": {
+        "q1": "How is the monthly contribution calculated?",
+        "a1": "We use the future value of an annuity formula, solved for the payment: PMT = (FV − PV × (1 + i)^n) × i / ((1 + i)^n − 1) / (1 + i), where FV is the goal, PV is the initial deposit, i is the monthly return rate, and n is the number of months.",
+        "q2": "What return rate should I assume?",
+        "a2": "A globally diversified equity portfolio has historically returned around 7–10% annually over long periods. Use a conservative 5–7% for planning, or 2–4% for a savings account.",
+        "q3": "Does the calculator account for inflation?",
+        "a3": "No. The result is nominal. For real (inflation-adjusted) planning, subtract expected inflation from your return rate. For example, 7% return and 2% inflation → use 5% for realistic goal setting.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your financial figures never leave your device."
+      }
+    },
+    "loan-eligibility-calculator": {
+      "title": "Loan Eligibility Calculator – How Much Can You Borrow?",
+      "h1": "Loan Eligibility Calculator",
+      "description": "Find out the maximum loan you can qualify for based on your income, existing debts, and the lender's debt-to-income limit. Free and private.",
+      "keywords": "loan eligibility calculator,how much can i borrow,how much loan can i get,debt to income calculator,dti calculator,mortgage eligibility calculator",
+      "inputs": {
+        "monthlyIncome": "Gross monthly income",
+        "existingDebt": "Existing monthly debt payments",
+        "dtiLimit": "Max debt-to-income ratio",
+        "rate": "Annual interest rate",
+        "tenure": "Loan term"
+      },
+      "hints": {
+        "dtiLimit": "Most lenders cap total debt at 36–43% of gross income. Some allow up to 50% for strong credit."
+      },
+      "resultLabel": "Maximum loan amount",
+      "secondary": {
+        "availablePayment": "Available monthly payment",
+        "maxTotalDebt": "Max total debt payment",
+        "existingDebt": "Existing debt",
+        "totalInterest": "Total interest over term",
+        "totalPayment": "Total payment over term",
+        "months": "Number of payments"
+      },
+      "faq": {
+        "q1": "How is loan eligibility calculated?",
+        "a1": "Lenders use the debt-to-income ratio (DTI). Your total monthly debt payments — including the new loan — should not exceed a set percentage of your gross income. We compute the maximum payment you can afford, then convert that into a loan amount using the annuity formula.",
+        "q2": "What DTI limit should I use?",
+        "a2": "Most conventional lenders prefer DTI below 36%. Some allow up to 43% for qualified mortgages, and up to 50% for strong applicants with high credit scores. Enter the limit your lender uses.",
+        "q3": "Does this calculator guarantee I will be approved?",
+        "a3": "No. Lenders also check credit score, employment history, assets, and other factors. This tool estimates the maximum loan amount based on income and debt alone, which is the primary quantitative criterion.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your income and debt figures never leave your device."
+      }
+    },
+    "rent-vs-buy-calculator": {
+      "title": "Rent vs Buy Calculator – Should You Buy a Home or Rent?",
+      "h1": "Rent vs Buy Calculator",
+      "description": "Compare the long-term financial outcome of buying a home versus renting and investing. Enter your numbers and see which option leaves you better off.",
+      "keywords": "rent vs buy calculator,should i rent or buy,buying vs renting,home purchase calculator,renting vs buying a house,homeownership calculator",
+      "inputs": {
+        "price": "Home price",
+        "downPayment": "Down payment",
+        "mortgageRate": "Mortgage rate",
+        "mortgageTerm": "Mortgage term",
+        "rentMonthly": "Monthly rent",
+        "appreciation": "Home appreciation",
+        "rentGrowth": "Annual rent increase",
+        "investmentReturn": "Investment return",
+        "years": "Comparison period"
+      },
+      "hints": {
+        "downPayment": "Cash you pay upfront. The same amount would be invested if you rent instead.",
+        "appreciation": "Annual home price change. Use a negative value for declining markets.",
+        "investmentReturn": "Expected annual return on a diversified portfolio. Historically 7–10% nominal."
+      },
+      "resultLabel": "Net difference (Buy − Rent)",
+      "resultUnit": "over the comparison period",
+      "secondary": {
+        "recommendation": "Recommendation",
+        "buyFinal": "Buy: final equity",
+        "rentFinal": "Rent: final portfolio",
+        "buyTotalPaid": "Buy: total cash out",
+        "rentTotalPaid": "Rent: total cash out"
+      },
+      "recommendation": {
+        "buy": "Buying is better",
+        "rent": "Renting is better",
+        "tie": "Roughly equal"
+      },
+      "faq": {
+        "q1": "How does the calculator compare buying and renting?",
+        "a1": "For buying, we project your home equity at the end of the period: home value minus any remaining mortgage balance. For renting, we project the investment portfolio you build by investing your down payment plus the monthly difference between your buy cost and your rent. The result is the difference between the two.",
+        "q2": "What costs are included for the buyer?",
+        "a2": "The mortgage payment (principal and interest), plus 2% of home value per year for property tax, insurance, and maintenance. Transaction costs like agent commissions and closing fees are not included — add them mentally if they matter for your situation.",
+        "q3": "What if I plan to sell before the mortgage is paid off?",
+        "a3": "The calculator handles this automatically. It uses the remaining mortgage balance at the end of your comparison period, so you can set the period to any number of years up to the full mortgage term.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your financial figures never leave your device."
+      }
+    },
+    "fixed-deposit-calculator": {
+      "title": "Fixed Deposit Calculator – Maturity Value & Interest Earned",
+      "h1": "Fixed Deposit Calculator",
+      "description": "Calculate the maturity value and interest earned on a fixed deposit or term deposit. Choose any compounding frequency and time horizon.",
+      "keywords": "fixed deposit calculator,fd calculator,term deposit calculator,fd maturity calculator,fixed deposit interest calculator,recurring deposit calculator",
+      "inputs": {
+        "principal": "Deposit amount",
+        "rate": "Annual interest rate",
+        "years": "Term",
+        "frequency": "Compounding frequency"
+      },
+      "options": {
+        "monthly": "Monthly",
+        "quarterly": "Quarterly",
+        "semiannually": "Semiannually",
+        "annually": "Annually",
+        "daily": "Daily"
+      },
+      "resultLabel": "Maturity value",
+      "secondary": {
+        "principal": "Deposit amount",
+        "interest": "Interest earned",
+        "ear": "Effective annual rate",
+        "periods": "Compounding periods"
+      },
+      "faq": {
+        "q1": "What is a fixed deposit?",
+        "a1": "A fixed deposit (FD), also called a term deposit, is a savings product where you lock in a sum of money for a fixed period at a fixed interest rate. The bank pays interest, usually compounded at intervals, and returns the principal at maturity.",
+        "q2": "How is the maturity value calculated?",
+        "a2": "Maturity = Principal × (1 + r/n)^(n×t), where r is the annual rate, n is the number of compounding periods per year, and t is the term in years. Monthly compounding is the most common for term deposits.",
+        "q3": "What is the effective annual rate?",
+        "a3": "The effective annual rate (EAR) is the actual return over one year after accounting for compounding within the year. A higher compounding frequency gives a higher EAR for the same nominal rate.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your deposit figures never leave your device."
+      }
+    },
+    "sleep-debt-calculator": {
+      "title": "Sleep Debt Calculator – How Much Sleep Do You Owe?",
+      "h1": "Sleep Debt Calculator",
+      "description": "Calculate your accumulated sleep debt over any period. See how many hours you are behind, how serious it is, and how to recover.",
+      "keywords": "sleep debt calculator,sleep debt,sleep deficit calculator,how much sleep do i need,sleep recovery,sleep tracker",
+      "inputs": {
+        "targetSleep": "Target sleep per night",
+        "actualSleep": "Actual average sleep",
+        "days": "Over how many days"
+      },
+      "hints": {
+        "targetSleep": "Most adults need 7–9 hours. Athletes and teenagers often need more."
+      },
+      "units": {
+        "hours": "h",
+        "days": "days",
+        "nights": "nights"
+      },
+      "resultLabel": "Total sleep debt",
+      "value": "{value} h",
+      "resultUnit": "accumulated",
+      "secondary": {
+        "perNight": "Deficit per night",
+        "perNightValue": "{count} h",
+        "level": "Severity",
+        "recovery": "Recovery needed",
+        "recoveryValue": "Extra sleep (+1 h/night)",
+        "recoveryValueText": "{count} nights",
+        "equivalent": "Equivalent to full nights lost"
+      },
+      "levels": {
+        "none": "No debt",
+        "mild": "Mild",
+        "moderate": "Moderate",
+        "severe": "Severe"
+      },
+      "faq": {
+        "q1": "What is sleep debt?",
+        "a1": "Sleep debt is the cumulative difference between the sleep your body needs and the sleep you actually get over time. A single short night leaves a small debt; repeated short nights create a large one that impairs focus, mood, immunity and long-term health.",
+        "q2": "How much sleep do I need?",
+        "a2": "Most adults need 7–9 hours per night. Athletes, teenagers and people recovering from illness often need more. The ideal target is the amount that lets you wake up naturally without an alarm and feel rested through the day.",
+        "q3": "Can I pay off sleep debt?",
+        "a3": "You can recover some of it with extra sleep on weekends, but chronic debt takes consistent good habits over weeks to fully repay. A common approach is to add 1–2 hours of sleep per night until you feel fully rested.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your sleep data never leaves your device."
+      }
+    },
+    "menstrual-cycle-calculator": {
+      "title": "Menstrual Cycle Calculator – Period, Ovulation & Fertile Window",
+      "h1": "Menstrual Cycle Calculator",
+      "description": "Predict your next period, ovulation date, and fertile window based on your last period and average cycle length. Free, private, and instant.",
+      "keywords": "period calculator,ovulation calculator,menstrual cycle calculator,fertile window calculator,next period predictor,cycle tracker",
+      "inputs": {
+        "lastPeriod": "Last period start date",
+        "cycleLength": "Average cycle length",
+        "periodLength": "Period duration",
+        "lutealPhase": "Luteal phase"
+      },
+      "hints": {
+        "lastPeriod": "First day of your most recent period.",
+        "lutealPhase": "Days between ovulation and the next period. Most women: 12–14 days."
+      },
+      "units": {
+        "days": "days"
+      },
+      "resultLabel": "Next period starts",
+      "resultUnit": "",
+      "secondary": {
+        "ovulation": "Estimated ovulation",
+        "fertileWindow": "Fertile window",
+        "next3": "Next 3 periods",
+        "currentDay": "Current cycle day"
+      },
+      "faq": {
+        "q1": "How accurate is the prediction?",
+        "a1": "The prediction assumes a regular cycle of the length you enter. Real cycles vary with stress, illness, travel, sleep, and weight changes. For cycle tracking or family planning, combine this with basal body temperature or ovulation test strips.",
+        "q2": "How do you calculate the fertile window?",
+        "a2": "Ovulation typically occurs about 14 days before the next period. The fertile window is the 5 days leading up to ovulation plus the day of ovulation itself, because sperm can survive up to 5 days in the reproductive tract.",
+        "q3": "Can I use this for contraception?",
+        "a3": "No. This calculator is for planning and education only. The rhythm method is not a reliable form of contraception — speak to a healthcare provider about effective options.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your cycle dates never leave your device."
+      }
+    },
+    "calorie-deficit-planner": {
+      "title": "Calorie Deficit Planner – Daily Calories for Weight Loss",
+      "h1": "Calorie Deficit Planner",
+      "description": "Plan sustainable weight loss. Enter your stats, goal weight and timeframe to get your daily calorie target and safe weekly loss rate.",
+      "keywords": "calorie deficit calculator,weight loss planner,calorie deficit planner,how many calories to lose weight,daily calorie target,weight loss timeline",
+      "inputs": {
+        "age": "Age",
+        "gender": "Gender",
+        "height": "Height",
+        "currentWeight": "Current weight",
+        "goalWeight": "Goal weight",
+        "activity": "Activity level",
+        "timeframe": "Timeframe"
+      },
+      "units": {
+        "weeks": "weeks"
+      },
+      "options": {
+        "male": "Male",
+        "female": "Female",
+        "sedentary": "Sedentary",
+        "light": "Lightly active",
+        "moderate": "Moderately active",
+        "high": "Very active",
+        "veryHigh": "Extra active"
+      },
+      "resultLabel": "Daily calorie target",
+      "resultUnit": "kcal/day",
+      "secondary": {
+        "bmr": "BMR",
+        "tdee": "Maintenance calories (TDEE)",
+        "dailyDeficit": "Daily deficit",
+        "perWeek": "Expected loss per week",
+        "level": "Pace"
+      },
+      "levels": {
+        "healthy": "Healthy",
+        "tooSlow": "Too slow",
+        "tooFast": "Too fast"
+      },
+      "faq": {
+        "q1": "How is the daily calorie target calculated?",
+        "a1": "We use the Mifflin-St Jeor equation to estimate your BMR, multiply by an activity factor to get TDEE (maintenance calories), then subtract the daily deficit needed to lose your target weight in the chosen timeframe. The result is capped at safe minimums: 1500 kcal for men, 1200 kcal for women.",
+        "q2": "What is a safe rate of weight loss?",
+        "a2": "Most guidelines recommend 0.5–1% of body weight per week, which is roughly 0.5–1 kg for an average adult. Faster loss increases the risk of muscle loss, nutrient deficiencies, gallstones, and rebound weight gain.",
+        "q3": "Why is 7700 kcal used per kilogram?",
+        "a3": "It is the approximate energy content of 1 kg of body fat. This is a simplification — real fat tissue contains some water and lean mass — but it is the standard estimate used by most nutrition guidelines.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your weight and health data never leave your device."
+      }
+    },
+    "pregnancy-week-tracker": {
+      "title": "Pregnancy Week Tracker – Current Week, Trimester & Progress",
+      "h1": "Pregnancy Week Tracker",
+      "description": "Track your pregnancy week by week. Enter your last period or due date to see your current week, trimester, progress and days until birth.",
+      "keywords": "pregnancy week tracker,pregnancy calculator,how many weeks pregnant,pregnancy trimester tracker,due date tracker,pregnancy progress",
+      "inputs": {
+        "method": "Calculate from",
+        "date": "Date"
+      },
+      "options": {
+        "lmp": "Last menstrual period",
+        "dueDate": "Due date"
+      },
+      "hints": {
+        "date": "First day of your last period, or your estimated due date."
+      },
+      "resultLabel": "Current pregnancy week",
+      "resultUnit": "",
+      "secondary": {
+        "trimester": "Trimester",
+        "daysLeft": "Days until due date",
+        "progress": "Progress",
+        "dueDate": "Estimated due date"
+      },
+      "trimester": {
+        "first": "First trimester",
+        "second": "Second trimester",
+        "third": "Third trimester"
+      },
+      "faq": {
+        "q1": "How is pregnancy week calculated?",
+        "a1": "Pregnancy is counted from the first day of your last menstrual period (LMP), not from conception. Week 1 and 2 are before conception — this is the standard medical convention. A full-term pregnancy is 40 weeks (280 days).",
+        "q2": "What are the three trimesters?",
+        "a2": "First trimester: weeks 1–12. Second: weeks 13–27. Third: weeks 28 until birth. Each trimester has different developmental milestones and screening tests, so knowing your week helps you track what to expect.",
+        "q3": "Can I use my due date instead of LMP?",
+        "a3": "Yes. Select \"Due date\" and enter the date your doctor gave you. The tracker will compute your LMP (due date minus 280 days) and show the same current week, trimester and progress.",
+        "q4": "Is my data sent to any server?",
+        "a4": "No. Everything runs 100% locally in your browser. Your pregnancy dates never leave your device."
       }
     }
   }

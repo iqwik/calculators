@@ -29,11 +29,12 @@ export function isWideTool(kind: ToolConfig['kind']) {
   switch (kind) {
     case 'invoice-generator':
     case 'quotation-generator':
-    case 'salary-slip-generator':
+    case 'payslip-generator':
     case 'markdown-previewer':
     case 'sql-formatter-minifier':
     case 'code-minifier':
     case 'meta-tag-generator':
+    case 'svg-to-base64':
       return true
     default:
       return false

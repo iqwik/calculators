@@ -23,7 +23,7 @@ export type ToolKind =
   | 'profit-margin-calculator'
   | 'break-even-calculator'
   | 'quotation-generator'
-  | 'salary-slip-generator'
+  | 'payslip-generator'
   | 'license-generator'
   | 'gitignore-generator'
   | 'markdown-previewer'
@@ -32,6 +32,12 @@ export type ToolKind =
   | 'color-picker'
   | 'color-contrast-checker'
   | 'meta-tag-generator'
+  | 'svg-to-base64'
+  | 'base64-to-image'
+  | 'regex-tester'
+  | 'regex-generator'
+  | 'css-generator'
+  | 'number-to-words'
 
 export interface UnitDef {
   value: string
@@ -135,7 +141,7 @@ export interface QuotationGeneratorConfig extends BaseConfig {
 }
 
 export interface SalarySlipGeneratorConfig extends BaseConfig {
-  kind: 'salary-slip-generator'
+  kind: 'payslip-generator'
 }
 
 export interface LicenseGeneratorConfig extends BaseConfig {
@@ -170,6 +176,30 @@ export interface MetaTagGeneratorConfig extends BaseConfig {
   kind: 'meta-tag-generator'
 }
 
+export interface SvgToBase64Config extends BaseConfig {
+  kind: 'svg-to-base64'
+}
+
+export interface Base64ToImageConfig extends BaseConfig {
+  kind: 'base64-to-image'
+}
+
+export interface RegexTesterConfig extends BaseConfig {
+  kind: 'regex-tester'
+}
+
+export interface RegexGeneratorConfig extends BaseConfig {
+  kind: 'regex-generator'
+}
+
+export interface CssGeneratorConfig extends BaseConfig {
+  kind: 'css-generator'
+}
+
+export interface NumberToWordsConfig extends BaseConfig {
+  kind: 'number-to-words'
+}
+
 export type ToolConfig =
   | UnitConverterConfig
   | JsonFormatterConfig
@@ -202,3 +232,9 @@ export type ToolConfig =
   | ColorPickerConfig
   | ColorContrastCheckerConfig
   | MetaTagGeneratorConfig
+  | SvgToBase64Config
+  | Base64ToImageConfig
+  | RegexTesterConfig
+  | RegexGeneratorConfig
+  | CssGeneratorConfig
+  | NumberToWordsConfig

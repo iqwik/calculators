@@ -37,9 +37,10 @@ export type Values = Record<string, string | number>
 export interface Option {
   value: string
   label: string
+  params?: Record<string, string | number>
 }
 
-export interface OperationResult {
+export interface OperationResult extends Pick<Option, 'params'> {
   value: number | string
   raw?: number
   secondary?: Option[]

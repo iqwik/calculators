@@ -1,7 +1,7 @@
 'use client'
 
-import {useTranslations} from 'next-intl'
-import {useEffect, useMemo, useState} from 'react'
+import {useLocale, useTranslations} from 'next-intl'
+import {SyntheticEvent, useEffect, useMemo, useState} from 'react'
 import {getCalculatorBySlug} from '@/data'
 import type {OperationResult, ResultRange, Values} from '@/types'
 import {Button} from '../ui/button'
@@ -39,6 +39,7 @@ function findRange(
 }
 
 export function CalculatorForm({slug}: Props) {
+  const locale = useLocale()
   const tConfig = useTranslations('config')
   const tGlobal = useTranslations('global')
 
@@ -62,9 +63,9 @@ export function CalculatorForm({slug}: Props) {
 
   useEffect(() => {
     if (hasSliders && calc) {
-      setResult(calc.calculate(values))
+      setResult(calc.calculate(values, {locale}))
     }
-  }, [values, hasSliders, calc])
+  }, [values, hasSliders, calc, locale])
 
   if (!calc) return null
 
@@ -72,10 +73,10 @@ export function CalculatorForm({slug}: Props) {
     setValues(prev => ({...prev, [name]: value}))
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: SyntheticEvent) {
     e.preventDefault()
     if (!calc) return
-    setResult(calc.calculate(values))
+    setResult(calc.calculate(values, {locale}))
   }
 
   function handleReset() {
@@ -179,7 +180,9 @@ export function CalculatorForm({slug}: Props) {
 
           <div className="mt-2 flex items-baseline gap-2">
             <span className="text-3xl font-bold tabular-nums">
-              {result.value}
+              {typeof result.value === 'string' && tConfig.has(result.value)
+                ? tConfig(result.value, result.params ?? {})
+                : result.value}
             </span>
             {calc.resultUnit && (
               <span className="text-base text-muted-foreground">
@@ -204,7 +207,9 @@ export function CalculatorForm({slug}: Props) {
                     {tConfig(item.label)}
                   </dt>
                   <dd className="font-medium tabular-nums">
-                    {tConfig.has(item.value) ? tConfig(item.value) : item.value}
+                    {tConfig.has(item.value)
+                      ? tConfig(item.value, item.params ?? {})
+                      : item.value}
                   </dd>
                 </div>
               ))}

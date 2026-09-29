@@ -9,10 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### TODO
 
+- **`pdf-to-image`** — next tool. `pdfjs-dist@6.3.289` already installed. Plan: `kind: 'pdf-to-image'`, category `developer`, `isWide: true`, worker via `new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url)`, page range parser (`1-5, 8, 11-13`), format PNG / JPEG / WebP, scale 1× / 1.5× / 2× / 3×, quality (JPEG / WebP), transparent background (PNG only), grid preview + ZIP download, `useSmoothProgress`. Destroy via `loadingTask.destroy()` (not `pdfDoc.destroy()`), `page.render({canvas, canvasContext, viewport})`.
+- **`mockup-generator`** — after `pdf-to-image`, not in parallel
+- **Wave 6 — interactive trackers & builders**: `pomodoro-timer`, `habit-tracker`, `decision-maker`, `meeting-cost-calculator`, `trip-planner`, `bill-splitter`, `lead-tracker`, `resume-builder`, `visiting-card-generator`, `api-response-mock-generator`
 - `SalarySlipGeneratorView`: replace `payPeriod` text input with two `<Select>` (Month + Year), localize, add `payMonth` / `payYear` to state
-- Currency formatting: RUB after number, `toLocaleString(locale, ...)` for numbers
 - Extract `CurrencySelect` — `CURRENCIES` / `CURRENCY_SYMBOLS` duplicated across 3 files
-- `ToolSchema`: remove `<ProjectName>` from `publisher.name`
+- `ToolSchema`: remove hardcoded `publisher.name`
 - `types/common.ts`: extract `FAQItem` (duplicated)
 - Audit `placeholder` / `defaultValue` for hardcoded English
 - Check remaining Base UI components (`Select`, `DropdownMenu`, `Tooltip`, `SidebarSettings`) for focus-guards
@@ -24,8 +26,61 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Mobile sidebar (Sheet) not tested
 - `meta-tag-generator`: preview titles (`"Google search preview"`, etc.) hardcoded in EN
 - OG image (`og-default.jpg`), AdSense, GA
-- **Locale refactor in `data/**`:** all hardcoded `'en-US'` / `'en-IN'` (and any hardcoded locale in `toLocaleString` / `toLocaleDateString` / `Intl.*`) — replace with `ctx.locale` passed from `calculate`. Run `grep -rn "toLocaleString('en\|toLocaleDateString('en\|Intl\." data/`. Affects `finance.ts` (`formatInt`, `formatAmount`, `formatINR`), `pregnancy-due-date-calculator`, potentially `health.ts`. After refactor — delete global `formatInt` / `formatAmount`, keep only local `fmt` inside each `calculate` (see CONTEXT.md, rules 29–30).
+- **Locale refactor in `data/**`:** all hardcoded `'en-US'` / `'en-IN'` (and any hardcoded locale in `toLocaleString` / `toLocaleDateString` / `Intl.*`) — replace with `ctx.locale` passed from `calculate`. Run `grep -rn "toLocaleString('en\|toLocaleDateString('en\|Intl\." data/`. Affects `finance.ts` (`formatInt`, `formatAmount`, `formatINR`), `pregnancy-due-date-calculator`, potentially `health.ts`. After refactor — delete global `formatInt` / `formatAmount`, keep only local `fmt` inside each `calculate` (see `CONTEXT.md`, rules 29–30).
 - `tax-regime-comparator` — deferred. Decision A (keep as the only India-specific tool, add "(India)" to title) or B (make universal → `income-tax-calculator`, remove slabs and 80C / 87A)
+- `images-to-pdf`: PDF filename comes from `<title>`; consider setting `document.title = 'images-YYYY-MM-DD.pdf'` inside the print iframe before printing
+- `images-to-pdf`: image quality slider does not affect print output (browser prints originals). If needed — recompress via Canvas before printing
+- Chrome page header / footer (date, URL, page numbers) can only be disabled by the user in the print dialog — cannot be removed programmatically
+- Bonus tool: `text-to-svg-generator` (84th) — regex + shape / color / icon dictionary, offline, no dependencies. Discuss after Wave 6
+
+## [0.6.0] - 2026-09-29
+
+### Added
+
+**Generators tools (1 new)**
+
+- **Images to PDF** (`images-to-pdf`) — combine JPG / PNG / WebP / GIF into a single PDF. Options: page size (A4 / Letter / Legal / A5), orientation (portrait / landscape), columns per page (1 / 2 / 3), margin (mm), gap (mm), fit mode (contain / cover / stretch), per-image rotation (↺ ↻), background color, page numbers, filename captions, quality slider. Vertical file list with reorder (↑ ↓) and remove. Live preview with auto-scaling (`PreviewPage` via `ResizeObserver`). Print via isolated iframe.
+
+**Developer tools (1 new, in progress)**
+
+- **PDF to Image** (`pdf-to-image`) — convert PDF pages to PNG / JPEG / WebP. Page-range parser (`1-5, 8, 11-13`), scale (1× / 1.5× / 2× / 3×), quality slider (JPEG / WebP), transparent background (PNG only). Grid of rendered pages, download individually or as ZIP. Uses `pdfjs-dist@6.3.289` with Turbopack worker (`new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url)`), `jszip` for the archive. Only PDF — Word (`.docx`) is out of scope (in tech debt).
+
+**Print pattern for multi-page PDF**
+
+- New print approach: build a clean HTML string, load it into a hidden `<iframe>`, wait for images, call `iframe.contentWindow.print()`. Solves: orientation (via `@page { size: <format> <orientation> }`), background printing (`print-color-adjust: exact`), and the extra blank page caused by `ToolLayout` (`max-w-6xl`, `px-6`, `py-10`).
+- New preview pattern: `PreviewPage` — self-scaling via `ResizeObserver`, `scale = min(containerW / pageW, containerH / pageH)`, no horizontal scroll.
+
+### Changed
+
+- `types/tool.ts`: new kinds `'images-to-pdf'` and `'pdf-to-image'`; new config interfaces `ImagesToPdfConfig`, `PdfToImageConfig`.
+- `data/tools/generators.ts`: added `images-to-pdf` config.
+- `data/tools/developer.ts`: added `pdf-to-image` config (in progress).
+- `data/tools/index.ts`: `isWideTool` — added `images-to-pdf`, `pdf-to-image`.
+- `components/tool/ToolView.tsx`: new branches for `images-to-pdf`, `pdf-to-image`.
+- `app/globals.css`: removed `.pdf-print-area` / `.pdf-page` rules (no longer used — replaced by iframe print). Kept only `[id$='-preview']` mechanism for single-page previews (invoice / payslip / quotation / markdown).
+- `messages/en.json` / `messages/ru.json`: `config.images-to-pdf`, `config.pdf-to-image`.
+- `pdfjs` usage: `loadingTask.destroy()` instead of `pdf.destroy()` (not present in v6); `page.render({ canvas, canvasContext, viewport })` (canvas required from v5+).
+
+### Removed
+
+- `pdf-lib` and `@pdf-lib/fontkit` — were installed for the original `images-to-pdf` implementation, which used `PDFDocument.create()` + embedded TTF. Replaced by the iframe-print approach, which produces an identical PDF via the browser's own print engine, with zero dependencies and no need for a custom font.
+- `public/fonts/` (~13 MB, Inter TTF family) — no longer needed without `pdf-lib` + `fontkit`.
+
+### Fixed
+
+- Print orientation always fell back to portrait — Chrome ignores `@page { size: landscape }` without an explicit format. Fixed by `@page { size: A4 landscape }` inside the iframe's own `<style>`.
+- Page background not printed — added `print-color-adjust: exact` (Chrome ignores backgrounds by default).
+- Extra blank second page — caused by `ToolLayout`'s `max-w-6xl` / `px-6` / `py-10` and remaining siblings (`FAQ`, `RelatedTools`). Fixed by printing through an isolated iframe with no other DOM.
+- `objectFit: 'stretch'` — TypeScript error, `FitMode` is not assignable to `ObjectFit`. Mapped to `'fill'`.
+- `pdfjs-dist@6`: `PDFDocumentProxy.destroy` does not exist — switched to `loadingTask.destroy()`, typed via `ReturnType<typeof pdfjsLib.getDocument>`.
+- `ImagesToPdfView`: removed `pdfSize` state (dead after switching to `OutputPanel` + `onDownload`); removed unused `formatBytes`, `stripExt`, `rotateSize`, `computeFit`, `FONT_REGULAR_URL`, `FONT_BOLD_URL`.
+- Biome `useExhaustiveDependencies` loop — moved URL state reads into `pdfUrlRef` (auto-rebuild effect no longer depends on `pdfUrl`), `useEffectEvent` removed from `useEffect` deps (identity not stable in React 19.2.8 → infinite render loop).
+
+### Known limitations
+
+- `pdf-to-image` — Word (`.docx`) is not supported; conversion is PDF only.
+- Chrome page headers / footers (date, URL, page number) cannot be suppressed programmatically — user must disable them in the print dialog. Same behaviour as the source.
+- `images-to-pdf`: the quality slider does not affect printing (the browser prints originals). If actual size reduction is needed — pre-process through Canvas before print (in tech debt).
 
 ## [0.5.0] - 2026-09-29
 
@@ -81,7 +136,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 **Dependencies**
 
-- `n2words@6.2.0` — number spelling, 30+ languages, subpath import `n2words/en-US`, `n2words/ru`, API `toCardinal` (not `toWords`)
+- `n2words@6.2.0` — number spelling, 30+ languages, subpath import `n2words/en`, `n2words/ru`, API `toCardinal` (not `toWords`)
 
 **Shared components**
 
@@ -101,7 +156,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - ICU `MALFORMED_ARGUMENT` in `meta-tag-generator.titleRecommended` / `descriptionRecommended` — curly braces removed from text
 - ICU `UNCLOSED_TAG` with inline placeholder `{'{'}` — replaced with textual descriptions
-- `n2words` import: v6 requires subpath (`n2words/en-US`), not root, and `toCardinal`, not `toWords`
+- `n2words` import: v6 requires subpath (`n2words/en`), not root, and `toCardinal`, not `toWords`
 - `target` in `tsconfig.json` raised to ES2020 — RegExp dotAll flag `s`
 - `savings-goal-calculator`: edge case `remaining <= 0` (initial deposit exceeds goal)
 - `rent-vs-buy-calculator`: parallel loop for Buy / Rent — correct accounting of the delta between mortgage + costs and rent

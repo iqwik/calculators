@@ -1341,6 +1341,15 @@
       "processing": "Compressing...",
       "files": "files",
       "downloadAll": "Download all",
+      "actions": {
+        "compressAll": "Compress All",
+        "compressingPercent": "Compressing… {percent}%",
+        "remove": "Remove image"
+      },
+      "stats": {
+        "queue": "In queue: {count}",
+        "ready": "Ready"
+      },
       "privacyNote": "All compression runs locally in your browser. Your images never leave your device.",
       "faq": {
         "q1": "Is my image uploaded anywhere?",
@@ -2701,6 +2710,410 @@
         "a3": "Yes. Select \"Due date\" and enter the date your doctor gave you. The tracker will compute your LMP (due date minus 280 days) and show the same current week, trimester and progress.",
         "q4": "Is my data sent to any server?",
         "a4": "No. Everything runs 100% locally in your browser. Your pregnancy dates never leave your device."
+      }
+    },
+    "image-converter": {
+      "title": "Image Converter – WebP, JPEG & PNG in Bulk",
+      "h1": "Image Converter",
+      "description": "Convert and resize images to WebP, JPEG, or PNG right in your browser. Bulk convert, control dimensions and quality, download instantly. No uploads, 100% private.",
+      "keywords": "image converter,webp converter,jpg to webp,png to jpg,bulk image converter,image resizer,convert images online",
+      "inputs": {
+        "format": "Target format",
+        "maxWidth": "Max width",
+        "maxHeight": "Max height",
+        "quality": "Quality",
+        "mode": "Resize mode"
+      },
+      "modes": {
+        "contain": "Fit inside",
+        "cover": "Fill & crop",
+        "stretch": "Stretch"
+      },
+      "modeHints": {
+        "contain": "Scales down to fit within the limits, keeping the aspect ratio. Images smaller than the limits are left unchanged.",
+        "cover": "Scales to fill the limits and crops the overflow, keeping the aspect ratio.",
+        "stretch": "Forces the exact dimensions, which can distort the image."
+      },
+      "hints": {
+        "drop": "Drop images (multiple OK) or click",
+        "dropSub": "Convert format + optional resize • WebP / JPEG / PNG",
+        "pngLossless": "PNG is lossless — quality slider is ignored."
+      },
+      "actions": {
+        "select": "Select images",
+        "convertAll": "Convert / Resize All",
+        "convertingPercent": "Converting… {percent}%",
+        "downloadAll": "Download all",
+        "remove": "Remove image"
+      },
+      "stats": {
+        "files": "Files",
+        "original": "Original",
+        "converted": "Converted",
+        "savings": "Savings",
+        "queue": "In queue: {count}",
+        "ready": "Ready"
+      },
+      "faq": {
+        "q1": "Are my images uploaded anywhere?",
+        "a1": "No. Conversion and resizing happen entirely in your browser using the Canvas API. Your files never leave your device.",
+        "q2": "What does Fit inside vs Fill & crop mean?",
+        "a2": "Fit inside scales the image down to fit within your Max width and Max height without cropping. Fill & crop scales and crops to exactly match the target area. Stretch forces exact dimensions, potentially distorting the image.",
+        "q3": "Can I convert many images at once?",
+        "a3": "Yes. Drop as many as you need, set your options, and click Convert / Resize All. You can download them individually or all together.",
+        "q4": "Does converting affect image quality?",
+        "a4": "For JPEG and WebP, quality depends on the slider — 80–90 is a good balance. PNG is lossless, so quality is preserved but file size stays large."
+      }
+    },
+    "bulk-image-resizer": {
+      "title": "Bulk Image Resizer – Resize Many Photos in Browser",
+      "h1": "Bulk Image Resizer",
+      "description": "Resize dozens of images at once right in your browser. Set max dimensions, exact sizes, or percentage scale, choose a format, and download all results. No uploads, 100% private.",
+      "keywords": "bulk image resizer,resize multiple images,batch photo resizer,resize images online free,image batch resize,compress and resize photos",
+      "inputs": {
+        "sizeMode": "Resize mode",
+        "maxWidth": "Max width",
+        "maxHeight": "Max height",
+        "exactWidth": "Width",
+        "exactHeight": "Height",
+        "percent": "Scale",
+        "fitMode": "Fit mode",
+        "format": "Output format",
+        "quality": "Quality"
+      },
+      "sizeModes": {
+        "max": "Max dimensions",
+        "exact": "Exact size",
+        "percent": "Percentage"
+      },
+      "fitModes": {
+        "contain": "Fit inside",
+        "cover": "Fill & crop",
+        "stretch": "Stretch"
+      },
+      "fitHints": {
+        "contain": "Scales down to fit within the limits, keeping the aspect ratio.",
+        "cover": "Scales to fill the target area and crops the overflow, keeping the aspect ratio.",
+        "stretch": "Forces the exact dimensions, potentially distorting the image."
+      },
+      "formats": {
+        "original": "Keep original",
+        "image/webp": "WebP",
+        "image/jpeg": "JPEG",
+        "image/png": "PNG"
+      },
+      "hints": {
+        "drop": "Drop images (multiple OK) or click",
+        "dropSub": "Resize in bulk • max / exact / percentage • any format",
+        "qualityInactive": "Quality applies only to JPEG and WebP output."
+      },
+      "actions": {
+        "select": "Select images",
+        "resizeAll": "Resize All",
+        "resizing": "Resizing…",
+        "downloadAll": "Download all",
+        "resizingPercent": "Resizing… {percent}%",
+        "remove": "Remove image"
+      },
+      "stats": {
+        "files": "Files",
+        "original": "Original",
+        "resized": "Resized",
+        "savings": "Savings",
+        "queue": "In queue: {count}",
+        "ready": "Ready"
+      },
+      "faq": {
+        "q1": "Are my images uploaded anywhere?",
+        "a1": "No. Resizing happens entirely in your browser using the Canvas API. Your files never leave your device.",
+        "q2": "What does Fit inside vs Fill & crop mean?",
+        "a2": "Fit inside scales the image down to fit within your target dimensions without cropping. Fill & crop scales and crops to match the target area exactly. Stretch forces exact dimensions, potentially distorting the image.",
+        "q3": "Can I resize many images at once?",
+        "a3": "Yes. Drop as many as you need, set your options, and click Resize All. The tool processes them one by one and you can download them individually or all together.",
+        "q4": "Does resizing affect image quality?",
+        "a4": "Downscaling generally preserves quality well. For JPEG and WebP the quality slider controls the trade-off between size and fidelity — 80–90 is a good balance. PNG is lossless."
+      }
+    },
+    "image-watermark": {
+      "title": "Image Watermark Tool – Add Text & Logo Watermarks",
+      "h1": "Image Watermark Tool",
+      "description": "Add text and logo watermarks to your images right in your browser. Control position, opacity, rotation, size and color. Works on single images or whole batches.",
+      "keywords": "image watermark,add watermark to photo,text watermark online,logo watermark tool,batch watermark images,protect images with watermark",
+      "inputs": {
+        "type": "Watermark type",
+        "position": "Position",
+        "opacity": "Opacity",
+        "text": "Text",
+        "fontSize": "Font size",
+        "textColor": "Text color",
+        "logoSize": "Logo size",
+        "rotation": "Rotation"
+      },
+      "types": {
+        "text": "Text only",
+        "logo": "Logo only",
+        "both": "Text + logo"
+      },
+      "sections": {
+        "text": "Text watermark",
+        "logo": "Logo watermark"
+      },
+      "positions": {
+        "top-left": "Top left",
+        "top-center": "Top center",
+        "top-right": "Top right",
+        "middle-left": "Middle left",
+        "center": "Center",
+        "middle-right": "Middle right",
+        "bottom-left": "Bottom left",
+        "bottom-center": "Bottom center",
+        "bottom-right": "Bottom right",
+        "tile": "Tile across image"
+      },
+      "placeholders": {
+        "text": "© Your Brand 2026"
+      },
+      "hints": {
+        "drop": "Drop images (multiple OK) or click",
+        "dropSub": "Add text or logo watermarks • single or batch",
+        "logoTransparency": "PNG with transparency works best for logos."
+      },
+      "actions": {
+        "applyAll": "Apply to All",
+        "applyingPercent": "Applying… {percent}%",
+        "uploadLogo": "Upload logo",
+        "downloadAll": "Download all",
+        "remove": "Remove image"
+      },
+      "stats": {
+        "files": "Files",
+        "original": "Original",
+        "watermarked": "Watermarked",
+        "queue": "In queue: {count}",
+        "ready": "Ready"
+      },
+      "faq": {
+        "q1": "Are my images uploaded anywhere?",
+        "a1": "No. All processing happens entirely in your browser using the Canvas API. Your images and logo never leave your device.",
+        "q2": "Can I add both text and a logo at the same time?",
+        "a2": "Yes. Select \"Text + logo\" and configure each independently — size, color, opacity, rotation and position apply to both.",
+        "q3": "What does the Tile position do?",
+        "a3": "Tile repeats the watermark across the entire image in a diagonal grid. It is the hardest layout to crop or remove, so it is popular for protecting previews and stock photos.",
+        "q4": "Will the watermark look good on both light and dark photos?",
+        "a4": "Use the opacity slider and pick a contrasting color. For text on busy backgrounds, white with 70–80% opacity usually reads well. Logos with transparent PNG backgrounds adapt best."
+      }
+    },
+    "color-palette-extractor": {
+      "title": "Color Palette Extractor – Pull Colors from Any Image",
+      "h1": "Color Palette Extractor",
+      "description": "Extract dominant color palettes from any image or image URL. Get HEX, RGB, HSL, percentages, and export to CSS variables or JSON. 100% private in your browser.",
+      "keywords": "color palette extractor,extract colors from image,color palette from image,dominant colors,hex from image,image color picker",
+      "inputs": {
+        "source": "Source",
+        "url": "Image URL",
+        "count": "Number of colors"
+      },
+      "sources": {
+        "file": "Upload image",
+        "url": "From URL"
+      },
+      "sections": {
+        "preview": "Source image",
+        "palette": "Extracted palette",
+        "details": "Color details",
+        "css": "CSS variables",
+        "json": "JSON"
+      },
+      "actions": {
+        "load": "Load image",
+        "reExtract": "Re-extract",
+        "extracting": "Extracting…"
+      },
+      "hints": {
+        "drop": "Drop an image or click to select",
+        "dropSub": "JPG, PNG, WebP, GIF",
+        "cors": "Many sites block cross-origin loading (CORS). If the image fails to load, upload the file instead.",
+        "processing": "Analyzing image…",
+        "empty": "Upload an image or paste a URL to extract its color palette."
+      },
+      "errors": {
+        "load": "Failed to load the image.",
+        "cors": "Could not read pixel data — the server blocked cross-origin access. Try uploading the file instead.",
+        "canvas": "Canvas is not available in this browser.",
+        "noPixels": "No readable pixels found in this image."
+      },
+      "faq": {
+        "q1": "Can I extract colors from a URL?",
+        "a1": "Yes — paste a public image URL. Note that some sites block cross-origin loading (CORS), in which case uploading the file always works.",
+        "q2": "How many colors does the extractor pull?",
+        "a2": "You can choose between 3 and 12. The tool uses median-cut quantization and removes near-duplicates for a clean, useful palette.",
+        "q3": "Is my uploaded image sent to any server?",
+        "a3": "No. All image processing runs entirely in your browser using the Canvas API. Your images never leave your device.",
+        "q4": "What are CSS variables and JSON exports for?",
+        "a4": "CSS variables paste straight into your stylesheet for theming. JSON is handy for design tools, charting libraries, or scripts that consume palettes programmatically."
+      }
+    },
+    "favicon-generator": {
+      "title": "Favicon + App Icon Generator – All Sizes + PWA Manifest",
+      "h1": "Favicon & App Icon Generator",
+      "description": "Generate a complete favicon set (16×16 to 512×512), Apple touch icons and PWA icons from one image. Includes a ready-to-use web manifest and HTML snippet.",
+      "keywords": "favicon generator,app icon generator,pwa icons,apple touch icon,generate icons from image,website favicon kit",
+      "inputs": {
+        "fitMode": "Fit mode",
+        "backgroundColor": "Background color"
+      },
+      "fitModes": {
+        "contain": "Fit inside",
+        "cover": "Fill & crop",
+        "stretch": "Stretch"
+      },
+      "fitHints": {
+        "contain": "Image fits inside the square with the background color visible around it.",
+        "cover": "Image fills the square and edges are cropped. Best for photos and logos that should bleed.",
+        "stretch": "Image is forced to a square, potentially distorting proportions."
+      },
+      "hints": {
+        "drop": "Drop an image or click to select",
+        "dropSub": "Square PNG or SVG works best • 512×512 or larger",
+        "backgroundColor": "Shown in the empty space around the image when using Fit inside."
+      },
+      "actions": {
+        "regenerate": "Regenerate",
+        "downloadZip": "Download ZIP",
+        "zippingPercent": "Zipping… {percent}%"
+      },
+      "stats": {
+        "icons": "Icons",
+        "totalSize": "Total size",
+        "themeColor": "Theme color"
+      },
+      "sections": {
+        "html": "HTML snippet",
+        "manifest": "site.webmanifest"
+      },
+      "faq": {
+        "q1": "Do I still need a .ico file?",
+        "a1": "No. Modern browsers use PNG favicons linked from the HTML head. This generator focuses on high-quality PNGs at every required size plus a web manifest for PWA and Android.",
+        "q2": "Which sizes are generated?",
+        "a2": "16, 32, 48 and 96 for classic browsers, 180 for iOS Apple touch icon, and 192 and 512 for PWA and Android home screen.",
+        "q3": "What is site.webmanifest for?",
+        "a3": "It tells browsers how to install your site as a PWA. It declares the app name, icons, theme color and display mode. Link it from the HTML head using a link rel manifest tag.",
+        "q4": "Is my image uploaded anywhere?",
+        "a4": "No. All resizing and ZIP packing happen entirely in your browser. Your image never leaves your device."
+      }
+    },
+    "base64-image-optimizer": {
+      "title": "Base64 Image Optimizer – Compress & Resize Base64",
+      "h1": "Base64 Image Optimizer",
+      "description": "Paste or upload a base64 image and get a smaller, optimized version. Control quality, dimensions and output format. Free, private and instant.",
+      "keywords": "base64 image optimizer,compress base64 image,optimize base64 image,resize base64 image,base64 image compressor",
+      "inputs": {
+        "format": "Output format",
+        "maxWidth": "Max width",
+        "maxHeight": "Max height",
+        "quality": "Quality"
+      },
+      "sections": {
+        "input": "Base64 input",
+        "output": "Optimized base64",
+        "original": "Original",
+        "optimized": "Optimized"
+      },
+      "placeholders": {
+        "input": "Paste base64 or a data URI here... or upload a file"
+      },
+      "hints": {
+        "privacy": "Everything runs in your browser. Your image data never leaves your device."
+      },
+      "actions": {
+        "optimize": "Optimize",
+        "optimizing": "Optimizing…",
+        "upload": "Upload file"
+      },
+      "errors": {
+        "invalid": "Could not parse the input as a base64 image.",
+        "unknownFormat": "Unsupported image format. Only PNG, JPEG, WebP, GIF, BMP, AVIF and ICO are supported.",
+        "svgNotSupported": "SVG images cannot be re-encoded via Canvas. Convert the SVG to PNG first.",
+        "decode": "Failed to decode the image.",
+        "canvas": "Canvas is not available in this browser.",
+        "encode": "Failed to encode the optimized image."
+      },
+      "faq": {
+        "q1": "How much can it reduce the size?",
+        "a1": "Typical savings are 30–70% depending on the original quality and chosen settings. The tool uses the browser's Canvas with good JPEG and WebP encoders.",
+        "q2": "Does it support transparency?",
+        "a2": "Yes for PNG and WebP output. For JPEG output the background is filled with white because the JPEG format does not support transparency.",
+        "q3": "Is my image data private?",
+        "a3": "Everything is processed locally in your browser using the Canvas API. No data is uploaded or stored.",
+        "q4": "Can I paste just the raw base64 without a data URI prefix?",
+        "a4": "Yes. The tool auto-detects the image format from the magic bytes in the decoded data. Both raw base64 and full data URIs are accepted."
+      }
+    },
+    "images-to-pdf": {
+      "title": "Images to PDF – Convert JPG & PNG to PDF in Browser",
+      "h1": "Images to PDF",
+      "description": "Free images to PDF converter. Combine JPG, PNG, WebP and other images into a single PDF with custom page size, orientation, columns, and margins. 100% private — everything runs in your browser.",
+      "keywords": "images to pdf,jpg to pdf,png to pdf,image to pdf converter,combine images into pdf,merge photos into pdf",
+      "inputs": {
+        "pageSize": "Page size",
+        "orientation": "Orientation",
+        "columns": "Columns per page",
+        "fitMode": "Fit mode",
+        "margin": "Margins",
+        "gap": "Gap between images",
+        "quality": "Image quality",
+        "pageNumbers": "Page numbers",
+        "captions": "Captions under images",
+        "titlePage": "Title page",
+        "titleText": "Title",
+        "subtitleText": "Subtitle",
+        "background": "Background"
+      },
+      "options": {
+        "fit": "Fit to image",
+        "portrait": "Portrait",
+        "landscape": "Landscape",
+        "contain": "Contain",
+        "cover": "Cover",
+        "stretch": "Stretch"
+      },
+      "placeholders": {
+        "title": "My Photo Album",
+        "subtitle": "Summer 2026"
+      },
+      "sections": {
+        "options": "PDF Layout Options",
+        "preview": "Preview"
+      },
+      "stats": {
+        "filesWithHint": "{count} image(s) — reorder, rotate, remove",
+        "page": "page",
+        "pages": "pages"
+      },
+      "actions": {
+        "print": "Print / Save as PDF",
+        "rotateLeft": "Rotate left",
+        "rotateRight": "Rotate right",
+        "moveUp": "Move up",
+        "moveDown": "Move down",
+        "remove": "Remove image"
+      },
+      "hints": {
+        "quality": "Lower quality = much smaller PDF file size. 100% = original resolution.",
+        "previewNote": "Live preview (for reference only). The generated PDF will contain only the images — no site UI. Title page (if enabled) is page 1; images follow cleanly with no extra blank pages.",
+        "emptyList": "No images yet. Drop a few above to get started.",
+        "drop": "Drop images here or click to upload",
+        "dropSub": "JPG, PNG, WebP, GIF • Multiple files supported"
+      },
+      "faq": {
+        "q1": "Are my images uploaded anywhere?",
+        "a1": "No. All conversion runs entirely in your browser. Your images never leave your device.",
+        "q2": "What image formats are supported?",
+        "a2": "JPG, PNG, WebP, GIF, BMP and most common raster formats that your browser can decode. SVG is not supported — convert it to PNG first.",
+        "q3": "Can I add a title page?",
+        "a3": "Yes. Enable Title page in the settings and add a title and optional subtitle. The title page will be inserted as the first page of the PDF.",
+        "q4": "What is the difference between Contain, Cover and Stretch?",
+        "a4": "Contain fits the whole image inside the cell keeping aspect ratio, leaving empty space. Cover fills the cell and crops the overflow. Stretch forces exact dimensions and can distort the image."
       }
     }
   }

@@ -17,6 +17,9 @@ export type ToolKind =
   | 'password-generator'
   | 'qr-code-generator'
   | 'image-compressor'
+  | 'image-converter'
+  | 'bulk-image-resizer'
+  | 'image-watermark'
   | 'invoice-generator'
   | 'invoice-number-generator'
   | 'utm-builder'
@@ -38,6 +41,10 @@ export type ToolKind =
   | 'regex-generator'
   | 'css-generator'
   | 'number-to-words'
+  | 'color-palette-extractor'
+  | 'favicon-generator'
+  | 'base64-image-optimizer'
+  | 'images-to-pdf'
 
 export interface UnitDef {
   value: string
@@ -114,6 +121,18 @@ export interface QrCodeGeneratorConfig extends BaseConfig {
 
 export interface ImageCompressorConfig extends BaseConfig {
   kind: 'image-compressor'
+}
+
+export interface ImageConverterConfig extends BaseConfig {
+  kind: 'image-converter'
+}
+
+export interface BulkImageResizerConfig extends BaseConfig {
+  kind: 'bulk-image-resizer'
+}
+
+export interface ImageWatermarkConfig extends BaseConfig {
+  kind: 'image-watermark'
 }
 
 export interface InvoiceGeneratorConfig extends BaseConfig {
@@ -200,6 +219,22 @@ export interface NumberToWordsConfig extends BaseConfig {
   kind: 'number-to-words'
 }
 
+export interface ColorPaletteExtractorConfig extends BaseConfig {
+  kind: 'color-palette-extractor'
+}
+
+export interface FaviconGeneratorConfig extends BaseConfig {
+  kind: 'favicon-generator'
+}
+
+export interface Base64ImageOptimizerConfig extends BaseConfig {
+  kind: 'base64-image-optimizer'
+}
+
+export interface ImagesToPdfConfig extends BaseConfig {
+  kind: 'images-to-pdf'
+}
+
 export type ToolConfig =
   | UnitConverterConfig
   | JsonFormatterConfig
@@ -217,6 +252,9 @@ export type ToolConfig =
   | PasswordGeneratorConfig
   | QrCodeGeneratorConfig
   | ImageCompressorConfig
+  | ImageConverterConfig
+  | BulkImageResizerConfig
+  | ImageWatermarkConfig
   | InvoiceGeneratorConfig
   | InvoiceNumberGeneratorConfig
   | UtmBuilderConfig
@@ -238,3 +276,7 @@ export type ToolConfig =
   | RegexGeneratorConfig
   | CssGeneratorConfig
   | NumberToWordsConfig
+  | ColorPaletteExtractorConfig
+  | FaviconGeneratorConfig
+  | Base64ImageOptimizerConfig
+  | ImagesToPdfConfig

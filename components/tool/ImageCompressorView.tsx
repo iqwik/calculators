@@ -1,89 +1,28 @@
 'use client'
 
-import {Download, ImagePlus, Trash2, X} from 'lucide-react'
+import {Download, ImagePlus, Trash2, Wand2, X} from 'lucide-react'
 import {useTranslations} from 'next-intl'
-import {useEffect, useRef, useState} from 'react'
+import {useMemo, useRef, useState} from 'react'
+import {useEvent} from '@/hooks/use-event'
+import {useSmoothProgress} from '@/hooks/use-smooth-progress'
 import {Button} from '../ui/button'
 import {Slider} from '../ui/slider'
 
 type OutputFormat = 'image/jpeg' | 'image/webp' | 'image/png'
 
-interface CompressedImage {
+type Item = {
   id: string
   file: File
-  originalSize: number
   originalUrl: string
-  compressedSize: number
-  compressedUrl: string
-  width: number
-  height: number
-  outputWidth: number
-  outputHeight: number
-  format: OutputFormat
-}
-
-function loadImage(url: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image()
-    img.onload = () => resolve(img)
-    img.onerror = () => reject(new Error('Failed to load image'))
-    img.src = url
-  })
-}
-
-async function compressImage(
-  file: File,
-  maxWidth: number,
-  quality: number,
-  format: OutputFormat,
-): Promise<CompressedImage> {
-  const originalUrl = URL.createObjectURL(file)
-  const img = await loadImage(originalUrl)
-
-  let outWidth = img.naturalWidth
-  let outHeight = img.naturalHeight
-
-  if (outWidth > maxWidth) {
-    outHeight = Math.round((img.naturalHeight * maxWidth) / outWidth)
-    outWidth = maxWidth
-  }
-
-  const canvas = document.createElement('canvas')
-  canvas.width = outWidth
-  canvas.height = outHeight
-  const ctx = canvas.getContext('2d')
-  if (!ctx) throw new Error('Cannot get canvas context')
-
-  // PNG не поддерживает фон при прозрачности — флэт белый
-  if (format !== 'image/png') {
-    ctx.fillStyle = '#ffffff'
-    ctx.fillRect(0, 0, outWidth, outHeight)
-  }
-  ctx.drawImage(img, 0, 0, outWidth, outHeight)
-
-  const blob: Blob = await new Promise((resolve, reject) => {
-    canvas.toBlob(
-      b => (b ? resolve(b) : reject(new Error('toBlob failed'))),
-      format,
-      quality,
-    )
-  })
-
-  const compressedUrl = URL.createObjectURL(blob)
-
-  return {
-    id: crypto.randomUUID(),
-    file,
-    originalSize: file.size,
-    originalUrl,
-    compressedSize: blob.size,
-    compressedUrl,
-    width: img.naturalWidth,
-    height: img.naturalHeight,
-    outputWidth: outWidth,
-    outputHeight: outHeight,
-    format,
-  }
+  originalSize: number
+  originalWidth: number
+  originalHeight: number
+  // заполняется после Compress
+  compressedUrl?: string
+  compressedSize?: number
+  outputWidth?: number
+  outputHeight?: number
+  format?: OutputFormat
 }
 
 function formatBytes(bytes: number): string {
@@ -97,120 +36,211 @@ function reduction(original: number, compressed: number): number {
   return Math.max(0, Math.round((1 - compressed / original) * 100))
 }
 
+function stripExt(name: string): string {
+  const i = name.lastIndexOf('.')
+  return i > 0 ? name.slice(0, i) : name
+}
+
+function extFromFormat(format: OutputFormat): string {
+  if (format === 'image/jpeg') return 'jpg'
+  if (format === 'image/webp') return 'webp'
+  return 'png'
+}
+
 export function ImageCompressorView() {
-  const t = useTranslations('config')
+  const t = useTranslations('config.image-compressor')
+  const tGlobal = useTranslations('global')
 
-  const [items, setItems] = useState<CompressedImage[]>([])
-  const [processing, setProcessing] = useState(false)
-  const [dragging, setDragging] = useState(false)
-
+  const [items, setItems] = useState<Item[]>([])
   const [maxWidth, setMaxWidth] = useState(1920)
   const [quality, setQuality] = useState(80)
   const [format, setFormat] = useState<OutputFormat>('image/jpeg')
-
+  const [busy, setBusy] = useState(false)
+  const [dragging, setDragging] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const smoothProgress = useSmoothProgress(progress)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  useEffect(() => {
-    return () => {
-      for (const item of items) {
-        URL.revokeObjectURL(item.originalUrl)
-        URL.revokeObjectURL(item.compressedUrl)
+  const compressedCount = items.filter(i => i.compressedUrl).length
+  const totalOriginal = items.reduce((s, i) => s + i.originalSize, 0)
+  const totalCompressed = items.reduce((s, i) => s + (i.compressedSize ?? 0), 0)
+  const totalReduction =
+    compressedCount > 0 ? reduction(totalOriginal, totalCompressed) : 0
+
+  const qualityActive = format !== 'image/png'
+  const activeFormatLabel = useMemo(
+    () =>
+      format === 'image/jpeg'
+        ? 'JPEG'
+        : format === 'image/webp'
+          ? 'WebP'
+          : 'PNG',
+    [format],
+  )
+
+  const addFiles = useEvent(async (files: FileList | File[]) => {
+    const arr = Array.from(files).filter(f => f.type.startsWith('image/'))
+    const added: Item[] = []
+
+    for (const file of arr) {
+      try {
+        const bitmap = await createImageBitmap(file)
+        const id = `${file.name}-${file.size}-${Math.random().toString(36).slice(2, 8)}`
+        added.push({
+          id,
+          file,
+          originalUrl: URL.createObjectURL(file),
+          originalSize: file.size,
+          originalWidth: bitmap.width,
+          originalHeight: bitmap.height,
+        })
+        bitmap.close()
+      } catch {
+        // skip broken files
       }
     }
-  }, [items])
 
-  async function handleFiles(files: FileList | File[]) {
-    const imageFiles = Array.from(files).filter(f =>
-      f.type.startsWith('image/'),
-    )
-    if (imageFiles.length === 0) return
+    setItems(prev => [...prev, ...added])
+  })
 
-    setProcessing(true)
-    try {
-      const next: CompressedImage[] = []
-      for (const file of imageFiles) {
-        try {
-          const result = await compressImage(
-            file,
-            maxWidth,
-            quality / 100,
-            format,
-          )
-          next.push(result)
-        } catch {
-          // пропускаем невалидные файлы
-        }
-      }
-      setItems(prev => [...prev, ...next])
-    } finally {
-      setProcessing(false)
-    }
-  }
-
-  function handleDrop(e: React.DragEvent) {
+  const onDrop = useEvent((e: React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setDragging(false)
-    if (e.dataTransfer.files) {
-      handleFiles(e.dataTransfer.files)
+    if (e.dataTransfer.files.length > 0) {
+      void addFiles(e.dataTransfer.files)
     }
-  }
+  })
 
-  function handleDragOver(e: React.DragEvent) {
+  const onDragOver = useEvent((e: React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setDragging(true)
-  }
+  })
 
-  function handleDragLeave(e: React.DragEvent) {
+  const onDragLeave = useEvent((e: React.DragEvent<HTMLElement>) => {
     e.preventDefault()
     setDragging(false)
-  }
+  })
 
-  function removeItem(id: string) {
+  const compressAll = useEvent(async () => {
+    setBusy(true)
+    setProgress(0)
+
+    const updated: Item[] = []
+    const total = items.length
+
+    for (let i = 0; i < total; i++) {
+      const item = items[i]
+      try {
+        const bitmap = await createImageBitmap(item.file)
+
+        let outWidth = bitmap.width
+        let outHeight = bitmap.height
+        if (outWidth > maxWidth) {
+          outHeight = Math.round((bitmap.height * maxWidth) / outWidth)
+          outWidth = maxWidth
+        }
+
+        const canvas = document.createElement('canvas')
+        canvas.width = outWidth
+        canvas.height = outHeight
+        const ctx = canvas.getContext('2d')
+        if (!ctx) {
+          bitmap.close()
+          updated.push(item)
+          setProgress(Math.round(((i + 1) / total) * 100))
+          continue
+        }
+
+        // PNG сохраняет прозрачность — фон не заливаем.
+        // JPEG не поддерживает альфу — заливаем белым.
+        if (format !== 'image/png') {
+          ctx.fillStyle = '#ffffff'
+          ctx.fillRect(0, 0, outWidth, outHeight)
+        }
+        ctx.imageSmoothingEnabled = true
+        ctx.imageSmoothingQuality = 'high'
+        ctx.drawImage(bitmap, 0, 0, outWidth, outHeight)
+        bitmap.close()
+
+        const blob: Blob | null = await new Promise(resolve =>
+          canvas.toBlob(resolve, format, quality / 100),
+        )
+        if (!blob) {
+          updated.push(item)
+          setProgress(Math.round(((i + 1) / total) * 100))
+          continue
+        }
+
+        if (item.compressedUrl) URL.revokeObjectURL(item.compressedUrl)
+
+        updated.push({
+          ...item,
+          compressedUrl: URL.createObjectURL(blob),
+          compressedSize: blob.size,
+          outputWidth: outWidth,
+          outputHeight: outHeight,
+          format,
+        })
+      } catch {
+        updated.push(item)
+      }
+
+      setProgress(Math.round(((i + 1) / total) * 100))
+    }
+
+    setItems(updated)
+    setBusy(false)
+    setProgress(0)
+  })
+
+  const downloadOne = useEvent((item: Item) => {
+    if (!item.compressedUrl || !item.format) return
+    const ext = extFromFormat(item.format)
+    const a = document.createElement('a')
+    a.href = item.compressedUrl
+    a.download = `${stripExt(item.file.name)}-compressed.${ext}`
+    a.click()
+  })
+
+  const downloadAll = useEvent(async () => {
+    for (const item of items) {
+      if (item.compressedUrl) {
+        downloadOne(item)
+        await new Promise(r => setTimeout(r, 120))
+      }
+    }
+  })
+
+  const removeItem = useEvent((id: string) => {
     setItems(prev => {
-      const item = prev.find(i => i.id === id)
-      if (item) {
-        URL.revokeObjectURL(item.originalUrl)
-        URL.revokeObjectURL(item.compressedUrl)
+      const target = prev.find(i => i.id === id)
+      if (target) {
+        URL.revokeObjectURL(target.originalUrl)
+        if (target.compressedUrl) URL.revokeObjectURL(target.compressedUrl)
       }
       return prev.filter(i => i.id !== id)
     })
-  }
+  })
 
-  function downloadItem(item: CompressedImage) {
-    const ext =
-      item.format === 'image/jpeg'
-        ? 'jpg'
-        : item.format === 'image/webp'
-          ? 'webp'
-          : 'png'
-    const baseName = item.file.name.replace(/\.[^.]+$/, '')
-    const a = document.createElement('a')
-    a.href = item.compressedUrl
-    a.download = `${baseName}-compressed.${ext}`
-    a.click()
-  }
-
-  function downloadAll() {
-    for (const item of items) {
-      downloadItem(item)
+  const clearAll = useEvent(() => {
+    for (const i of items) {
+      URL.revokeObjectURL(i.originalUrl)
+      if (i.compressedUrl) URL.revokeObjectURL(i.compressedUrl)
     }
-  }
-
-  const totalOriginal = items.reduce((s, i) => s + i.originalSize, 0)
-  const totalCompressed = items.reduce((s, i) => s + i.compressedSize, 0)
-  const totalReduction = reduction(totalOriginal, totalCompressed)
+    setItems([])
+  })
 
   return (
-    <div className="space-y-5">
+    <div className="flex flex-col gap-4">
       {/* Settings */}
-      <div className="rounded-2xl border bg-card p-5">
-        <div className="grid gap-5 lg:grid-cols-3">
-          <div className="space-y-2">
+      <div className="rounded-xl border bg-card p-4">
+        <div className="grid gap-4 sm:grid-cols-3">
+          <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">
-                {t('image-compressor.maxWidth')}
+              <label className="text-xs font-medium tracking-wide text-muted-foreground">
+                {t('maxWidth')}
               </label>
-              <span className="text-xs text-muted-foreground">
+              <span className="font-mono text-xs text-muted-foreground tabular-nums">
                 {maxWidth}px
               </span>
             </div>
@@ -219,31 +249,38 @@ export function ImageCompressorView() {
               min={320}
               max={4000}
               step={80}
-              onValueChange={v => setMaxWidth(Array.isArray(v) ? v[0] : v)}
+              onValueChange={v =>
+                setMaxWidth(Array.isArray(v) ? (v[0] ?? 1920) : v)
+              }
             />
           </div>
 
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <div className="flex items-center justify-between">
-              <label className="text-sm font-medium">
-                {t('image-compressor.quality')}
+              <label className="text-xs font-medium tracking-wide text-muted-foreground">
+                {t('quality')}
               </label>
-              <span className="text-xs text-muted-foreground">{quality}%</span>
+              <span className="font-mono text-xs text-muted-foreground tabular-nums">
+                {quality}%
+              </span>
             </div>
             <Slider
               value={[quality]}
               min={10}
               max={100}
               step={5}
-              onValueChange={v => setQuality(Array.isArray(v) ? v[0] : v)}
+              disabled={!qualityActive}
+              onValueChange={v =>
+                setQuality(Array.isArray(v) ? (v[0] ?? 80) : v)
+              }
             />
           </div>
 
-          <div className="space-y-2">
-            <label className="text-sm font-medium">
-              {t('image-compressor.format')}
+          <div className="flex flex-col gap-2">
+            <label className="text-xs font-medium tracking-wide text-muted-foreground">
+              {t('format')}
             </label>
-            <div className="inline-flex items-center rounded-md bg-muted p-0.5 text-muted-foreground">
+            <div className="inline-flex flex-wrap items-center gap-0.5 rounded-md bg-muted p-0.5 text-muted-foreground">
               {(
                 [
                   {value: 'image/jpeg', label: 'JPEG'},
@@ -269,28 +306,43 @@ export function ImageCompressorView() {
         </div>
 
         <p className="mt-3 text-xs text-muted-foreground">
-          {t('image-compressor.settingsHint')}
+          {t('settingsHint')}
         </p>
+
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs text-muted-foreground">
+            {t('stats.queue', {count: items.length})}
+          </p>
+          <Button
+            type="button"
+            onClick={() => void compressAll()}
+            disabled={busy || items.length === 0}
+            className="gap-1.5"
+          >
+            <Wand2 className="h-4 w-4" />
+            {busy
+              ? t('actions.compressingPercent', {percent: smoothProgress})
+              : t('actions.compressAll')}
+          </Button>
+        </div>
       </div>
 
       {/* Dropzone */}
       <button
         type="button"
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
+        onDrop={onDrop}
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
         onClick={() => fileInputRef.current?.click()}
-        className={`flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed p-8 text-center transition ${
+        className={`flex w-full cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-8 text-center transition ${
           dragging
             ? 'border-primary bg-primary/5'
             : 'border-border bg-card hover:border-primary/40'
         }`}
       >
         <ImagePlus className="h-8 w-8 text-muted-foreground" />
-        <p className="text-sm font-medium">{t('image-compressor.dropzone')}</p>
-        <p className="text-xs text-muted-foreground">
-          {t('image-compressor.dropzoneHint')}
-        </p>
+        <p className="text-sm font-medium">{t('dropzone')}</p>
+        <p className="text-xs text-muted-foreground">{t('dropzoneHint')}</p>
       </button>
       <input
         ref={fileInputRef}
@@ -298,92 +350,92 @@ export function ImageCompressorView() {
         accept="image/*"
         multiple
         onChange={e => {
-          if (e.target.files) handleFiles(e.target.files)
+          if (e.target.files) void addFiles(e.target.files)
           e.target.value = ''
         }}
         className="hidden"
       />
 
-      {processing && (
-        <div className="rounded-xl border bg-muted/30 px-4 py-3 text-sm text-muted-foreground">
-          {t('image-compressor.processing')}
-        </div>
-      )}
-
       {/* Results */}
       {items.length > 0 && (
         <>
-          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border bg-card p-4">
-            <div className="text-sm">
-              <span className="text-muted-foreground">
-                {items.length} {t('image-compressor.files')}
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-xl border bg-card px-4 py-3 text-sm">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-muted-foreground">
+              <span>{t('files', {count: items.length})}</span>
+              <span>
+                {formatBytes(totalOriginal)}
+                {compressedCount > 0 && ` → ${formatBytes(totalCompressed)}`}
               </span>
-              <span className="mx-2">·</span>
-              <span className="text-muted-foreground">
-                {formatBytes(totalOriginal)} → {formatBytes(totalCompressed)}
-              </span>
-              {totalReduction > 0 && (
-                <>
-                  <span className="mx-2">·</span>
-                  <span className="font-medium text-green-600 dark:text-green-400">
-                    −{totalReduction}%
-                  </span>
-                </>
+              {compressedCount > 0 && totalReduction > 0 && (
+                <span className="text-emerald-600 dark:text-emerald-400">
+                  −{totalReduction}%
+                </span>
               )}
             </div>
-
             <div className="flex gap-2">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
                 onClick={downloadAll}
+                disabled={compressedCount === 0}
               >
-                <Download className="mr-1.5 h-3.5 w-3.5" />
-                {t('image-compressor.downloadAll')}
+                <Download className="mr-1.5 h-4 w-4" />
+                {tGlobal('download')}
               </Button>
               <Button
                 type="button"
-                variant="outline"
+                variant="ghost"
                 size="sm"
-                onClick={() => setItems([])}
-                className="text-destructive hover:text-destructive"
+                onClick={clearAll}
               >
-                <Trash2 className="mr-1.5 h-3.5 w-3.5" />
-                {t('common.clear')}
+                <Trash2 className="mr-1.5 h-4 w-4" />
+                {tGlobal('clear')}
               </Button>
             </div>
           </div>
 
-          <ul className="space-y-3">
+          <ul className="flex flex-col gap-3">
             {items.map(item => (
               <li
                 key={item.id}
-                className="flex items-center gap-4 rounded-2xl border bg-card p-4"
+                className="flex items-center gap-4 rounded-xl border bg-card p-4"
               >
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted/40">
-                  {/* biome-ignore lint/performance/noImgElement: preview thumbnails */}
+                <div className="relative flex flex-col h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted/40">
+                  {/* biome-ignore lint/performance/noImgElement: blob preview */}
                   <img
-                    src={item.compressedUrl}
+                    src={item.compressedUrl ?? item.originalUrl}
                     alt=""
                     className="max-h-full max-w-full object-contain"
                   />
+                  {item.compressedUrl && (
+                    <span className="absolute right-2 top-2 rounded-md bg-emerald-600/90 px-1.5 py-0.5 text-[10px] font-medium text-white">
+                      {t('stats.ready')}
+                    </span>
+                  )}
                 </div>
 
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium">
                     {item.file.name}
                   </p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    {item.width}×{item.height} → {item.outputWidth}×
-                    {item.outputHeight}
+                  <p className="mt-0.5 font-mono text-xs text-muted-foreground tabular-nums">
+                    {item.outputWidth && item.outputHeight
+                      ? `${item.originalWidth}×${item.originalHeight} → ${item.outputWidth}×${item.outputHeight}`
+                      : `${item.originalWidth}×${item.originalHeight}`}
                     <span className="mx-1.5">·</span>
-                    {formatBytes(item.originalSize)} →{' '}
-                    {formatBytes(item.compressedSize)}
-                    <span className="mx-1.5">·</span>
-                    <span className="font-medium text-green-600 dark:text-green-400">
-                      −{reduction(item.originalSize, item.compressedSize)}%
-                    </span>
+                    {formatBytes(item.originalSize)}
+                    {item.compressedSize
+                      ? ` → ${formatBytes(item.compressedSize)}`
+                      : ''}
+                    {item.compressedSize && (
+                      <>
+                        <span className="mx-1.5">·</span>
+                        <span className="font-medium text-emerald-600 dark:text-emerald-400">
+                          −{reduction(item.originalSize, item.compressedSize)}%
+                        </span>
+                      </>
+                    )}
                   </p>
                 </div>
 
@@ -392,16 +444,18 @@ export function ImageCompressorView() {
                     type="button"
                     variant="outline"
                     size="sm"
-                    onClick={() => downloadItem(item)}
+                    onClick={() => downloadOne(item)}
+                    disabled={!item.compressedUrl}
+                    aria-label={tGlobal('download')}
                   >
                     <Download className="h-3.5 w-3.5" />
                   </Button>
                   <Button
                     type="button"
                     variant="ghost"
-                    size="sm"
+                    size="icon-sm"
                     onClick={() => removeItem(item.id)}
-                    className="text-muted-foreground hover:text-destructive"
+                    aria-label={t('actions.remove')}
                   >
                     <X className="h-4 w-4" />
                   </Button>
@@ -413,7 +467,7 @@ export function ImageCompressorView() {
       )}
 
       <p className="text-center text-xs text-muted-foreground">
-        {t('image-compressor.privacyNote')}
+        {t('privacyNote')}
       </p>
     </div>
   )

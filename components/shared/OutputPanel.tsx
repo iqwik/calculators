@@ -3,13 +3,14 @@
 import {cn} from 'cn'
 import {Download} from 'lucide-react'
 import {useTranslations} from 'next-intl'
-import {type ReactNode, useEffectEvent} from 'react'
+import {type ReactNode} from 'react'
+import {useEvent} from '@/hooks/use-event'
 import {Button} from '../ui/button'
 import {CopyButton} from './CopyButton'
 
 interface Props {
-  title: string
-  value: string
+  title?: string
+  value?: string
   /** Кастомный рендер содержимого вместо plain text */
   children?: ReactNode
   /** Отключить кнопку копирования */
@@ -41,7 +42,7 @@ export function OutputPanel({
   downloadLabel,
   disableDownload,
 }: Props) {
-  const getValue = useEffectEvent(() => value)
+  const getValue = useEvent(() => value)
   const tGlobal = useTranslations('global')
 
   const empty = !value && !children
@@ -53,14 +54,15 @@ export function OutputPanel({
         heightClass,
       )}
     >
-      {/* Заголовок-плашка в стиле code-block */}
       <div className="flex items-center justify-between gap-2 px-4 py-2 border-b bg-muted/60">
-        <span className="text-xs font-medium tracking-wide text-muted-foreground">
-          {title}
-        </span>
+        {title && (
+          <span className="text-xs font-medium tracking-wide text-muted-foreground">
+            {title}
+          </span>
+        )}
         <div className="flex items-center gap-1">
           {actions}
-          {!disableCopy && (
+          {value && !disableCopy && (
             <CopyButton
               getValue={getValue}
               disabled={!value}

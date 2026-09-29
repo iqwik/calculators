@@ -1,17 +1,24 @@
 import {assertNever} from '@/helpers'
 import type {ToolConfig} from '@/types'
+import {Base64ImageOptimizerView} from './Base64ImageOptimizerView'
 import {Base64ToImageView} from './Base64ToImageView'
 import {Base64View} from './Base64View'
 import {BreakEvenCalculatorView} from './BreakEvenCalculatorView'
+import {BulkImageResizerView} from './BulkImageResizerView'
 import {CaseConverterView} from './CaseConverterView'
 import {CodeMinifierView} from './CodeMinifierView'
 import {ColorContrastCheckerView} from './ColorContrastCheckerView'
+import {ColorPaletteExtractorView} from './ColorPaletteExtractorView'
 import {ColorPickerView} from './ColorPickerView'
 import {CssGeneratorView} from './CssGeneratorView'
 import {DiffCheckerView} from './DiffCheckerView'
+import {FaviconGeneratorView} from './FaviconGeneratorView'
 import {GitignoreGeneratorView} from './GitignoreGeneratorView'
 import {HashGeneratorView} from './HashGeneratorView'
 import {ImageCompressorView} from './ImageCompressorView'
+import {ImageConverterView} from './ImageConverterView'
+import {ImagesToPdfView} from './ImagesToPdfView'
+import {ImageWatermarkView} from './ImageWatermarkView'
 import {InvoiceGeneratorView} from './InvoiceGeneratorView'
 import {InvoiceNumberGeneratorView} from './InvoiceNumberGeneratorView'
 import {JsonFormatterView} from './JsonFormatterView'
@@ -76,6 +83,10 @@ export function ToolView({config}: Props) {
       return <QrCodeGeneratorView />
     case 'image-compressor':
       return <ImageCompressorView />
+    case 'image-converter':
+      return <ImageConverterView />
+    case 'bulk-image-resizer':
+      return <BulkImageResizerView />
     case 'invoice-generator':
       return <InvoiceGeneratorView />
     case 'invoice-number-generator':
@@ -118,6 +129,16 @@ export function ToolView({config}: Props) {
       return <CssGeneratorView />
     case 'number-to-words':
       return <NumberToWordsView />
+    case 'image-watermark':
+      return <ImageWatermarkView />
+    case 'color-palette-extractor':
+      return <ColorPaletteExtractorView />
+    case 'favicon-generator':
+      return <FaviconGeneratorView />
+    case 'base64-image-optimizer':
+      return <Base64ImageOptimizerView />
+    case 'images-to-pdf':
+      return <ImagesToPdfView />
     default:
       return assertNever(config)
   }

@@ -1,7 +1,10 @@
 'use client'
 
 import {cn} from 'cn'
+import {Download} from 'lucide-react'
+import {useTranslations} from 'next-intl'
 import {type ReactNode, useEffectEvent} from 'react'
+import {Button} from '../ui/button'
 import {CopyButton} from './CopyButton'
 
 interface Props {
@@ -19,6 +22,10 @@ interface Props {
   contentClassName?: string
   /** Не оборачивать содержимое в whitespace-pre-wrap (для JSX-контента) */
   rawContent?: boolean
+
+  onDownload?: () => void
+  downloadLabel?: ReactNode
+  disableDownload?: boolean
 }
 
 export function OutputPanel({
@@ -30,8 +37,12 @@ export function OutputPanel({
   heightClass = 'min-h-[280px]',
   contentClassName,
   rawContent = false,
+  onDownload,
+  downloadLabel,
+  disableDownload,
 }: Props) {
   const getValue = useEffectEvent(() => value)
+  const tGlobal = useTranslations('global')
 
   const empty = !value && !children
 
@@ -56,13 +67,25 @@ export function OutputPanel({
               className="h-7 gap-1.5 px-2"
             />
           )}
+          {onDownload && (
+            <Button
+              size="sm"
+              variant="ghost"
+              disabled={disableDownload}
+              onClick={onDownload}
+              className="h-6 px-1.5 text-xs text-muted-foreground hover:text-foreground"
+            >
+              <Download className="h-3.5 w-3.5" />
+              <span>{downloadLabel ?? tGlobal('download')}</span>
+            </Button>
+          )}
         </div>
       </div>
 
       <div
         className={cn(
           'flex-1 overflow-auto p-4 text-sm leading-relaxed',
-          rawContent ? '' : 'whitespace-pre-wrap break-words',
+          rawContent ? '' : 'whitespace-pre-wrap wrap-break-word',
           contentClassName,
         )}
       >

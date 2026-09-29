@@ -3,7 +3,11 @@ import type {ToolConfig} from '@/types'
 import {Base64View} from './Base64View'
 import {BreakEvenCalculatorView} from './BreakEvenCalculatorView'
 import {CaseConverterView} from './CaseConverterView'
+import {CodeMinifierView} from './CodeMinifierView'
+import {ColorContrastCheckerView} from './ColorContrastCheckerView'
+import {ColorPickerView} from './ColorPickerView'
 import {DiffCheckerView} from './DiffCheckerView'
+import {GitignoreGeneratorView} from './GitignoreGeneratorView'
 import {HashGeneratorView} from './HashGeneratorView'
 import {ImageCompressorView} from './ImageCompressorView'
 import {InvoiceGeneratorView} from './InvoiceGeneratorView'
@@ -11,12 +15,16 @@ import {InvoiceNumberGeneratorView} from './InvoiceNumberGeneratorView'
 import {JsonFormatterView} from './JsonFormatterView'
 import {JwtDecoderView} from './JwtDecoderView'
 import {JwtEncoderView} from './JwtEncoderView'
+import {LicenseGeneratorView} from './LicenseGeneratorView'
 import {LoremIpsumView} from './LoremIpsumView'
+import {MarkdownPreviewerView} from './MarkdownPreviewerView'
+import {MetaTagGeneratorView} from './MetaTagGeneratorView'
 import {PasswordGeneratorView} from './PasswordGeneratorView'
 import {ProfitMarginCalculatorView} from './ProfitMarginCalculatorView'
 import {QrCodeGeneratorView} from './QrCodeGeneratorView'
 import {QuotationGeneratorView} from './QuotationGeneratorView'
 import {SalarySlipGeneratorView} from './SalarySlipGeneratorView'
+import {SqlFormatterMinifierView} from './SqlFormatterMinifierView'
 import {TimestampConverterView} from './TimestampConverterView'
 import {UnitConverterView} from './UnitConverterView'
 import {UrlEncoderView} from './UrlEncoderView'
@@ -76,6 +84,22 @@ export function ToolView({config}: Props) {
       return <QuotationGeneratorView />
     case 'salary-slip-generator':
       return <SalarySlipGeneratorView />
+    case 'license-generator':
+      return <LicenseGeneratorView />
+    case 'gitignore-generator':
+      return <GitignoreGeneratorView />
+    case 'markdown-previewer':
+      return <MarkdownPreviewerView />
+    case 'sql-formatter-minifier':
+      return <SqlFormatterMinifierView />
+    case 'code-minifier':
+      return <CodeMinifierView />
+    case 'color-picker':
+      return <ColorPickerView />
+    case 'color-contrast-checker':
+      return <ColorContrastCheckerView />
+    case 'meta-tag-generator':
+      return <MetaTagGeneratorView />
     default:
       return assertNever(config)
   }

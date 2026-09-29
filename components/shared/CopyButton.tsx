@@ -41,7 +41,7 @@ export function CopyButton({
   const labelProp =
     labelIdle && labelSuccess ? (copied ? labelSuccess : labelIdle) : undefined
   const label = labelProp || tGlobal(copied ? 'copied' : 'copy')
-  const CheckIcon = copied ? Check : Copy
+  const Icon = copied ? Check : Copy
 
   const handleCopy = useEffectEvent(async () => {
     const text = getValue()
@@ -53,7 +53,7 @@ export function CopyButton({
       setTimeout(() => {
         setCopied(false)
         if (!showLabel) setTooltipOpen(false)
-      }, 1500)
+      }, 2000)
     } catch {
       // clipboard может быть недоступен на http
     } finally {
@@ -73,8 +73,8 @@ export function CopyButton({
         className,
       )}
     >
-      <CheckIcon className="h-3 w-3" />
-      {showLabel && label && <span className="ml-1">{label}</span>}
+      <Icon className="h-3 w-3" />
+      {showLabel && label && <span>{label}</span>}
     </Button>
   )
 

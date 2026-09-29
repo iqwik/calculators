@@ -24,6 +24,14 @@ export type ToolKind =
   | 'break-even-calculator'
   | 'quotation-generator'
   | 'salary-slip-generator'
+  | 'license-generator'
+  | 'gitignore-generator'
+  | 'markdown-previewer'
+  | 'sql-formatter-minifier'
+  | 'code-minifier'
+  | 'color-picker'
+  | 'color-contrast-checker'
+  | 'meta-tag-generator'
 
 export interface UnitDef {
   value: string
@@ -130,6 +138,38 @@ export interface SalarySlipGeneratorConfig extends BaseConfig {
   kind: 'salary-slip-generator'
 }
 
+export interface LicenseGeneratorConfig extends BaseConfig {
+  kind: 'license-generator'
+}
+
+export interface GitignoreGeneratorConfig extends BaseConfig {
+  kind: 'gitignore-generator'
+}
+
+export interface MarkdownPreviewerConfig extends BaseConfig {
+  kind: 'markdown-previewer'
+}
+
+export interface SqlFormatterMinifierConfig extends BaseConfig {
+  kind: 'sql-formatter-minifier'
+}
+
+export interface CodeMinifierConfig extends BaseConfig {
+  kind: 'code-minifier'
+}
+
+export interface ColorPickerConfig extends BaseConfig {
+  kind: 'color-picker'
+}
+
+export interface ColorContrastCheckerConfig extends BaseConfig {
+  kind: 'color-contrast-checker'
+}
+
+export interface MetaTagGeneratorConfig extends BaseConfig {
+  kind: 'meta-tag-generator'
+}
+
 export type ToolConfig =
   | UnitConverterConfig
   | JsonFormatterConfig
@@ -154,3 +194,11 @@ export type ToolConfig =
   | BreakEvenCalculatorConfig
   | QuotationGeneratorConfig
   | SalarySlipGeneratorConfig
+  | LicenseGeneratorConfig
+  | GitignoreGeneratorConfig
+  | MarkdownPreviewerConfig
+  | SqlFormatterMinifierConfig
+  | CodeMinifierConfig
+  | ColorPickerConfig
+  | ColorContrastCheckerConfig
+  | MetaTagGeneratorConfig

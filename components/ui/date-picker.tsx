@@ -3,7 +3,7 @@
 import {cn} from 'cn'
 import {enUS, ru} from 'date-fns/locale'
 import {CalendarIcon} from 'lucide-react'
-import {useLocale} from 'next-intl'
+import {useLocale, useTranslations} from 'next-intl'
 import {useEffect, useState} from 'react'
 import {Button} from './button'
 import {Calendar} from './calendar'
@@ -52,6 +52,7 @@ export function DatePicker({
   placeholder = '—',
   className,
 }: Props) {
+  const tGlobal = useTranslations('global')
   const appLocale = useLocale()
   const [displayLocale, setDisplayLocale] = useState<string>(
     appLocale === 'ru' ? 'ru-RU' : 'en-US',
@@ -87,6 +88,7 @@ export function DatePicker({
               id={id}
               type="button"
               variant="outline"
+              data-empty={!date}
               className={cn(
                 'w-full justify-start text-left font-normal',
                 !date && 'text-muted-foreground',
@@ -123,7 +125,7 @@ export function DatePicker({
                 setOpen(false)
               }}
             >
-              Clear
+              {tGlobal('clear')}
             </Button>
           </div>
         )}

@@ -5,7 +5,7 @@ import {type LucideIcon} from 'lucide-react'
 import {type ReactNode} from 'react'
 
 interface Props {
-  title: string
+  title: ReactNode
   value: string
   onChange: (value: string) => void
   placeholder?: string
@@ -54,9 +54,9 @@ export function InputPanel({
       <div className="flex items-center justify-between gap-2 border-b bg-muted/60 px-4 py-2 min-h-11.25">
         <div className="flex items-center gap-2">
           {Icon && <Icon className={cn('h-3.5 w-3.5', iconClassName)} />}
-          <span className="text-xs font-medium tracking-wide text-muted-foreground">
+          <div className="text-xs font-medium tracking-wide text-muted-foreground">
             {title}
-          </span>
+          </div>
           {headerExtra}
         </div>
         {actions && <div className="flex items-center gap-1">{actions}</div>}

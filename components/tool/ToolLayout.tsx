@@ -1,5 +1,6 @@
 import {cn} from 'cn'
 import {getTranslations} from 'next-intl/server'
+import {isWideTool} from '@/data'
 import {getBaseUrl} from '@/helpers'
 import {Link} from '@/i18n/navigation'
 import type {ToolConfig} from '@/types'
@@ -18,10 +19,7 @@ export async function ToolLayout({config}: Props) {
   const tNav = await getTranslations('nav')
   const tHome = await getTranslations('home')
   const baseUrl = getBaseUrl()
-  const isWide =
-    config.kind === 'invoice-generator' ||
-    config.kind === 'quotation-generator' ||
-    config.kind === 'salary-slip-generator'
+  const isWide = isWideTool(config.kind)
 
   return (
     <article

@@ -70,6 +70,8 @@
     "backHome": "Back to home"
   },
   "global": {
+    "expand": "Expand",
+    "collapse": "Collapse",
     "calculate": "Calculate",
     "reset": "Reset",
     "refresh": "Refresh",
@@ -81,7 +83,8 @@
     "copy": "Copy",
     "copied": "Copied",
     "copyAll": "Copy all",
-    "copiedAll": "Copied"
+    "copiedAll": "Copied",
+    "download": "Download"
   },
   "notFound": {
     "title": "Page not found",
@@ -1933,6 +1936,285 @@
         "a3": "Yes. Use the Add Earning and Add Deduction buttons to insert custom rows. You can also delete any row you don't need.",
         "q4": "Is my data saved?",
         "a4": "Yes, but only in your browser's localStorage. Nothing is uploaded to any server. Clearing browser data removes the saved draft."
+      }
+    },
+    "license-generator": {
+      "title": "Open Source License Generator – MIT, Apache, GPL & More",
+      "h1": "Open Source License Generator",
+      "description": "Generate standard open source licenses (MIT, Apache 2.0, GPL-3.0, BSD, ISC, Unlicense) with your details filled in. Copy or download ready-to-use LICENSE files.",
+      "keywords": "license generator,mit license,apache license,gpl license generator,open source license,software license template",
+
+      "licenseLabel": "License",
+      "yearLabel": "Year",
+      "nameLabel": "Copyright holder",
+      "namePlaceholder": "Your name or organization",
+
+      "projectLabel": "Project Name (optional)",
+      "projectPlaceholder": "My Project",
+      "outputTitle": "LICENSE",
+
+      "download": "Download LICENSE",
+
+      "hints": {
+        "mit": "Short, permissive. Most popular for open source.",
+        "apache2": "Permissive with explicit patent grant. Good for larger projects.",
+        "gpl3": "Copyleft. Derivative works must stay open source.",
+        "agpl3": "Copyleft, extends to network use. SaaS must share source.",
+        "lgpl3": "Weak copyleft. Linking allowed, modifications must stay open.",
+        "bsd2": "Permissive, similar to MIT but with different wording.",
+        "bsd3": "Permissive with no-endorsement clause. Common in academia.",
+        "isc": "Permissive, simpler than MIT. Used by OpenBSD, npm.",
+        "mpl2": "Weak copyleft at file level. Used by Firefox.",
+        "unlicense": "Public domain dedication. No restrictions."
+      },
+
+      "disclaimer": "These are standard license templates. For important projects, have a lawyer review before publishing.",
+
+      "faq": {
+        "q1": "Which license should I choose?",
+        "a1": "MIT and Apache 2.0 are permissive — anyone can use your code with minimal conditions. GPL and AGPL require derivative works to stay open source. Choose based on how much control you want over downstream use.",
+        "q2": "What is the difference between MIT and Apache 2.0?",
+        "a2": "Both are permissive. Apache 2.0 also includes an explicit patent grant and a trademark clause. MIT is shorter and simpler. For most projects, either works — pick MIT for simplicity, Apache 2.0 if patents matter.",
+        "q3": "Can I change the license later?",
+        "a3": "You can change the license for future versions, but you cannot retroactively revoke the license on code already released. Contributors retain their rights under the original license.",
+        "q4": "Is this legally binding?",
+        "a4": "These are standard templates used by millions of projects. For important or commercial projects, have a lawyer review. This tool simply fills in the common placeholders correctly."
+      }
+    },
+    "gitignore-generator": {
+      "title": "Git Ignore Generator – .gitignore by Language & Framework",
+      "h1": "Git Ignore Generator",
+      "description": "Generate .gitignore files for any stack. 30+ templates for Node, Next.js, Python, Java, Go, mobile, OS and IDEs. Add custom rules and download.",
+      "keywords": "gitignore generator,git ignore file,.gitignore template,gitignore by language,create gitignore online,node gitignore,python gitignore",
+
+      "groups": {
+        "language": "Languages",
+        "framework": "Frameworks",
+        "editor": "Editors & IDEs",
+        "os": "Operating Systems"
+      },
+
+      "presetsTitle": "Quick presets",
+      "presets": {
+        "web": "Web / JS",
+        "mobile": "Mobile",
+        "backend": "Backend",
+        "data": "Data / ML",
+        "osIde": "OS / IDE",
+        "infra": "Infra"
+      },
+      "searchPlaceholder": "Search languages, frameworks...",
+      "selectedCount": "{count} selected",
+      "emptySearch": "No templates match your search.",
+      "outputTitle": ".gitignore Preview",
+      "download": "Download .gitignore",
+      "customLabel": "Additional patterns (one per line)",
+      "customPlaceholder": "*.log\nsecrets/\n.env",
+      "note": "Combines curated templates with your custom rules. Deduplicates lines. Works offline.",
+
+      "faq": {
+        "q1": "How many templates are included?",
+        "a1": "Over 30 popular languages, frameworks, editors, and operating systems. You can combine any number of them.",
+        "q2": "Can I edit the generated file?",
+        "a2": "Yes. The preview is read-only here, but you can paste your custom rules into the Custom rules field, or download and edit the file locally.",
+        "q3": "What if I already have a .gitignore?",
+        "a3": "Paste your existing content into the Custom rules field and re-select templates — duplicates are merged automatically.",
+        "q4": "Is my data sent anywhere?",
+        "a4": "No. The entire .gitignore is generated in your browser. Nothing is uploaded to any server."
+      }
+    },
+    "markdown-previewer": {
+      "title": "Markdown Previewer – Live HTML Editor with Split View",
+      "h1": "Markdown Previewer",
+      "description": "Free Markdown to HTML previewer. Write Markdown on the left and see live rendered HTML on the right. Supports GFM, tables, code highlighting, and export.",
+      "keywords": "markdown previewer,markdown to html,live markdown editor,github flavored markdown,markdown html converter",
+
+      "inputLabel": "Markdown",
+      "previewLabel": "Preview",
+      "placeholder": "Type Markdown here...",
+      "download": "Download HTML",
+      "characters": "characters",
+
+      "faq": {
+        "q1": "Does it support GitHub Flavored Markdown?",
+        "a1": "Yes. Tables, task lists, strikethrough, autolinks, and most common GFM extensions are supported out of the box.",
+        "q2": "Is my content saved?",
+        "a2": "No. Your Markdown is processed entirely in your browser. Reloading the page resets to the default example. Nothing is stored or transmitted.",
+        "q3": "Can I export the rendered HTML?",
+        "a3": "Yes. Use Download HTML to get a standalone .html file with embedded styles, ready to open in any browser or paste into a CMS.",
+        "q4": "Is the preview sanitized?",
+        "a4": "Yes. All output passes through DOMPurify, which strips script tags, event handlers, iframes, and other XSS vectors. Your rendered HTML is safe to embed."
+      }
+    },
+    "sql-formatter-minifier": {
+      "title": "SQL Formatter & Minifier – Beautify and Compress SQL",
+      "h1": "SQL Formatter & Minifier",
+      "description": "Format ugly SQL into readable code or minify it for production. Smart keyword casing, indentation and comment stripping for DBAs and developers.",
+      "keywords": "sql formatter,sql beautifier,minify sql,format sql online,sql pretty print,compress sql,sql code formatter",
+
+      "format": "Format",
+      "minify": "Minify",
+      "casingLabel": "Keyword case",
+      "casing": {
+        "upper": "UPPERCASE",
+        "lower": "lowercase",
+        "preserve": "Preserve"
+      },
+      "indentLabel": "Indent",
+
+      "inputLabel": "SQL input",
+      "outputLabel": "Result",
+      "placeholder": "Paste your SQL query here...",
+
+      "faq": {
+        "q1": "Which SQL dialects are supported?",
+        "a1": "The formatter works with standard ANSI SQL and common dialects like PostgreSQL, MySQL, and SQLite. It recognises the most common keywords and functions across dialects.",
+        "q2": "Does it preserve comments?",
+        "a2": "In Format mode, inline and block comments are kept and placed on their own lines. In Minify mode they are stripped to reduce size.",
+        "q3": "Is the output safe to run in production?",
+        "a3": "Yes for Format — it only changes whitespace and keyword casing. Minified output is functionally identical but harder to read. Use it for deployment logs or embedding.",
+        "q4": "Is my SQL sent anywhere?",
+        "a4": "No. All formatting and minification run entirely in your browser. Your queries never leave your device."
+      }
+    },
+    "code-minifier": {
+      "title": "Code Minifier – Minify HTML, CSS & JavaScript",
+      "h1": "Code Minifier",
+      "description": "Free online code minifier. Compress HTML, CSS, and JavaScript by removing whitespace and comments. See before/after size comparison.",
+      "keywords": "code minifier,html minifier,css minifier,javascript minifier,minify js online,code compressor",
+
+      "inputLabel": "Source code",
+      "outputLabel": "Minified",
+      "placeholder": "Paste your HTML, CSS, or JavaScript here...",
+      "errorLabel": "Error",
+
+      "faq": {
+        "q1": "Is minification safe for production?",
+        "a1": "Yes for most cases. Our minifier only removes whitespace, comments, and unnecessary characters. It does not rename variables or change logic. Always test your minified code, especially JavaScript.",
+        "q2": "Will minification break my JavaScript?",
+        "a2": "The JavaScript minifier uses Terser with compression and mangling disabled — the safest possible mode. It strips comments and collapses whitespace without altering behaviour. For aggressive optimisation, use Terser's full mode locally.",
+        "q3": "Does it preserve pre and code blocks in HTML?",
+        "a3": "Yes. The HTML minifier preserves the exact contents of pre, textarea, script, and style tags. Only structural whitespace between tags is removed.",
+        "q4": "Is my code sent anywhere?",
+        "a4": "No. All minification runs entirely in your browser. Your code never leaves your device."
+      }
+    },
+    "color-picker": {
+      "title": "Color Picker – HEX, RGB, HSL Converter & Palette Tool",
+      "h1": "Color Picker",
+      "description": "Free online color picker. Pick colors, convert between HEX, RGB, HSL, and HSV, generate harmonious palettes, and copy values instantly.",
+      "keywords": "color picker online,hex to rgb converter,color palette generator,hsl color picker,web color tools",
+
+      "pickLabel": "Pick a color",
+      "palettesTitle": "Harmonious palettes",
+      "tintsShadesTitle": "Tints & shades of the current color",
+      "baseLabel": "Base",
+      "palettes": {
+        "complementary": "Complementary",
+        "analogous": "Analogous",
+        "triadic": "Triadic",
+        "splitComplementary": "Split complementary",
+        "monochromatic": "Monochromatic"
+      },
+
+      "faq": {
+        "q1": "Can I generate color palettes?",
+        "a1": "Yes. After picking a base color you can generate complementary, analogous, triadic, split-complementary, and monochromatic palettes with one click. Each swatch is copyable.",
+        "q2": "What color formats are supported?",
+        "a2": "HEX, RGB, HSL, and HSV. You can type a value in any of these formats and the tool instantly converts to all others.",
+        "q3": "Is my color data tracked or stored?",
+        "a3": "No. All conversions and palette generations run entirely in your browser. Nothing is sent to or saved on any server.",
+        "q4": "What is the difference between HSL and HSV?",
+        "a4": "HSL (Hue, Saturation, Lightness) is designed for human readability — L=0 is black, L=100 is white. HSV (Hue, Saturation, Value) is designed for color pickers — V is the brightest channel value, so pure red is H=0, S=100, V=100."
+      }
+    },
+    "color-contrast-checker": {
+      "title": "Color Contrast Checker – WCAG AA/AAA Compliance Tool",
+      "h1": "Color Contrast Checker",
+      "description": "Check color contrast ratios against WCAG 2.1 AA and AAA. Live preview, pass/fail status, and suggestions for accessible color pairs.",
+      "keywords": "color contrast checker,wcag contrast,aa aaa compliance,accessible colors,contrast ratio calculator,web accessibility tool",
+
+      "foreground": "Foreground (text)",
+      "background": "Background",
+      "swap": "Swap",
+      "ratio": "Contrast ratio",
+      "normalText": "Normal text",
+      "largeText": "Large text",
+      "uiComponents": "UI components",
+      "thresholdNormal": "AA 4.5:1 · AAA 7:1",
+      "thresholdLarge": "AA 3:1 · AAA 4.5:1",
+      "thresholdUi": "AA 3:1",
+
+      "levels": {
+        "aaa": "AAA",
+        "aa": "AA",
+        "fail": "Fail"
+      },
+
+      "previewTitle": "Live preview",
+      "previewLarge": "Large heading at 24px",
+      "previewNormal": "Normal body text at 16px — this is the standard reading size.",
+      "previewSmall": "Small caption text at 14px",
+
+      "notePrefix": "Remember:",
+      "note": "WCAG AA requires 4.5:1 for normal text and 3:1 for large text. AAA requires 7:1 and 4.5:1 respectively. Large text is 18pt+ or 14pt bold.",
+
+      "faq": {
+        "q1": "What contrast ratios are required for WCAG AA and AAA?",
+        "a1": "For normal text: AA requires 4.5:1, AAA requires 7:1. For large text (18pt+ or 14pt bold): AA is 3:1, AAA is 4.5:1. UI components and graphical objects need at least 3:1 for AA.",
+        "q2": "Why does my color pass in one tool but fail here?",
+        "a2": "Different tools sometimes use slightly different rounding or sRGB linearization. We follow the official WCAG 2.1 relative luminance formula exactly for maximum accuracy.",
+        "q3": "What counts as large text?",
+        "a3": "Large text is defined as 18pt (24px) or larger, or 14pt (18.66px) bold or larger. Most headings and larger UI text fall into this category.",
+        "q4": "Does it support alpha transparency?",
+        "a4": "The checker works with opaque colors. For transparent colors, composite them against the background first to get the effective RGB values, then check those."
+      }
+    },
+    "meta-tag-generator": {
+      "title": "Meta Tag Generator – OpenGraph & Twitter Card Builder",
+      "h1": "Meta Tag Generator",
+      "description": "Free meta tag generator with live preview. Create optimized title, description, OpenGraph, and Twitter Card tags for better SEO and social sharing.",
+      "keywords": "meta tag generator,opengraph generator,twitter card generator,seo meta tags,og tags creator,social media tags",
+
+      "titleLabel": "Page title",
+      "titlePlaceholder": "My Awesome Page",
+      "titleRecommended": "characters (recommended max 60)",
+      "descriptionLabel": "Meta description",
+      "descriptionPlaceholder": "A short, compelling description of the page...",
+      "descriptionRecommended": "characters (recommended max 160)",
+      "urlLabel": "Page URL",
+      "imageLabel": "Social image URL",
+      "siteNameLabel": "Site name",
+      "twitterLabel": "Twitter / X handle",
+      "typeLabel": "OG type",
+      "localeLabel": "Locale",
+
+      "siteDetails": "Site details",
+
+      "authorLabel": "Author",
+      "themeColorLabel": "Theme color",
+      "keywordsLabel": "Keywords (comma separated)",
+      "robotsLabel": "Allow search engines to index this page",
+      "htmlTab": "HTML Code",
+
+      "googlePreviewTitle": "Google search preview",
+      "previewTitleFallback": "Page title will appear here",
+      "previewDescriptionFallback": "Your meta description will appear here.",
+
+      "socialPreviewTitle": "Social share preview",
+      "imagePreviewPlaceholder": "OG image preview",
+
+      "outputTitle": "Generated meta tags",
+
+      "faq": {
+        "q1": "Do these tags actually improve rankings?",
+        "a1": "Meta tags don't directly boost rankings, but great titles and descriptions improve click-through rate from search, and OpenGraph tags improve how your content appears when shared on social media.",
+        "q2": "What is the recommended length for title and description?",
+        "a2": "Keep titles under 60 characters and descriptions under 160 characters. Google truncates longer text, which reduces CTR.",
+        "q3": "Which OG image size should I use?",
+        "a3": "Facebook and most platforms recommend 1200×630 px (1.91:1 ratio). Twitter uses the same size for summary_large_image cards.",
+        "q4": "Is my data sent anywhere?",
+        "a4": "No. All tag generation runs entirely in your browser. Your metadata never leaves your device."
       }
     }
   }

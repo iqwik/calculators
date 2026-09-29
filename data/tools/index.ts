@@ -24,3 +24,18 @@ export function getToolsByCategory(
 ): ToolConfig[] {
   return tools.filter(t => t.category === category)
 }
+
+export function isWideTool(kind: ToolConfig['kind']) {
+  switch (kind) {
+    case 'invoice-generator':
+    case 'quotation-generator':
+    case 'salary-slip-generator':
+    case 'markdown-previewer':
+    case 'sql-formatter-minifier':
+    case 'code-minifier':
+    case 'meta-tag-generator':
+      return true
+    default:
+      return false
+  }
+}

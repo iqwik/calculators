@@ -1,4 +1,11 @@
-import {Briefcase, Code2, FileText, HeartPulse, Wallet, Zap} from 'lucide-react'
+import {
+  Briefcase,
+  Calculator,
+  Code2,
+  FileText,
+  HeartPulse,
+  Zap,
+} from 'lucide-react'
 import type {CategorySlug} from '@/types'
 
 interface Props {
@@ -7,7 +14,8 @@ interface Props {
 }
 
 const ICONS: Record<CategorySlug, React.ComponentType<{className?: string}>> = {
-  finance: Wallet,
+  // finance: Wallet,
+  finance: Calculator,
   health: HeartPulse,
   text: FileText,
   developer: Code2,

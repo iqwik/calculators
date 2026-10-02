@@ -1,3 +1,10 @@
+import {
+  CaseSensitive,
+  FileText,
+  GitCompare,
+  SpellCheck,
+  TextInitial,
+} from 'lucide-react'
 import type {ToolConfig} from '@/types'
 
 export const textTools: ToolConfig[] = [
@@ -9,6 +16,7 @@ export const textTools: ToolConfig[] = [
     h1: 'word-counter.h1',
     description: 'word-counter.description',
     keywords: ['word-counter.keywords'],
+    Icon: TextInitial,
     tags: ['text'],
     faq: [
       {q: 'word-counter.faq.q1', a: 'word-counter.faq.a1'},
@@ -27,6 +35,7 @@ export const textTools: ToolConfig[] = [
     h1: 'case-converter.h1',
     description: 'case-converter.description',
     keywords: ['case-converter.keywords'],
+    Icon: CaseSensitive,
     tags: ['text'],
     faq: [
       {q: 'case-converter.faq.q1', a: 'case-converter.faq.a1'},
@@ -45,6 +54,7 @@ export const textTools: ToolConfig[] = [
     h1: 'lorem-ipsum-generator.h1',
     description: 'lorem-ipsum-generator.description',
     keywords: ['lorem-ipsum-generator.keywords'],
+    Icon: FileText,
     tags: ['text'],
     faq: [
       {q: 'lorem-ipsum-generator.faq.q1', a: 'lorem-ipsum-generator.faq.a1'},
@@ -63,6 +73,7 @@ export const textTools: ToolConfig[] = [
     h1: 'diff-checker.h1',
     description: 'diff-checker.description',
     keywords: ['diff-checker.keywords'],
+    Icon: GitCompare,
     tags: ['text'],
     faq: [
       {q: 'diff-checker.faq.q1', a: 'diff-checker.faq.a1'},
@@ -81,6 +92,7 @@ export const textTools: ToolConfig[] = [
     h1: 'number-to-words-converter.h1',
     description: 'number-to-words-converter.description',
     keywords: ['number-to-words-converter.keywords'],
+    Icon: SpellCheck,
     tags: ['text'],
     faq: [
       {

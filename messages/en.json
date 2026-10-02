@@ -6,7 +6,11 @@
     }
   },
   "home": {
-    "badge": "100% Free • No Signup • Privacy First",
+    "badge": {
+      "free": "100% Free",
+      "no-signup": "No Signup",
+      "privacy": "Privacy First"
+    },
     "h1": "Free Online Tools for Everyday Tasks",
     "subtitle": "Instant calculators, text utilities, generators, and developer tools. Everything runs in your browser — no data leaves your device.",
     "stats": {
@@ -17,7 +21,7 @@
     },
     "search": {
       "placeholder": "Search tools, e.g. age, BMI, password",
-      "label": "Search tools",
+      "label": "Search",
       "empty": "No tools found"
     },
     "filters": {
@@ -29,7 +33,7 @@
       "generators": "Generators",
       "business": "Business"
     },
-    "toolsCount": "{count} available",
+    "toolsCount": "{count} tools",
     "categories": {
       "finance": "Finance Calculators",
       "health": "Health & Fitness",
@@ -37,6 +41,10 @@
       "developer": "Developer Tools",
       "generators": "Generators",
       "business": "Business Tools"
+    },
+    "privacy": {
+      "label": "100% Private — Everything Stays in Your Browser",
+      "text": "Your passwords, financial calculations, and sensitive text are processed only on your device. Not a single byte is sent to a server. Powered by WebAssembly and Web Workers. Zero network requests. Runs on WebAssembly and Web Workers. Zero network requests."
     }
   },
   "nav": {
@@ -66,6 +74,14 @@
     }
   },
   "category": {
+    "title": {
+      "finance": "Finance Calculators",
+      "health": "Health & Fitness",
+      "text": "Text Tools",
+      "developer": "Developer Tools",
+      "generators": "Generators",
+      "business": "Business Tools"
+    },
     "toolsCount": "{count} tools",
     "backHome": "Back to home"
   },
@@ -84,7 +100,8 @@
     "copied": "Copied",
     "copyAll": "Copy all",
     "copiedAll": "Copied",
-    "download": "Download"
+    "download": "Download",
+    "open": "Open"
   },
   "notFound": {
     "title": "Page not found",
@@ -525,6 +542,85 @@
         "a3": "Add the tip to the bill to get the total, then divide the total by the number of people. Each person pays an equal share.",
         "q4": "Should I tip on the pre-tax or post-tax amount?",
         "a4": "Etiquette varies. Tipping on the pre-tax amount is common and fair, but many people simply tip on the total. Either is generally acceptable."
+      }
+    },
+    "salary-calculator": {
+      "title": "Salary Calculator – Hourly, Monthly & Annual Pay Converter",
+      "h1": "Salary Calculator",
+      "description": "Free salary calculator. Convert hourly pay to annual, or annual to monthly, weekly, and daily. See all pay equivalents on one page.",
+      "keywords": "salary calculator,hourly to annual,annual salary,monthly salary,pay converter,wage calculator",
+      "inputs": {
+        "amount": "Amount",
+        "period": "Pay period",
+        "hoursPerWeek": "Hours per week",
+        "daysPerWeek": "Days per week"
+      },
+      "options": {
+        "hourly": "Per hour",
+        "daily": "Per day",
+        "weekly": "Per week",
+        "monthly": "Per month",
+        "yearly": "Per year"
+      },
+      "hints": {
+        "hoursPerWeek": "Used to convert hourly pay. Standard: 40.",
+        "daysPerWeek": "Used to convert daily pay. Standard: 5."
+      },
+      "resultLabel": "Annual salary",
+      "resultUnit": "per year",
+      "secondary": {
+        "monthly": "Per month",
+        "weekly": "Per week",
+        "daily": "Per day",
+        "hourly": "Per hour"
+      },
+      "faq": {
+        "q1": "How do I convert hourly pay to an annual salary?",
+        "a1": "Multiply your hourly rate by the number of hours you work per week, then multiply by 52 weeks. For example, $25/hour × 40 hours × 52 weeks = $52,000/year.",
+        "q2": "How many work hours are there in a year?",
+        "a2": "A standard full-time schedule (40 hours per week, 52 weeks) is 2,080 hours per year. Part-time and irregular schedules differ.",
+        "q3": "How do I convert a monthly salary to an hourly rate?",
+        "a3": "Multiply the monthly salary by 12 to get the annual salary, then divide by the number of working hours per year. For a 40-hour week, that is 2,080 hours.",
+        "q4": "Does the calculator account for taxes?",
+        "a4": "No. It converts gross pay only. Taxes and deductions depend on your country, region, and personal situation. Use a separate take-home calculator for net pay."
+      }
+    },
+    "roi-calculator": {
+      "title": "ROI Calculator – Return on Investment",
+      "h1": "ROI Calculator",
+      "description": "Free ROI calculator. Compute return on investment, profit and margin for any project or investment.",
+      "keywords": "roi calculator,return on investment,investment return,profit margin,roi formula",
+      "inputs": {
+        "mode": "Calculation mode",
+        "initial": "Initial amount",
+        "final": "Final amount",
+        "cost": "Business cost"
+      },
+      "options": {
+        "simple": "Investment (initial → final)",
+        "business": "Business (revenue − cost)"
+      },
+      "hints": {
+        "cost": "Used only in business mode."
+      },
+      "resultLabel": "ROI",
+      "secondary": {
+        "initial": "Initial amount",
+        "final": "Final amount",
+        "revenue": "Revenue",
+        "cost": "Cost",
+        "profit": "Net profit",
+        "margin": "Margin"
+      },
+      "faq": {
+        "q1": "What is ROI?",
+        "a1": "ROI (Return on Investment) shows how much profit you made relative to the amount invested. Formula: ROI = (final − initial) / initial × 100.",
+        "q2": "How is ROI different from margin?",
+        "a2": "ROI compares profit to the amount invested. Margin compares profit to revenue. Both metrics are useful: ROI for investors, margin for businesses.",
+        "q3": "Can ROI be negative?",
+        "a3": "Yes. A negative ROI means a loss — the final amount is less than what was invested. ROI of −20% means you lost 20% of your investment.",
+        "q4": "Does ROI account for time?",
+        "a4": "Simple ROI does not. A 50% return over one year is very different from 50% over ten years. Use CAGR or annualized return to factor in time."
       }
     },
     "date-difference-calculator": {
@@ -3114,6 +3210,67 @@
         "a3": "Yes. Enable Title page in the settings and add a title and optional subtitle. The title page will be inserted as the first page of the PDF.",
         "q4": "What is the difference between Contain, Cover and Stretch?",
         "a4": "Contain fits the whole image inside the cell keeping aspect ratio, leaving empty space. Cover fills the cell and crops the overflow. Stretch forces exact dimensions and can distort the image."
+      }
+    },
+    "screenshot-beautifier": {
+      "title": "Screenshot Beautifier – Add Gradient Backgrounds & Frames",
+      "h1": "Screenshot Beautifier",
+      "description": "Turn plain screenshots into polished visuals. Add gradient or solid backgrounds, rounded corners, macOS-style frames, and soft shadows. Free, private, runs 100% in your browser.",
+      "keywords": "screenshot beautifier,beautify screenshot,screenshot background,gradient screenshot,screenshot with shadow,macos window screenshot,pretty screenshot",
+      "inputs": {
+        "backgroundMode": "Background",
+        "color": "Background color",
+        "gradientPreset": "Preset",
+        "gradientFrom": "From",
+        "gradientTo": "To",
+        "gradientAngle": "Angle",
+        "padding": "Padding",
+        "radius": "Corner radius",
+        "frame": "Show macOS-style window frame",
+        "frameDark": "Dark frame",
+        "shadow": "Drop shadow",
+        "shadowBlur": "Shadow blur",
+        "shadowOpacity": "Shadow opacity",
+        "format": "Export format",
+        "scale": "Export scale",
+        "quality": "Quality"
+      },
+      "modes": {
+        "solid": "Solid",
+        "gradient": "Gradient",
+        "transparent": "Transparent"
+      },
+      "presets": {
+        "sunset": "Sunset",
+        "ocean": "Ocean",
+        "purple": "Purple",
+        "night": "Night",
+        "cream": "Cream",
+        "teal": "Teal"
+      },
+      "sections": {
+        "preview": "Preview"
+      },
+      "actions": {
+        "download": "Download",
+        "replace": "Replace image"
+      },
+      "hints": {
+        "drop": "Drop a screenshot here or click to select",
+        "dropSub": "PNG, JPG, WebP, GIF — single image",
+        "empty": "Upload a screenshot to see the live preview.",
+        "privacy": "Everything runs in your browser. Your image never leaves your device.",
+        "transparentJpeg": "Transparent background is only available for PNG. Export will use a white background."
+      },
+      "faq": {
+        "q1": "What does this tool do?",
+        "a1": "It adds a polished background, rounded corners, optional macOS-style window frame, and a soft drop shadow to any screenshot. Perfect for blog posts, documentation, portfolio, and social media.",
+        "q2": "Is my image uploaded anywhere?",
+        "a2": "No. All processing happens locally in your browser using the Canvas API. Your image never leaves your device.",
+        "q3": "What export formats are supported?",
+        "a3": "PNG (lossless, supports transparent background), JPEG and WebP (smaller size, no transparency). Export scale up to 3× for retina displays.",
+        "q4": "What does Export scale do?",
+        "a4": "It multiplies the output resolution. 1× is best for quick previews, 2× is standard for retina displays and blog posts, 3× is best for high-DPI printing."
       }
     }
   }

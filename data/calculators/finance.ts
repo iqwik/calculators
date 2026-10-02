@@ -1,3 +1,20 @@
+import {
+  BadgePercent,
+  BanknoteCheck,
+  BriefcaseBusiness,
+  CalendarSearch,
+  ChartLine,
+  ChartNoAxesCombined,
+  Coffee,
+  HandCoins,
+  House,
+  Landmark,
+  Percent,
+  PiggyBank,
+  Scale,
+  Target,
+  TicketPercent,
+} from 'lucide-react'
 import type {CalculatorConfig} from '@/types'
 
 function fmt(n: number): string {
@@ -174,6 +191,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'percentage-calculator.h1',
     description: 'percentage-calculator.description',
     keywords: ['percentage-calculator.keywords'],
+    Icon: Percent,
     inputs: [
       {
         name: 'mode',
@@ -268,6 +286,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'loan-payment-calculator.h1',
     description: 'loan-payment-calculator.description',
     keywords: ['loan-payment-calculator.keywords'],
+    Icon: Landmark,
     inputs: [
       {
         name: 'principal',
@@ -381,6 +400,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'compound-interest-calculator.h1',
     description: 'compound-interest-calculator.description',
     keywords: ['compound-interest-calculator.keywords'],
+    Icon: ChartNoAxesCombined,
     inputs: [
       {
         name: 'principal',
@@ -505,6 +525,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'discount-calculator.h1',
     description: 'discount-calculator.description',
     keywords: ['discount-calculator.keywords'],
+    Icon: TicketPercent,
     inputs: [
       {
         name: 'price',
@@ -586,6 +607,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'tip-calculator.h1',
     description: 'tip-calculator.description',
     keywords: ['tip-calculator.keywords'],
+    Icon: Coffee,
     inputs: [
       {
         name: 'bill',
@@ -659,6 +681,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'sales-tax-calculator.h1',
     description: 'sales-tax-calculator.description',
     keywords: ['sales-tax-calculator.keywords'],
+    Icon: BadgePercent, // Tag
     inputs: [
       {
         name: 'amount',
@@ -753,6 +776,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'salary-calculator.h1',
     description: 'salary-calculator.description',
     keywords: ['salary-calculator.keywords'],
+    Icon: BriefcaseBusiness,
     inputs: [
       {
         name: 'amount',
@@ -878,6 +902,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'roi-calculator.h1',
     description: 'roi-calculator.description',
     keywords: ['roi-calculator.keywords'],
+    Icon: ChartLine,
     inputs: [
       {
         name: 'mode',
@@ -996,6 +1021,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'monthly-investment-calculator.h1',
     description: 'monthly-investment-calculator.description',
     keywords: ['monthly-investment-calculator.keywords'],
+    Icon: PiggyBank,
     inputs: [
       {
         name: 'monthly',
@@ -1100,6 +1126,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'date-difference-calculator.h1',
     description: 'date-difference-calculator.description',
     keywords: ['date-difference-calculator.keywords'],
+    Icon: CalendarSearch,
     inputs: [
       {
         name: 'startDate',
@@ -1201,6 +1228,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'tax-regime-comparator.h1',
     description: 'tax-regime-comparator.description',
     keywords: ['tax-regime-comparator.keywords'],
+    Icon: Scale,
     inputs: [
       {
         name: 'annualIncome',
@@ -1302,6 +1330,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'savings-goal-calculator.h1',
     description: 'savings-goal-calculator.description',
     keywords: ['savings-goal-calculator.keywords'],
+    Icon: Target,
     inputs: [
       {
         name: 'goal',
@@ -1453,6 +1482,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'loan-eligibility-calculator.h1',
     description: 'loan-eligibility-calculator.description',
     keywords: ['loan-eligibility-calculator.keywords'],
+    Icon: HandCoins,
     inputs: [
       {
         name: 'monthlyIncome',
@@ -1609,6 +1639,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'rent-vs-buy-calculator.h1',
     description: 'rent-vs-buy-calculator.description',
     keywords: ['rent-vs-buy-calculator.keywords'],
+    Icon: House,
     inputs: [
       {
         name: 'price',
@@ -1793,6 +1824,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'fixed-deposit-calculator.h1',
     description: 'fixed-deposit-calculator.description',
     keywords: ['fixed-deposit-calculator.keywords'],
+    Icon: BanknoteCheck,
     inputs: [
       {
         name: 'principal',

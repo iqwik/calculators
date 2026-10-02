@@ -61,11 +61,12 @@ export function CalculatorForm({slug}: Props) {
     [calc],
   )
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: calc and locale are stable
   useEffect(() => {
     if (hasSliders && calc) {
       setResult(calc.calculate(values, {locale}))
     }
-  }, [values, hasSliders, calc, locale])
+  }, [values, hasSliders])
 
   if (!calc) return null
 

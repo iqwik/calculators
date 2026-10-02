@@ -22,12 +22,7 @@ export async function ToolLayout({config}: Props) {
   const isWide = isWideTool(config.kind)
 
   return (
-    <article
-      className={cn(
-        'mx-auto max-w-4xl px-6 py-10',
-        isWide ? 'max-w-6xl' : 'max-w-4xl',
-      )}
-    >
+    <article className={cn('page', {'max-w-6xl': isWide})}>
       <nav className="mb-6 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
           {tNav('home')}

@@ -1,3 +1,29 @@
+import {
+  ArrowRightLeft,
+  Binary,
+  Clock,
+  CodeXml,
+  Contrast,
+  Database,
+  FileBraces,
+  FileCode,
+  FingerprintPattern,
+  GitGraph,
+  Globe,
+  Hash,
+  Image,
+  Link,
+  LockKeyhole,
+  LockOpen,
+  Minimize2,
+  Palette,
+  Regex,
+  ScanSearch,
+  ScrollText,
+  Shapes,
+  SlidersHorizontal,
+  Tag,
+} from 'lucide-react'
 import type {ToolConfig} from '@/types'
 import {UNIT_CATEGORIES} from './unit-categories'
 
@@ -10,6 +36,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'unit-converter.h1',
     description: 'unit-converter.description',
     keywords: ['unit-converter.keywords'],
+    Icon: ArrowRightLeft,
     tags: ['developer'],
     categories: UNIT_CATEGORIES,
     faq: [
@@ -27,6 +54,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'json-formatter.h1',
     description: 'json-formatter.description',
     keywords: ['json-formatter.keywords'],
+    Icon: FileBraces,
     tags: ['developer'],
     faq: [
       {q: 'json-formatter.faq.q1', a: 'json-formatter.faq.a1'},
@@ -44,6 +72,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'base64-encoder-decoder.h1',
     description: 'base64-encoder-decoder.description',
     keywords: ['base64-encoder-decoder.keywords'],
+    Icon: Binary,
     tags: ['developer'],
     faq: [
       {q: 'base64-encoder-decoder.faq.q1', a: 'base64-encoder-decoder.faq.a1'},
@@ -60,6 +89,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'uuid-generator.h1',
     description: 'uuid-generator.description',
     keywords: ['uuid-generator.keywords'],
+    Icon: FingerprintPattern,
     tags: ['developer'],
     faq: [
       {q: 'uuid-generator.faq.q1', a: 'uuid-generator.faq.a1'},
@@ -78,6 +108,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'hash-generator.h1',
     description: 'hash-generator.description',
     keywords: ['hash-generator.keywords'],
+    Icon: Hash,
     tags: ['developer'],
     faq: [
       {q: 'hash-generator.faq.q1', a: 'hash-generator.faq.a1'},
@@ -96,6 +127,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'url-encoder-decoder.h1',
     description: 'url-encoder-decoder.description',
     keywords: ['url-encoder-decoder.keywords'],
+    Icon: Link,
     tags: ['developer'],
     faq: [
       {q: 'url-encoder-decoder.faq.q1', a: 'url-encoder-decoder.faq.a1'},
@@ -114,6 +146,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'timestamp-converter.h1',
     description: 'timestamp-converter.description',
     keywords: ['timestamp-converter.keywords'],
+    Icon: Clock,
     tags: ['developer'],
     faq: [
       {q: 'timestamp-converter.faq.q1', a: 'timestamp-converter.faq.a1'},
@@ -132,6 +165,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'jwt-decoder.h1',
     description: 'jwt-decoder.description',
     keywords: ['jwt-decoder.keywords'],
+    Icon: LockOpen,
     tags: ['developer'],
     faq: [
       {q: 'jwt-decoder.faq.q1', a: 'jwt-decoder.faq.a1'},
@@ -150,6 +184,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'jwt-encoder.h1',
     description: 'jwt-encoder.description',
     keywords: ['jwt-encoder.keywords'],
+    Icon: LockKeyhole,
     tags: ['developer'],
     faq: [
       {q: 'jwt-encoder.faq.q1', a: 'jwt-encoder.faq.a1'},
@@ -168,6 +203,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'license-generator.h1',
     description: 'license-generator.description',
     keywords: ['license-generator.keywords'],
+    Icon: ScrollText,
     tags: ['developer'],
     faq: [
       {q: 'license-generator.faq.q1', a: 'license-generator.faq.a1'},
@@ -186,6 +222,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'gitignore-generator.h1',
     description: 'gitignore-generator.description',
     keywords: ['gitignore-generator.keywords'],
+    Icon: GitGraph,
     tags: ['developer'],
     faq: [
       {q: 'gitignore-generator.faq.q1', a: 'gitignore-generator.faq.a1'},
@@ -204,6 +241,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'markdown-previewer.h1',
     description: 'markdown-previewer.description',
     keywords: ['markdown-previewer.keywords'],
+    Icon: FileCode,
     tags: ['developer'],
     faq: [
       {q: 'markdown-previewer.faq.q1', a: 'markdown-previewer.faq.a1'},
@@ -222,6 +260,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'sql-formatter-minifier.h1',
     description: 'sql-formatter-minifier.description',
     keywords: ['sql-formatter-minifier.keywords'],
+    Icon: Database,
     tags: ['developer'],
     faq: [
       {q: 'sql-formatter-minifier.faq.q1', a: 'sql-formatter-minifier.faq.a1'},
@@ -240,6 +279,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'code-minifier.h1',
     description: 'code-minifier.description',
     keywords: ['code-minifier.keywords'],
+    Icon: CodeXml,
     tags: ['developer'],
     faq: [
       {q: 'code-minifier.faq.q1', a: 'code-minifier.faq.a1'},
@@ -258,6 +298,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'color-picker.h1',
     description: 'color-picker.description',
     keywords: ['color-picker.keywords'],
+    Icon: Palette,
     tags: ['developer'],
     faq: [
       {q: 'color-picker.faq.q1', a: 'color-picker.faq.a1'},
@@ -276,6 +317,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'color-contrast-checker.h1',
     description: 'color-contrast-checker.description',
     keywords: ['color-contrast-checker.keywords'],
+    Icon: Contrast,
     tags: ['developer'],
     faq: [
       {q: 'color-contrast-checker.faq.q1', a: 'color-contrast-checker.faq.a1'},
@@ -294,6 +336,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'meta-tag-generator.h1',
     description: 'meta-tag-generator.description',
     keywords: ['meta-tag-generator.keywords'],
+    Icon: Tag,
     tags: ['developer'],
     faq: [
       {q: 'meta-tag-generator.faq.q1', a: 'meta-tag-generator.faq.a1'},
@@ -312,6 +355,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'svg-to-base64.h1',
     description: 'svg-to-base64.description',
     keywords: ['svg-to-base64.keywords'],
+    Icon: Shapes,
     tags: ['developer'],
     faq: [
       {q: 'svg-to-base64.faq.q1', a: 'svg-to-base64.faq.a1'},
@@ -330,6 +374,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'base64-to-image.h1',
     description: 'base64-to-image.description',
     keywords: ['base64-to-image.keywords'],
+    Icon: Image,
     tags: ['developer'],
     faq: [
       {q: 'base64-to-image.faq.q1', a: 'base64-to-image.faq.a1'},
@@ -348,6 +393,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'regex-tester.h1',
     description: 'regex-tester.description',
     keywords: ['regex-tester.keywords'],
+    Icon: ScanSearch,
     tags: ['developer'],
     faq: [
       {q: 'regex-tester.faq.q1', a: 'regex-tester.faq.a1'},
@@ -366,6 +412,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'regex-generator.h1',
     description: 'regex-generator.description',
     keywords: ['regex-generator.keywords'],
+    Icon: Regex,
     tags: ['developer'],
     faq: [
       {q: 'regex-generator.faq.q1', a: 'regex-generator.faq.a1'},
@@ -384,6 +431,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'css-generator.h1',
     description: 'css-generator.description',
     keywords: ['css-generator.keywords'],
+    Icon: SlidersHorizontal,
     tags: ['developer'],
     faq: [
       {q: 'css-generator.faq.q1', a: 'css-generator.faq.a1'},
@@ -402,6 +450,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'favicon-generator.h1',
     description: 'favicon-generator.description',
     keywords: ['favicon-generator.keywords'],
+    Icon: Globe,
     tags: ['developer'],
     faq: [
       {q: 'favicon-generator.faq.q1', a: 'favicon-generator.faq.a1'},
@@ -420,6 +469,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'base64-image-optimizer.h1',
     description: 'base64-image-optimizer.description',
     keywords: ['base64-image-optimizer.keywords'],
+    Icon: Minimize2,
     tags: ['developer'],
     faq: [
       {q: 'base64-image-optimizer.faq.q1', a: 'base64-image-optimizer.faq.a1'},

@@ -1,3 +1,14 @@
+import {
+  Droplet,
+  FileStack,
+  KeyRound,
+  Minimize2,
+  QrCode,
+  RefreshCw,
+  Scaling,
+  Sparkles,
+  SwatchBook,
+} from 'lucide-react'
 import type {ToolConfig} from '@/types'
 
 export const generatorTools: ToolConfig[] = [
@@ -9,6 +20,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'password-generator.h1',
     description: 'password-generator.description',
     keywords: ['password-generator.keywords'],
+    Icon: KeyRound,
     tags: ['generators'],
     faq: [
       {q: 'password-generator.faq.q1', a: 'password-generator.faq.a1'},
@@ -27,6 +39,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'qr-code-generator.h1',
     description: 'qr-code-generator.description',
     keywords: ['qr-code-generator.keywords'],
+    Icon: QrCode,
     tags: ['generators'],
     faq: [
       {q: 'qr-code-generator.faq.q1', a: 'qr-code-generator.faq.a1'},
@@ -45,6 +58,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'image-compressor.h1',
     description: 'image-compressor.description',
     keywords: ['image-compressor.keywords'],
+    Icon: Minimize2,
     tags: ['generators'],
     faq: [
       {q: 'image-compressor.faq.q1', a: 'image-compressor.faq.a1'},
@@ -63,6 +77,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'image-converter.h1',
     description: 'image-converter.description',
     keywords: ['image-converter.keywords'],
+    Icon: RefreshCw,
     tags: ['generators'],
     faq: [
       {q: 'image-converter.faq.q1', a: 'image-converter.faq.a1'},
@@ -81,6 +96,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'bulk-image-resizer.h1',
     description: 'bulk-image-resizer.description',
     keywords: ['bulk-image-resizer.keywords'],
+    Icon: Scaling,
     tags: ['generators'],
     faq: [
       {q: 'bulk-image-resizer.faq.q1', a: 'bulk-image-resizer.faq.a1'},
@@ -99,6 +115,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'image-watermark.h1',
     description: 'image-watermark.description',
     keywords: ['image-watermark.keywords'],
+    Icon: Droplet,
     tags: ['generators'],
     faq: [
       {q: 'image-watermark.faq.q1', a: 'image-watermark.faq.a1'},
@@ -117,6 +134,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'color-palette-extractor.h1',
     description: 'color-palette-extractor.description',
     keywords: ['color-palette-extractor.keywords'],
+    Icon: SwatchBook,
     tags: ['generators'],
     faq: [
       {
@@ -147,6 +165,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'images-to-pdf.h1',
     description: 'images-to-pdf.description',
     keywords: ['images-to-pdf.keywords'],
+    Icon: FileStack,
     tags: ['generators'],
     faq: [
       {q: 'images-to-pdf.faq.q1', a: 'images-to-pdf.faq.a1'},
@@ -155,6 +174,25 @@ export const generatorTools: ToolConfig[] = [
       {q: 'images-to-pdf.faq.q4', a: 'images-to-pdf.faq.a4'},
     ],
     related: ['pdf-to-image', 'image-compressor'],
+    publishedAt: '2026-09-29',
+  },
+  {
+    kind: 'screenshot-beautifier',
+    slug: 'screenshot-beautifier',
+    category: 'generators',
+    title: 'screenshot-beautifier.title',
+    h1: 'screenshot-beautifier.h1',
+    description: 'screenshot-beautifier.description',
+    keywords: ['screenshot-beautifier.keywords'],
+    Icon: Sparkles,
+    tags: ['generators'],
+    faq: [
+      {q: 'screenshot-beautifier.faq.q1', a: 'screenshot-beautifier.faq.a1'},
+      {q: 'screenshot-beautifier.faq.q2', a: 'screenshot-beautifier.faq.a2'},
+      {q: 'screenshot-beautifier.faq.q3', a: 'screenshot-beautifier.faq.a3'},
+      {q: 'screenshot-beautifier.faq.q4', a: 'screenshot-beautifier.faq.a4'},
+    ],
+    related: ['image-converter', 'image-compressor'],
     publishedAt: '2026-09-29',
   },
 ]

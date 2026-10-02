@@ -6,6 +6,7 @@ import {useTranslations} from 'next-intl'
 import {useEffect, useMemo, useState} from 'react'
 import {getAllRegistryEntries} from '@/data'
 import {Link} from '@/i18n/navigation'
+import {highlighted} from '../shared/Highlight'
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from '../ui/dialog'
 import {Input} from '../ui/input'
 
@@ -76,10 +77,16 @@ export function SearchModal({open, onOpenChange}: Props) {
                       className="block rounded-md px-3 py-2 transition hover:bg-accent"
                     >
                       <div className="text-sm font-medium">
-                        {tConfig(item.h1)}
+                        {highlighted({
+                          highlight: query,
+                          text: tConfig(item.h1),
+                        })}
                       </div>
                       <div className="line-clamp-1 text-xs text-muted-foreground">
-                        {tConfig(item.description)}
+                        {highlighted({
+                          highlight: query,
+                          text: tConfig(item.description),
+                        })}
                       </div>
                     </Link>
                   </li>

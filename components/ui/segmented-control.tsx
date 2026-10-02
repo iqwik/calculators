@@ -15,6 +15,8 @@ interface Props<T extends string> {
   onChange: (value: T) => void
   name: string
   className?: string
+  buttonClassName?: string
+  variant?: 'primary' | 'default'
 }
 
 export function SegmentedControl<T extends string>({
@@ -23,11 +25,13 @@ export function SegmentedControl<T extends string>({
   onChange,
   name,
   className,
+  buttonClassName,
+  variant = 'default',
 }: Props<T>) {
   return (
     <div
       className={cn(
-        'inline-flex flex-wrap items-center gap-0.5 rounded-md bg-muted p-0.5 text-muted-foreground',
+        'inline-flex flex-wrap items-center gap-0.5 border rounded-md bg-muted p-0.5 text-muted-foreground',
         className,
       )}
     >
@@ -39,11 +43,16 @@ export function SegmentedControl<T extends string>({
           <label
             key={opt.value}
             htmlFor={id}
+            data-state={active ? 'active' : 'default'}
             className={cn(
-              'flex cursor-pointer items-center gap-1.5 rounded-sm px-3 py-1 text-xs font-medium transition',
-              active
-                ? 'bg-background text-foreground shadow-sm'
-                : 'hover:text-foreground',
+              'flex cursor-pointer items-center gap-1.5 rounded-sm px-3 py-1 text-xs font-medium transition data-[state=active]:shadow-sm data-[state=default]:hover:text-foreground',
+              {
+                'data-[state=active]:bg-card data-[state=active]:text-foreground':
+                  variant === 'default',
+                'data-[state=active]:bg-primary data-[state=active]:text-card':
+                  variant === 'primary',
+              },
+              buttonClassName,
             )}
           >
             <input
@@ -56,7 +65,7 @@ export function SegmentedControl<T extends string>({
               className="sr-only"
             />
             {Icon && <Icon className="h-3.5 w-3.5" />}
-            {opt.label}
+            {opt?.label || opt.value}
           </label>
         )
       })}

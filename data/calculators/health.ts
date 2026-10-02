@@ -1,3 +1,20 @@
+import {
+  Baby,
+  Bed,
+  Cake,
+  CalendarHeart,
+  Droplet,
+  Flame,
+  Flower,
+  Ham,
+  Heart,
+  Moon,
+  PersonStanding,
+  Ruler,
+  TrendingDown,
+  Weight,
+  Wind,
+} from 'lucide-react'
 import type {CalculatorConfig} from '@/types'
 
 export const healthCalculators: CalculatorConfig[] = [
@@ -7,8 +24,9 @@ export const healthCalculators: CalculatorConfig[] = [
     title: 'bmi-calculator.title',
     h1: 'bmi-calculator.h1',
     description: 'bmi-calculator.description',
-    tags: ['health', 'calculator'],
+    tags: ['health'],
     keywords: ['bmi-calculator.keywords'],
+    Icon: Weight,
     inputs: [
       {
         name: 'height',
@@ -61,7 +79,8 @@ export const healthCalculators: CalculatorConfig[] = [
     h1: 'calorie-calculator.h1',
     description: 'calorie-calculator.description',
     keywords: ['calorie-calculator.keywords'],
-    tags: ['health', 'calculator'],
+    Icon: Flame,
+    tags: ['health'],
     inputs: [
       {
         name: 'age',
@@ -161,7 +180,8 @@ export const healthCalculators: CalculatorConfig[] = [
     h1: 'age-calculator.h1',
     description: 'age-calculator.description',
     keywords: ['age-calculator.keywords'],
-    tags: ['health', 'calculator'],
+    Icon: Cake,
+    tags: ['health'],
     inputs: [
       {
         name: 'birthDate',
@@ -233,11 +253,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'tdee-macro-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'tdee-macro-calculator.title',
     h1: 'tdee-macro-calculator.h1',
     description: 'tdee-macro-calculator.description',
     keywords: ['tdee-macro-calculator.keywords'],
+    Icon: Ham,
     inputs: [
       {
         name: 'age',
@@ -383,11 +404,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'body-fat-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'body-fat-calculator.title',
     h1: 'body-fat-calculator.h1',
     description: 'body-fat-calculator.description',
     keywords: ['body-fat-calculator.keywords'],
+    Icon: Ruler,
     inputs: [
       {
         name: 'gender',
@@ -527,11 +549,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'ideal-weight-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'ideal-weight-calculator.title',
     h1: 'ideal-weight-calculator.h1',
     description: 'ideal-weight-calculator.description',
     keywords: ['ideal-weight-calculator.keywords'],
+    Icon: PersonStanding,
     inputs: [
       {
         name: 'gender',
@@ -617,11 +640,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'water-intake-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'water-intake-calculator.title',
     h1: 'water-intake-calculator.h1',
     description: 'water-intake-calculator.description',
     keywords: ['water-intake-calculator.keywords'],
+    Icon: Droplet,
     inputs: [
       {
         name: 'weight',
@@ -715,11 +739,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'heart-rate-zones-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'heart-rate-zones-calculator.title',
     h1: 'heart-rate-zones-calculator.h1',
     description: 'heart-rate-zones-calculator.description',
     keywords: ['heart-rate-zones-calculator.keywords'],
+    Icon: Heart,
     inputs: [
       {
         name: 'age',
@@ -850,11 +875,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'pregnancy-due-date-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'pregnancy-due-date-calculator.title',
     h1: 'pregnancy-due-date-calculator.h1',
     description: 'pregnancy-due-date-calculator.description',
     keywords: ['pregnancy-due-date-calculator.keywords'],
+    Icon: Baby,
     inputs: [
       {
         name: 'method',
@@ -950,11 +976,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'sleep-cycle-calculator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'sleep-cycle-calculator.title',
     h1: 'sleep-cycle-calculator.h1',
     description: 'sleep-cycle-calculator.description',
     keywords: ['sleep-cycle-calculator.keywords'],
+    Icon: Bed,
     inputs: [
       {
         name: 'wakeTime',
@@ -1014,11 +1041,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'vo2-max-estimator',
     category: 'health',
-    tags: ['calculator', 'health'],
+    tags: ['health'],
     title: 'vo2-max-estimator.title',
     h1: 'vo2-max-estimator.h1',
     description: 'vo2-max-estimator.description',
     keywords: ['vo2-max-estimator.keywords'],
+    Icon: Wind,
     inputs: [
       {
         name: 'gender',
@@ -1135,11 +1163,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'sleep-debt-calculator',
     category: 'health',
-    tags: ['health', 'calculator'],
+    tags: ['health'],
     title: 'sleep-debt-calculator.title',
     h1: 'sleep-debt-calculator.h1',
     description: 'sleep-debt-calculator.description',
     keywords: ['sleep-debt-calculator.keywords'],
+    Icon: Moon,
     inputs: [
       {
         name: 'targetSleep',
@@ -1244,11 +1273,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'menstrual-cycle-calculator',
     category: 'health',
-    tags: ['health', 'calculator'],
+    tags: ['health'],
     title: 'menstrual-cycle-calculator.title',
     h1: 'menstrual-cycle-calculator.h1',
     description: 'menstrual-cycle-calculator.description',
     keywords: ['menstrual-cycle-calculator.keywords'],
+    Icon: Flower,
     inputs: [
       {
         name: 'lastPeriod',
@@ -1387,11 +1417,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'calorie-deficit-planner',
     category: 'health',
-    tags: ['health', 'calculator'],
+    tags: ['health'],
     title: 'calorie-deficit-planner.title',
     h1: 'calorie-deficit-planner.h1',
     description: 'calorie-deficit-planner.description',
     keywords: ['calorie-deficit-planner.keywords'],
+    Icon: TrendingDown,
     inputs: [
       {
         name: 'age',
@@ -1558,11 +1589,12 @@ export const healthCalculators: CalculatorConfig[] = [
   {
     slug: 'pregnancy-week-tracker',
     category: 'health',
-    tags: ['health', 'calculator'],
+    tags: ['health'],
     title: 'pregnancy-week-tracker.title',
     h1: 'pregnancy-week-tracker.h1',
     description: 'pregnancy-week-tracker.description',
     keywords: ['pregnancy-week-tracker.keywords'],
+    Icon: CalendarHeart,
     inputs: [
       {
         name: 'method',

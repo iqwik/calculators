@@ -1,3 +1,12 @@
+import {
+  BadgeDollarSign,
+  Banknote,
+  ChartNoAxesColumn,
+  ClipboardList,
+  ListOrdered,
+  ReceiptText,
+  Route,
+} from 'lucide-react'
 import type {ToolConfig} from '@/types'
 
 export const businessTools: ToolConfig[] = [
@@ -9,6 +18,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'invoice-generator.h1',
     description: 'invoice-generator.description',
     keywords: ['invoice-generator.keywords'],
+    Icon: ReceiptText,
     tags: ['business'],
     faq: [
       {q: 'invoice-generator.faq.q1', a: 'invoice-generator.faq.a1'},
@@ -27,6 +37,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'invoice-number-generator.h1',
     description: 'invoice-number-generator.description',
     keywords: ['invoice-number-generator.keywords'],
+    Icon: ListOrdered,
     tags: ['business'],
     faq: [
       {
@@ -57,6 +68,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'utm-builder.h1',
     description: 'utm-builder.description',
     keywords: ['utm-builder.keywords'],
+    Icon: Route,
     tags: ['business'],
     faq: [
       {q: 'utm-builder.faq.q1', a: 'utm-builder.faq.a1'},
@@ -75,6 +87,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'profit-margin-calculator.h1',
     description: 'profit-margin-calculator.description',
     keywords: ['profit-margin-calculator.keywords'],
+    Icon: BadgeDollarSign,
     tags: ['business'],
     faq: [
       {
@@ -105,6 +118,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'break-even-calculator.h1',
     description: 'break-even-calculator.description',
     keywords: ['break-even-calculator.keywords'],
+    Icon: ChartNoAxesColumn,
     tags: ['business'],
     faq: [
       {q: 'break-even-calculator.faq.q1', a: 'break-even-calculator.faq.a1'},
@@ -123,6 +137,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'quotation-generator.h1',
     description: 'quotation-generator.description',
     keywords: ['quotation-generator.keywords'],
+    Icon: ClipboardList,
     tags: ['business'],
     faq: [
       {q: 'quotation-generator.faq.q1', a: 'quotation-generator.faq.a1'},
@@ -141,6 +156,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'payslip-generator.h1',
     description: 'payslip-generator.description',
     keywords: ['payslip-generator.keywords'],
+    Icon: Banknote,
     tags: ['business'],
     faq: [
       {q: 'payslip-generator.faq.q1', a: 'payslip-generator.faq.a1'},

@@ -1,12 +1,15 @@
+import {cn} from 'cn'
 import {ArrowLeft} from 'lucide-react'
 import {notFound} from 'next/navigation'
 import {getTranslations} from 'next-intl/server'
-import {getCategory, getRegistryEntriesByCategory} from '@/data'
+import {
+  CATEGORY_COLORS,
+  getCategory,
+  getRegistryEntriesByCategory,
+} from '@/data'
 import {Link} from '@/i18n/navigation'
 import type {CategorySlug} from '@/types'
-import {Badge} from '../ui/badge'
 import {Button} from '../ui/button'
-import {CategoryIcon} from '../ui/category-icon'
 
 interface Props {
   category: CategorySlug
@@ -16,6 +19,7 @@ export async function CategoryPage({category}: Props) {
   const cat = getCategory(category)
   if (!cat) notFound()
 
+  const catColors = CATEGORY_COLORS[cat.slug]
   const t = await getTranslations('home')
   const tCat = await getTranslations('category')
   const tConfig = await getTranslations('config')
@@ -23,52 +27,63 @@ export async function CategoryPage({category}: Props) {
   const entries = getRegistryEntriesByCategory(category)
 
   return (
-    <div className="mx-auto max-w-5xl px-6 py-10">
-      <Button
-        size="sm"
-        variant="ghost"
-        render={<Link href="/" />}
-        nativeButton={false}
-        className="mb-6 -ml-2 gap-1.5 text-muted-foreground hover:text-foreground"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        {tCat('backHome')}
-      </Button>
-
-      <header className="mb-10">
-        <Badge
-          variant="outline"
-          className="mb-4 gap-2 rounded-full border-primary/25 bg-primary/10 px-3 py-1 text-[11px] font-semibold tracking-[0.14em] text-primary uppercase"
+    <div className="page flex flex-col gap-6">
+      <div data-role="header" className="flex gap-2 items-center">
+        <Button
+          size="sm"
+          variant="link"
+          render={<Link href="/" />}
+          nativeButton={false}
+          className="h-11.5 gap-1.5 text-muted-foreground hover:text-foreground"
         >
-          <CategoryIcon slug={category} className="h-3.5 w-3.5" />
-          {t(`categories.${category}`)}
-        </Badge>
+          <ArrowLeft className="size-6" />
+          {/* {tCat('backHome')} */}
+        </Button>
 
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+        <span className="size-8 flex items-center justify-center rounded-md text-card bg-primary">
+          <cat.Icon className="size-6" />
+        </span>
+
+        <h1 className="text-2xl  font-bold tracking-tight sm:text-3xl">
           {t(`categories.${category}`)}
         </h1>
-
-        <p className="mt-3 text-sm text-muted-foreground">
+      </div>
+      <section className="flex flex-col gap-2">
+        <p className="font-tag text-xs font-bold tracking-[0.14em] uppercase text-muted-foreground">
           {tCat('toolsCount', {count: entries.length})}
         </p>
-      </header>
-
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {entries.map(entry => (
-          <Link
-            key={entry.config.slug}
-            href={`/${entry.config.slug}`}
-            className="group rounded-xl border bg-card p-5 transition hover:border-primary"
-          >
-            <h2 className="font-semibold group-hover:text-primary">
-              {tConfig(entry.config.h1)}
-            </h2>
-            <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
-              {tConfig(entry.config.description)}
-            </p>
-          </Link>
-        ))}
-      </div>
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {entries.map(entry => (
+            <Link
+              key={entry.config.slug}
+              href={`/${entry.config.slug}`}
+              className={cn(
+                'group/category rounded-lg bg-card border p-5 transition-colors duration-300 hover:border-primary',
+              )}
+            >
+              <div className="flex gap-2 items-center">
+                <span
+                  className={cn(
+                    'flex size-9 shrink-0 items-center justify-center rounded-lg text-lg leading-none',
+                    'transition-colors duration-300',
+                    'bg-muted border text-muted-foreground',
+                    'group-hover/category:bg-primary group-hover/category:text-card',
+                  )}
+                  aria-hidden="true"
+                >
+                  <entry.config.Icon className="size-6" />
+                </span>
+                <span className="font-semibold group-hover:text-primary">
+                  {tConfig(entry.config.h1)}
+                </span>
+              </div>
+              <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">
+                {tConfig(entry.config.description)}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </section>
     </div>
   )
 }

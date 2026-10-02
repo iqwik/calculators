@@ -36,6 +36,7 @@ import {QuotationGeneratorView} from './QuotationGeneratorView'
 import {RegexGeneratorView} from './RegexGeneratorView'
 import {RegexTesterView} from './RegexTesterView'
 import {SalarySlipGeneratorView} from './SalarySlipGeneratorView'
+import {ScreenshotBeautifierView} from './ScreenshotBeautifierView'
 import {SqlFormatterMinifierView} from './SqlFormatterMinifierView'
 import {SvgToBase64View} from './SvgToBase64View'
 import {TimestampConverterView} from './TimestampConverterView'
@@ -139,6 +140,8 @@ export function ToolView({config}: Props) {
       return <Base64ImageOptimizerView />
     case 'images-to-pdf':
       return <ImagesToPdfView />
+    case 'screenshot-beautifier':
+      return <ScreenshotBeautifierView />
     default:
       return assertNever(config)
   }

@@ -10,7 +10,7 @@ import {getBaseUrl} from '@/helpers'
 import {routing} from '@/i18n/routing'
 import '../globals.css'
 
-import {Geist_Mono, Inter} from 'next/font/google'
+import {Geist_Mono, Inter, JetBrains_Mono} from 'next/font/google'
 import {cookies} from 'next/headers'
 import {SearchProvider} from '@/components/search/SearchProvider'
 import {TooltipProvider} from '@/components/ui/tooltip'
@@ -26,8 +26,14 @@ const inter = Inter({
 })
 
 const geistMono = Geist_Mono({
-  subsets: ['latin'],
+  subsets: ['latin', 'cyrillic'],
   variable: '--font-geist-mono',
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-jetbrains-mono',
   display: 'swap',
 })
 
@@ -57,7 +63,7 @@ export default async function LocaleLayout({children, params}: LayoutProps) {
     <html
       lang={locale}
       suppressHydrationWarning
-      className={`${inter.variable} ${geistMono.variable}`}
+      className={`${inter.variable} ${geistMono.variable} ${jetbrainsMono.variable}`}
     >
       <body>
         <ThemeProvider
@@ -72,7 +78,7 @@ export default async function LocaleLayout({children, params}: LayoutProps) {
                 <SidebarProvider defaultOpen={defaultOpen}>
                   <AppSidebar />
                   <main className="flex-1 overflow-y-auto">
-                    <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background px-4 lg:hidden">
+                    <header className="sticky top-0 z-10 flex h-14 items-center gap-2 border-b bg-background px-4 sm:hidden">
                       <SidebarTrigger />
                       <div className="flex flex-1 justify-end">
                         <SearchTrigger variant="icon" />

@@ -1,3 +1,5 @@
+import {ComponentType, SVGProps} from 'react'
+
 export interface FAQItem {
   q: string
   a: string
@@ -30,6 +32,7 @@ export interface BaseConfig {
   faq?: FAQItem[]
   related?: string[]
   publishedAt?: string
+  Icon: ComponentType<SVGProps<SVGSVGElement>>
 }
 
 export type Values = Record<string, string | number>

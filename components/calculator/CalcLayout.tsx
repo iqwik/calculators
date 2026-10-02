@@ -19,7 +19,7 @@ export async function CalcLayout({config}: Props) {
   const baseUrl = getBaseUrl()
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-10">
+    <article className="page">
       <nav className="mb-6 text-sm text-muted-foreground">
         <Link href="/" className="hover:text-foreground">
           {tNav('home')}

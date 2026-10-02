@@ -45,6 +45,7 @@ export type ToolKind =
   | 'favicon-generator'
   | 'base64-image-optimizer'
   | 'images-to-pdf'
+  | 'screenshot-beautifier'
 
 export interface UnitDef {
   value: string
@@ -235,6 +236,10 @@ export interface ImagesToPdfConfig extends BaseConfig {
   kind: 'images-to-pdf'
 }
 
+export interface ScreenshotBeautifierConfig extends BaseConfig {
+  kind: 'screenshot-beautifier'
+}
+
 export type ToolConfig =
   | UnitConverterConfig
   | JsonFormatterConfig
@@ -280,3 +285,4 @@ export type ToolConfig =
   | FaviconGeneratorConfig
   | Base64ImageOptimizerConfig
   | ImagesToPdfConfig
+  | ScreenshotBeautifierConfig

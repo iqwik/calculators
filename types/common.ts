@@ -81,3 +81,8 @@ export interface InputField {
   defaultValue?: string | number
   hint?: string
 }
+
+export interface FeatureItem {
+  title: string
+  description: string
+}

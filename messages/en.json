@@ -378,18 +378,49 @@
       "keywords": "json formatter,json validator,json beautifier,minify json,pretty print json,json online",
       "howToUseTitle": "How to use",
       "howToUse": [
-        "Paste your JSON into the input field.",
-        "Click Beautify for a clean, structured output or Minify to strip all whitespace.",
-        "If the JSON is invalid, you will see the exact line and column of the error."
+        {
+          "title": "Paste your JSON",
+          "description": "Drop any JSON into the input field — a single line or a fully formatted document."
+        },
+        {
+          "title": "Beautify or minify",
+          "description": "Choose 2 or 4-space indent for readability, or Minify to strip all whitespace."
+        },
+        {
+          "title": "Fix errors if any",
+          "description": "Invalid JSON shows the exact line and column where the syntax breaks."
+        },
+        {
+          "title": "Copy or download",
+          "description": "One-click copy to clipboard, or save the result as a .json file."
+        }
       ],
       "featuresTitle": "Features",
       "features": [
-        "Beautify with 2 or 4-space indentation",
-        "Minify into a single line",
-        "Validation with line and column reporting",
-        "Size comparison before and after",
-        "Copy output or download as a file",
-        "Handles large files — up to a few megabytes"
+        {
+          "title": "Beautify with 2 or 4 spaces",
+          "description": "Clean, structured output with your preferred indentation."
+        },
+        {
+          "title": "Minify into one line",
+          "description": "Strip all whitespace to shrink the payload before sending."
+        },
+        {
+          "title": "Validation with line and column",
+          "description": "Pinpoints the exact character where the syntax breaks."
+        },
+        {
+          "title": "Size comparison before / after",
+          "description": "See how much smaller the minified output is, in bytes."
+        },
+        {
+          "title": "Copy or download output",
+          "description": "One-click copy to clipboard, or save the result as a .json file."
+        },
+        {
+          "title": "Handles large files",
+          "description": "Works with files up to a few megabytes — limited only by browser memory."
+        }
       ],
       "useCasesTitle": "Common use cases",
       "useCases": [
@@ -461,17 +492,45 @@
       "keywords": "percentage calculator,percent calculator,percent of,percent change,percentage increase,percent off calculator,vat calculator,percent online",
       "howToUseTitle": "How to use",
       "howToUse": [
-        "Choose the calculation type: percent of a number, what percent one number is of another, or percentage change.",
-        "Enter values X and Y below.",
-        "The result updates instantly, along with the formula."
+        {
+          "title": "Choose a mode",
+          "description": "Percent of a number, what percent one number is of another, or percentage change."
+        },
+        {
+          "title": "Enter X and Y",
+          "description": "Fill in the two values — decimals and large numbers are both supported."
+        },
+        {
+          "title": "Read the result",
+          "description": "The answer appears instantly, together with the formula used."
+        },
+        {
+          "title": "Reset if needed",
+          "description": "Clear both fields to start a new calculation with different values."
+        }
       ],
       "featuresTitle": "Features",
       "features": [
-        "Three modes: percent of, share, percentage change",
-        "Ready-made templates for discounts, tips, VAT and markup",
-        "Shows formula and intermediate steps",
-        "Supports decimals and large numbers",
-        "Works offline, nothing leaves your browser"
+        {
+          "title": "Three calculation modes",
+          "description": "Percent of a number, what percent one number is of another, or percentage change."
+        },
+        {
+          "title": "Ready-made templates",
+          "description": "One-click scenarios for discounts, tips, VAT and markup."
+        },
+        {
+          "title": "Shows the formula",
+          "description": "Every result comes with the formula and intermediate steps."
+        },
+        {
+          "title": "Decimals and large numbers",
+          "description": "Handles values up to millions with up to four decimal places."
+        },
+        {
+          "title": "Works offline",
+          "description": "Runs entirely in your browser — nothing is sent to a server."
+        }
       ],
       "useCasesTitle": "Common use cases",
       "useCases": [
@@ -1038,18 +1097,49 @@
       "keywords": "word counter,character counter,word count,character count,reading time calculator,readability checker,seo text analysis,text counter",
       "howToUseTitle": "How to use",
       "howToUse": [
-        "Paste your text into the field or start typing.",
-        "Counters update instantly on every keystroke.",
-        "Open the tabs below to see readability, keywords and social media limits."
+        {
+          "title": "Paste your text",
+          "description": "Type directly into the field or paste from any source."
+        },
+        {
+          "title": "Watch the counters",
+          "description": "Words, characters, sentences and reading time update on every keystroke."
+        },
+        {
+          "title": "Open the tabs",
+          "description": "Readability, keyword density and social media limits live in the sections below."
+        },
+        {
+          "title": "Use the utilities",
+          "description": "Change case, find and replace, or remove duplicate lines right inside the editor."
+        }
       ],
       "featuresTitle": "Features",
       "features": [
-        "Words, characters with and without spaces, sentences, paragraphs, pages",
-        "Reading time and speaking time",
-        "Readability by Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG, ARI",
-        "Keyword density for one, two and three-word phrases",
-        "Limits for Twitter, Instagram, LinkedIn, YouTube, TikTok, meta description",
-        "Utilities: case conversion, find and replace, remove duplicates"
+        {
+          "title": "Words, characters, sentences, paragraphs, pages",
+          "description": "Full breakdown of your text — with and without spaces."
+        },
+        {
+          "title": "Reading and speaking time",
+          "description": "Estimates based on 200 wpm silent reading and 130 wpm speaking."
+        },
+        {
+          "title": "Readability scores",
+          "description": "Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG and Automated Readability Index."
+        },
+        {
+          "title": "Keyword density",
+          "description": "Top single, two-word and three-word phrases for SEO checks."
+        },
+        {
+          "title": "Social media limits",
+          "description": "Live counters for Twitter, Instagram, LinkedIn, YouTube, TikTok and meta description."
+        },
+        {
+          "title": "Text utilities",
+          "description": "Case conversion, find and replace, and remove duplicate lines — right inside the editor."
+        }
       ],
       "useCasesTitle": "Common use cases",
       "useCases": [
@@ -1364,18 +1454,49 @@
       "keywords": "password generator,strong password,random password,secure password,generate password,password online,password entropy",
       "howToUseTitle": "How to use",
       "howToUse": [
-        "Choose a mode: random password, pronounceable, PIN, or pattern-based.",
-        "Adjust length and character set.",
-        "Click Generate — the password is created instantly and never leaves your device."
+        {
+          "title": "Choose a mode",
+          "description": "Random, pronounceable, numeric PIN, or a password built from a custom pattern."
+        },
+        {
+          "title": "Set the rules",
+          "description": "Adjust length, character sets and exclude ambiguous or awkward symbols."
+        },
+        {
+          "title": "Generate",
+          "description": "Click the button — the password appears instantly and never leaves your device."
+        },
+        {
+          "title": "Copy and use",
+          "description": "Copy to clipboard, then paste into the service you are signing up for."
+        }
       ],
       "featuresTitle": "Features",
       "features": [
-        "Four modes: random, pronounceable, PIN, pattern-based",
-        "Cryptographically secure generation via Web Crypto API",
-        "Shows entropy and estimated crack time",
-        "Exclude ambiguous characters (i, l, 1, O, 0)",
-        "Exclude awkward characters: brackets, quotes, slashes",
-        "Bulk generate up to 500 passwords at once"
+        {
+          "title": "Four generation modes",
+          "description": "Random, pronounceable, numeric PIN, or a password built from a custom pattern."
+        },
+        {
+          "title": "Cryptographically secure",
+          "description": "Uses the Web Crypto API — the same randomness source TLS uses."
+        },
+        {
+          "title": "Entropy and crack time",
+          "description": "Live estimate of password strength in bits and time-to-crack."
+        },
+        {
+          "title": "Exclude ambiguous characters",
+          "description": "Drop characters that look alike (i, l, 1, O, 0) for easier typing."
+        },
+        {
+          "title": "Exclude awkward symbols",
+          "description": "Skip brackets, quotes and slashes when a service requires typing the password."
+        },
+        {
+          "title": "Bulk generation",
+          "description": "Create up to 500 passwords at once for CSV import or provisioning."
+        }
       ],
       "useCasesTitle": "Common use cases",
       "useCases": [
@@ -1547,18 +1668,49 @@
       "keywords": "image compressor,compress image online,jpg compressor,png compressor,webp compressor,image optimizer,reduce image size,shrink photo",
       "howToUseTitle": "How to use",
       "howToUse": [
-        "Drop your images into the window or click to select files.",
-        "Set max width, output format and quality.",
-        "Click Compress All — results appear instantly, download individually or as a batch."
+        {
+          "title": "Add your images",
+          "description": "Drop up to 20 files into the window, or click to select them from your device."
+        },
+        {
+          "title": "Set output settings",
+          "description": "Pick a target size or quality, choose the format, and cap the max width."
+        },
+        {
+          "title": "Compress all",
+          "description": "One click processes every file — results appear instantly in the list."
+        },
+        {
+          "title": "Download the results",
+          "description": "Save each image individually or grab all compressed files at once."
+        }
       ],
       "featuresTitle": "Features",
       "features": [
-        "Supports JPG, PNG, WebP, AVIF",
-        "Target file size: 200 KB, 500 KB, 1 MB",
-        "Quality slider with live preview",
-        "Batch processing up to 20 files",
-        "Max width for downscaling",
-        "Size comparison before and after for each file"
+        {
+          "title": "JPG, PNG, WebP, AVIF",
+          "description": "Modern formats supported out of the box — plus GIF input."
+        },
+        {
+          "title": "Target file size",
+          "description": "Set 200 KB, 500 KB or 1 MB — the tool picks quality and resolution to fit."
+        },
+        {
+          "title": "Quality slider with preview",
+          "description": "See the trade-off between size and fidelity before you download."
+        },
+        {
+          "title": "Batch up to 20 files",
+          "description": "Compress a whole folder in one run, download individually or as a set."
+        },
+        {
+          "title": "Max width for downscaling",
+          "description": "Cap resolution at 1920 px or any value you need."
+        },
+        {
+          "title": "Size comparison per file",
+          "description": "See original and compressed size side by side, with the savings percentage."
+        }
       ],
       "useCasesTitle": "Common use cases",
       "useCases": [
@@ -3291,10 +3443,80 @@
       }
     },
     "images-to-pdf": {
-      "title": "Images to PDF – Convert JPG & PNG to PDF in Browser",
+      "title": "Images to PDF — Convert JPG, PNG, WebP & AVIF to PDF",
       "h1": "Images to PDF",
-      "description": "Free images to PDF converter. Combine JPG, PNG, WebP and other images into a single PDF with custom page size, orientation, columns, and margins. 100% private — everything runs in your browser.",
-      "keywords": "images to pdf,jpg to pdf,png to pdf,image to pdf converter,combine images into pdf,merge photos into pdf",
+      "description": "Free images to PDF converter. Combine JPG, PNG, WebP, AVIF and GIF into a single PDF with custom page size, orientation, grid layout and margins. Drag to reorder, rotate individual images, add page numbers, captions and a title page. Runs entirely in your browser.",
+      "keywords": "images to pdf,jpg to pdf,png to pdf,image to pdf converter,combine images into pdf,merge photos into pdf,webp to pdf,avif to pdf",
+
+      "howToUseTitle": "How to use",
+      "howToUse": [
+        {
+          "title": "Add your images",
+          "description": "Drop them into the window or pick files from your device."
+        },
+        {
+          "title": "Arrange the queue",
+          "description": "Drag to reorder, rotate sideways images, remove the ones you don't need."
+        },
+        {
+          "title": "Choose layout",
+          "description": "Page size, orientation, columns per page, margins and gaps."
+        },
+        {
+          "title": "Download the PDF",
+          "description": "One combined file, ready to send or print."
+        }
+      ],
+
+      "featuresTitle": "Features",
+      "features": [
+        {
+          "title": "Five input formats",
+          "description": "JPG, PNG, WebP, AVIF and GIF — everything a modern browser can decode."
+        },
+        {
+          "title": "Drag-and-drop reordering",
+          "description": "Pull tiles around to set the order. The first tile becomes the first page."
+        },
+        {
+          "title": "Rotate each image 90°",
+          "description": "Fix sideways phone photos with one click, no need to re-upload the file."
+        },
+        {
+          "title": "Page sizes and orientation",
+          "description": "A4, Letter, Legal, A5 — portrait or landscape. Or fit the page to the image itself."
+        },
+        {
+          "title": "Grid layout",
+          "description": "Put 1, 2 or 3 images per row. Rows are added automatically when needed."
+        },
+        {
+          "title": "Custom margins and gaps",
+          "description": "Set page margins and the spacing between images in millimetres."
+        },
+        {
+          "title": "Page numbers and captions",
+          "description": "Optional page numbers in the corner and filename captions under each image."
+        },
+        {
+          "title": "Title page",
+          "description": "Add a cover page with a title and subtitle — inserted as page 1 of the PDF."
+        },
+        {
+          "title": "Quality slider",
+          "description": "Control JPEG and WebP compression. PNG stays lossless — the slider has no effect on it."
+        }
+      ],
+
+      "useCasesTitle": "Common use cases",
+      "useCases": [
+        "Bundle scanned receipts into one expense report",
+        "Turn phone photos of a contract into a single document",
+        "Make a photo album PDF for printing or sharing",
+        "Combine product photos into a printable spec sheet",
+        "Create a contact sheet from a batch of images"
+      ],
+
       "inputs": {
         "pageSize": "Page size",
         "orientation": "Orientation",
@@ -3350,11 +3572,17 @@
         "q1": "Are my images uploaded anywhere?",
         "a1": "No. All conversion runs entirely in your browser. Your images never leave your device.",
         "q2": "What image formats are supported?",
-        "a2": "JPG, PNG, WebP, GIF, BMP and most common raster formats that your browser can decode. SVG is not supported — convert it to PNG first.",
+        "a2": "JPG, PNG, WebP, GIF and AVIF are supported. AVIF requires a modern browser (Chrome 85+, Firefox 93+, Safari 16+). HEIC is not supported in most browsers — convert HEIC to JPG first.",
         "q3": "Can I add a title page?",
         "a3": "Yes. Enable Title page in the settings and add a title and optional subtitle. The title page will be inserted as the first page of the PDF.",
         "q4": "What is the difference between Contain, Cover and Stretch?",
-        "a4": "Contain fits the whole image inside the cell keeping aspect ratio, leaving empty space. Cover fills the cell and crops the overflow. Stretch forces exact dimensions and can distort the image."
+        "a4": "Contain fits the whole image inside the cell keeping aspect ratio, leaving empty space. Cover fills the cell and crops the overflow. Stretch forces exact dimensions and can distort the image.",
+        "q5": "Can I put multiple photos on one page?",
+        "a5": "Yes. Choose 1, 2 or 3 columns per page. With 2 columns you get 2 images side by side, with 3 columns you get 3 images in a row. Rows continue automatically.",
+        "q6": "Will the photos lose quality?",
+        "a6": "You control JPEG and WebP quality with the slider (default 92%). Set it to 100% for maximum quality; lower values save file size. PNG is lossless — the quality slider has no effect.",
+        "q7": "Does the converter preserve transparency?",
+        "a7": "Yes for PNG and WebP output. Transparent areas remain transparent inside the PDF. For JPEG output the background is filled with white because JPEG does not support transparency."
       }
     },
     "screenshot-beautifier": {

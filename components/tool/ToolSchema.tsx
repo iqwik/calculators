@@ -1,6 +1,7 @@
 import {getTranslations} from 'next-intl/server'
 import {getBaseUrl} from '@/helpers'
 import type {ToolConfig} from '@/types'
+import {HowToUseStep} from '../shared/HowToUseSection'
 
 interface Props {
   tool: ToolConfig
@@ -39,6 +40,26 @@ export async function ToolSchema({tool, url}: Props) {
         }
       : null
 
+  const howToTitleKey = `${tool.slug}.howToUseTitle`
+  const howToItemsKey = `${tool.slug}.howToUse`
+  const hasHowTo = t.has(howToTitleKey) && t.has(howToItemsKey)
+  const howToSteps = hasHowTo ? (t.raw(howToItemsKey) as HowToUseStep[]) : []
+
+  const howTo =
+    hasHowTo && Array.isArray(howToSteps) && howToSteps.length > 0
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'HowTo',
+          name: t(howToTitleKey),
+          step: howToSteps.map((s, i) => ({
+            '@type': 'HowToStep',
+            position: i + 1,
+            name: s.title,
+            text: s.description,
+          })),
+        }
+      : null
+
   return (
     <>
       <script
@@ -51,6 +72,13 @@ export async function ToolSchema({tool, url}: Props) {
           type="application/ld+json"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD
           dangerouslySetInnerHTML={{__html: JSON.stringify(faq)}}
+        />
+      )}
+      {howTo && (
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD
+          dangerouslySetInnerHTML={{__html: JSON.stringify(howTo)}}
         />
       )}
     </>

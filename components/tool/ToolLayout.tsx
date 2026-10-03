@@ -6,6 +6,8 @@ import {Link} from '@/i18n/navigation'
 import type {ToolConfig} from '@/types'
 import {ContentSection} from '../shared/ContentSection'
 import {FAQ} from '../shared/FAQ'
+import {FeatureSection} from '../shared/FeatureSection'
+import {HowToUseSection} from '../shared/HowToUseSection'
 import {RelatedTools} from '../shared/RelatedTools'
 import {Badge} from '../ui/badge'
 import {ToolSchema} from './ToolSchema'
@@ -49,20 +51,12 @@ export async function ToolLayout({config}: Props) {
         </p>
       </header>
 
-      <ContentSection
-        slug={config.slug}
-        titleKey="howToUseTitle"
-        itemsKey="howToUse"
-        ordered
-      />
+      <HowToUseSection slug={config.slug} />
 
       <ToolView config={config} />
 
-      <ContentSection
-        slug={config.slug}
-        titleKey="featuresTitle"
-        itemsKey="features"
-      />
+      <FeatureSection slug={config.slug} />
+
       <ContentSection
         slug={config.slug}
         titleKey="useCasesTitle"

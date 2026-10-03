@@ -10,13 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### TODO
 
 - **`pdf-to-image`** — in progress. `pdfjs-dist@6.3.289` already installed. Plan: `kind: 'pdf-to-image'`, category `developer`, `isWide: true`, worker via `new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url)`, page range parser (`1-5, 8, 11-13`), format PNG / JPEG / WebP, scale 1× / 1.5× / 2× / 3×, quality (JPEG / WebP), transparent background (PNG only), grid preview + ZIP download, `useSmoothProgress`. Destroy via `loadingTask.destroy()` (not `pdfDoc.destroy()`), `page.render({canvas, canvasContext, viewport})`.
-- **SEO content for remaining 70 tools** — `howToUse` / `features` / `useCases` + FAQ up to 6 questions. Reference: timbrica.com. Order: top traffic → finance (15) → health (15) → developer (26) → text (5) → generators (10) → business (7).
+- **SEO content for remaining 69 tools** — `howToUse` / `features` / `useCases` + FAQ up to 6 questions. Reference: timbrica.com. Order: top traffic → finance (15) → health (15) → developer (26) → text (5) → generators (10) → business (7).
 - **Wave 6 — interactive trackers & builders**: `pomodoro-timer`, `habit-tracker`, `decision-maker`, `meeting-cost-calculator`, `trip-planner`, `bill-splitter`, `lead-tracker`, `resume-builder`, `visiting-card-generator`, `api-response-mock-generator`
 - **Locale refactor in `data/**`:** all hardcoded `'en-US'` / `'en-IN'` (and any hardcoded locale in `toLocaleString` / `toLocaleDateString` / `Intl.*`) — replace with `ctx.locale` passed from `calculate`. Run `grep -rn "toLocaleString('en\|toLocaleDateString('en\|Intl\." data/`. Affects `finance.ts` (`formatInt`, `formatAmount`, `formatINR`), `pregnancy-due-date-calculator`, potentially `health.ts`. After refactor — delete global `formatInt` / `formatAmount`, keep only local `fmt` inside each `calculate` (see `CONTEXT.md`, rules 29–30).
 - `SalarySlipGeneratorView`: replace `payPeriod` text input with two `<Select>` (Month + Year), localize, add `payMonth` / `payYear` to state
 - Extract `CurrencySelect` — `CURRENCIES` / `CURRENCY_SYMBOLS` duplicated across 3 files
-- `ToolSchema`: remove hardcoded `publisher.name`
-- `types/common.ts`: extract `FAQItem` (duplicated)
+- `ToolSchema` / `CalculatorSchema`: parametrize hardcoded `publisher.name: 'ProjectName'`
+- `types/common.ts`: extract `FAQItem` (duplicated). Also consider merging `FeatureItem` and `HowToStep` — both are `{title, description}`
 - Audit `placeholder` / `defaultValue` for hardcoded English
 - Remove `display: contents` wrapper after `@base-ui/react` update (PR #4350)
 - `CURRENT_YEAR` — wrap in `useMemo` inside the component
@@ -29,7 +29,56 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `images-to-pdf`: PDF filename comes from `<title>`; consider setting `document.title = 'images-YYYY-MM-DD.pdf'` inside the print iframe before printing
 - `images-to-pdf`: image quality slider does not affect print output (browser prints originals). If needed — recompress via Canvas before printing
 - Chrome page header / footer (date, URL, page numbers) can only be disabled by the user in the print dialog — cannot be removed programmatically
+- Decide on `useCases` format: keep as `string[]` (via `ContentSection`) or migrate to `{title, description}[]` (via a new `UseCaseSection`)
 - Bonus tool: `text-to-svg-generator` (84th) — regex + shape / color / icon dictionary, offline, no dependencies. Discuss after Wave 6
+
+## [0.9.0] - 2026-10-04
+
+### Added
+
+**Structured content blocks (`howToUse` / `features`)**
+
+- `components/shared/HowToSection.tsx` — renders `howToUse` as a numbered grid (1 or 2 columns) with round badges (`bg-primary/10 text-primary`, `text-[11px]`, size 5). Uses `<ol>` for correct semantics. Each step is `{title, description}`.
+- `components/shared/FeatureSection.tsx` — renders `features` as a 2-column grid with a leading `CheckIcon` (from `@animateicons/react/lucide/check-icon`, `isAnimated={false}`). Each feature is `{title, description}`.
+- `ContentSection.tsx` retained as the universal fallback — still used for `useCases` (`string[]`) and any block that isn't migrated yet.
+- Both new components guard with `t.has()` on title and items keys and return `null` if either is missing — 69 unprepared tools render nothing without errors.
+- New types in `types/common.ts`: `FeatureItem` and `HowToStep`, both `{title: string; description: string}`.
+
+**JSON-LD HowTo + FAQPage for calculators**
+
+- `CalculatorSchema.tsx` — added `FAQPage` (was missing; calculators had FAQ content but no schema) and `HowTo` (rendered only when both `howToUseTitle` and `howToUse` exist). `HowTo` maps `step: {name: s.title, text: s.description}`.
+- `ToolSchema.tsx` — added `HowTo` block with the same shape; `FAQPage` stays as it was.
+- Publisher extracted as a local `PUBLISHER` constant in `CalculatorSchema` — single place to parametrize later.
+
+**Content for `images-to-pdf`**
+
+- New `howToUse` (4 steps, `{title, description}`) — add / arrange / layout / download.
+- New `features` (9 items, `{title, description}`) — five input formats, drag-and-drop reordering, 90° rotation, page sizes + orientation, grid layout, custom margins and gaps, page numbers and captions, title page, quality slider.
+- New `useCases` (5 items, strings) — receipts, contract photos, photo album, product spec sheet, contact sheet.
+- FAQ expanded from 4 to 7 questions — added HEIC, multiple photos per page, quality on PNG, transparency preservation.
+- `title`, `description`, `keywords` updated (added `webp to pdf`, `avif to pdf`).
+
+### Changed
+
+- **`howToUse` migrated from `string[]` to `{title, description}[]`** in `messages/en.json` and `messages/ru.json` for the 5 tools that already had blocks: `json-formatter`, `percentage-calculator`, `word-counter`, `password-generator`, `image-compressor`. `images-to-pdf` was created in the new format.
+- **`features` migrated from `string[]` to `{title, description}[]`** for the same 6 tools. Each former single-line feature was split into a short title and a descriptive sentence.
+- `CalcLayout.tsx` / `ToolLayout.tsx` — replaced `<ContentSection titleKey="howToUseTitle" itemsKey="howToUse" ordered />` with `<HowToSection slug={config.slug} />`, and `<ContentSection titleKey="featuresTitle" itemsKey="features" />` with `<FeatureSection slug={config.slug} />`. Order on the page: form → HowToSection → FeatureSection → ContentSection (useCases) → FAQ → RelatedTools.
+- `CalculatorSchema.tsx` — FAQ is now rendered for calculators as well, not only tools. Fixed a silent SEO gap where calculator pages shipped FAQ content without structured data.
+- `CHANGELOG.md`, `CONTEXT.md` — updated to reflect the new object format for `features` / `howToUse` and the three-component SEO block architecture.
+
+### Fixed
+
+- **Calculator pages had no FAQPage JSON-LD** — only `ToolSchema` rendered it. Google missed a rich-snippet opportunity on 30 calculator pages. Now both layouts emit `FAQPage`.
+- **No HowTo JSON-LD anywhere** — despite `howToUse` being rendered visually. Added to both schemas, gated by key presence so tools without the block skip it cleanly.
+- **`ContentSection` was overloaded** — it rendered `howToUse`, `features` and `useCases` in the same flat-list style. Split into three components so each block gets its intended visual (numbered vs checkmark vs plain bullets) and structured-data-friendly markup.
+- `FeatureSection` / `HowToSection` guard against strings-in-array — if `t.raw()` returns `string[]` instead of `object[]`, the components render nothing rather than empty cards with `undefined` title.
+
+### Known limitations
+
+- **`features` and `howToUse` must be `{title, description}[]`.** Any tool still holding `string[]` will render zero items in the new sections — silent skip, not a crash. Migrated when the tool gets its SEO pass.
+- **`useCases` still `string[]`.** Rendered via `ContentSection` (plain bullet list). Migrating to `UseCaseSection` is a separate decision — deferred.
+- **69 of 75 tools have no SEO blocks yet.** The infrastructure is ready; content is the bottleneck.
+- **Google Rich Results Test not run yet** — HowTo has `name` and `text` per step (Google requires both), but the final validation happens after deploy.
 
 ## [0.8.0] - 2026-10-03
 

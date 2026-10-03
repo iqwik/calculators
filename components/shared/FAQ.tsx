@@ -25,7 +25,7 @@ export function FAQ({items}: Props) {
       <Accordion className="w-full" multiple>
         {items.map((item, i) => (
           <AccordionItem key={item.q} value={`item-${i}`}>
-            <AccordionTrigger className="text-left text-base font-semibold hover:no-underline">
+            <AccordionTrigger className="text-left text-base font-semibold hover:no-underline cursor-pointer">
               {tConfig(item.q)}
             </AccordionTrigger>
             <AccordionContent className="leading-relaxed text-muted-foreground">

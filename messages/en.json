@@ -372,10 +372,33 @@
       }
     },
     "json-formatter": {
-      "title": "JSON Formatter – Beautify, Minify & Validate JSON Online",
+      "title": "JSON Formatter — Beautify, Minify & Validate JSON Online",
       "h1": "JSON Formatter & Validator",
-      "description": "Free JSON formatter and validator. Beautify, minify, and fix JSON with instant error highlighting. Works offline and stays private.",
-      "keywords": "json formatter,json validator,json beautifier,minify json,pretty print json",
+      "description": "Free JSON formatter, minifier and validator. Beautify, minify and validate JSON with precise error highlighting — shows the exact line and column. Displays size before and after. Works offline, nothing leaves your browser.",
+      "keywords": "json formatter,json validator,json beautifier,minify json,pretty print json,json online",
+      "howToUseTitle": "How to use",
+      "howToUse": [
+        "Paste your JSON into the input field.",
+        "Click Beautify for a clean, structured output or Minify to strip all whitespace.",
+        "If the JSON is invalid, you will see the exact line and column of the error."
+      ],
+      "featuresTitle": "Features",
+      "features": [
+        "Beautify with 2 or 4-space indentation",
+        "Minify into a single line",
+        "Validation with line and column reporting",
+        "Size comparison before and after",
+        "Copy output or download as a file",
+        "Handles large files — up to a few megabytes"
+      ],
+      "useCasesTitle": "Common use cases",
+      "useCases": [
+        "Debug an API response returned as one long line",
+        "Find an unbalanced bracket in a config file",
+        "Minify JSON before a build",
+        "Find a missing comma in a deeply nested file",
+        "Validate JSON before sending it"
+      ],
       "beautify2": "Beautify (2 spaces)",
       "beautify4": "Beautify (4 spaces)",
       "minify": "Minify",
@@ -391,9 +414,15 @@
         "q1": "Is my JSON data sent anywhere?",
         "a1": "No. All formatting and validation happens locally in your browser. Nothing is uploaded.",
         "q2": "Can it fix broken JSON?",
-        "a2": "It detects errors and shows you exactly where the problem is. It does not auto-repair malformed JSON.",
+        "a2": "It detects errors and shows the exact line and column of the problem. It does not auto-repair malformed JSON.",
         "q3": "Does it work with large files?",
-        "a3": "Yes. Since everything runs in your browser, the practical limit is your device's memory. Files up to a few megabytes are usually fine."
+        "a3": "Yes. Since everything runs in your browser, the practical limit is your device's memory. Files up to a few megabytes are usually fine.",
+        "q4": "What is JSON minification?",
+        "a4": "It removes all unnecessary whitespace, line breaks and indentation, producing a single long string. Minified JSON is smaller and transfers faster over the network.",
+        "q5": "Does it support JSON5 or JSONC?",
+        "a5": "The tool works with standard JSON (RFC 8259). Comments and single quotes from JSON5 or JSONC will trigger a validation error.",
+        "q6": "How do I copy the output?",
+        "a6": "Use the Copy button under the output panel. You can also download the result as a file with the Download button."
       }
     },
     "base64-encoder-decoder": {
@@ -426,10 +455,32 @@
       }
     },
     "percentage-calculator": {
-      "title": "Percentage Calculator – Free Online Percent Tool",
+      "title": "Percentage Calculator — Percent Of, Discount, VAT, Tips",
       "h1": "Percentage Calculator",
-      "description": "Free percentage calculator. Find what X% of Y is, what percent one number is of another, and percentage increase or decrease — instantly.",
-      "keywords": "percentage calculator,percent calculator,percent of,percent change,percentage increase",
+      "description": "Free percentage calculator: find the percent of a number, calculate what percentage one number is of another, compute percentage change, add or subtract a percentage. Ready-made templates for discounts, tips, VAT and markup.",
+      "keywords": "percentage calculator,percent calculator,percent of,percent change,percentage increase,percent off calculator,vat calculator,percent online",
+      "howToUseTitle": "How to use",
+      "howToUse": [
+        "Choose the calculation type: percent of a number, what percent one number is of another, or percentage change.",
+        "Enter values X and Y below.",
+        "The result updates instantly, along with the formula."
+      ],
+      "featuresTitle": "Features",
+      "features": [
+        "Three modes: percent of, share, percentage change",
+        "Ready-made templates for discounts, tips, VAT and markup",
+        "Shows formula and intermediate steps",
+        "Supports decimals and large numbers",
+        "Works offline, nothing leaves your browser"
+      ],
+      "useCasesTitle": "Common use cases",
+      "useCases": [
+        "Calculate a store discount",
+        "Work out a restaurant tip",
+        "Extract VAT from a gross amount",
+        "Find growth or decline percentage",
+        "Compare two values as percentages"
+      ],
       "inputs": {
         "mode": "Calculation type",
         "valueX": "Value X",
@@ -453,9 +504,13 @@
         "q2": "How do I find what percent one number is of another?",
         "a2": "Divide the first number by the second and multiply by 100. For example, 30 ÷ 200 × 100 = 15%.",
         "q3": "How do I calculate percentage increase or decrease?",
-        "a3": "Subtract the starting value from the final value, divide by the absolute value of the starting value, and multiply by 100. A positive result means an increase, a negative result means a decrease.",
-        "q4": "Can I use decimals in this calculator?",
-        "a4": "Yes. All fields accept decimal values, and results are shown with up to four decimal places."
+        "a3": "Subtract the starting value from the final value, divide by the absolute value of the starting value, and multiply by 100. A positive result is an increase, a negative one is a decrease.",
+        "q4": "How do I add or subtract a percentage?",
+        "a4": "To add a percentage, multiply the number by (1 + percent / 100). To subtract, use (1 minus percent / 100). For example, 200 + 15% = 200 × 1.15 = 230.",
+        "q5": "How do I extract VAT from a total?",
+        "a5": "Divide the gross amount by (1 + rate / 100). For example, 120 at 20%: 120 ÷ 1.20 = 100 — that is the net amount.",
+        "q6": "Can I use decimals in this calculator?",
+        "a6": "Yes. All fields accept decimal values, and results are shown with up to four decimal places."
       }
     },
     "compound-interest-calculator": {
@@ -977,10 +1032,33 @@
       }
     },
     "word-counter": {
-      "title": "Word Counter – Count Words, Characters & Reading Time",
-      "h1": "Word Counter",
-      "description": "Free word counter. Count words, characters, sentences, paragraphs, and reading time instantly. Paste text or type directly.",
-      "keywords": "word counter,character counter,word count,reading time calculator,text counter",
+      "title": "Word Counter — Count Words, Characters, Readability & SEO",
+      "h1": "Word & Character Counter",
+      "description": "Free word and character counter: instantly counts words, characters with and without spaces, sentences, paragraphs, pages and reading time. Shows readability score, keyword density and social media limits.",
+      "keywords": "word counter,character counter,word count,character count,reading time calculator,readability checker,seo text analysis,text counter",
+      "howToUseTitle": "How to use",
+      "howToUse": [
+        "Paste your text into the field or start typing.",
+        "Counters update instantly on every keystroke.",
+        "Open the tabs below to see readability, keywords and social media limits."
+      ],
+      "featuresTitle": "Features",
+      "features": [
+        "Words, characters with and without spaces, sentences, paragraphs, pages",
+        "Reading time and speaking time",
+        "Readability by Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG, ARI",
+        "Keyword density for one, two and three-word phrases",
+        "Limits for Twitter, Instagram, LinkedIn, YouTube, TikTok, meta description",
+        "Utilities: case conversion, find and replace, remove duplicates"
+      ],
+      "useCasesTitle": "Common use cases",
+      "useCases": [
+        "Check text length before publishing a blog post",
+        "Fit within Twitter or Instagram character limits",
+        "Estimate article reading time",
+        "Check text readability before submission",
+        "Analyse keyword density for SEO"
+      ],
       "inputLabel": "Your text",
       "clear": "Clear",
       "placeholder": "Type or paste your text here...",
@@ -990,6 +1068,7 @@
         "charactersNoSpaces": "Characters (no spaces)",
         "sentences": "Sentences",
         "paragraphs": "Paragraphs",
+        "pages": "Pages",
         "readingTime": "Reading time",
         "speakingTime": "Speaking time",
         "avgWordLength": "Avg. word length"
@@ -1003,9 +1082,13 @@
         "q2": "How is reading time estimated?",
         "a2": "Reading time uses an average speed of 200 words per minute for silent reading and 130 words per minute for speaking aloud.",
         "q3": "Are characters counted with or without spaces?",
-        "a3": "Both. We show total characters (including spaces, tabs and line breaks) and characters without any whitespace.",
-        "q4": "Is my text uploaded anywhere?",
-        "a4": "No. Everything runs in your browser. Your text never leaves your device."
+        "a3": "Both. We show total characters including spaces, tabs and line breaks, and characters without any whitespace.",
+        "q4": "What is text readability?",
+        "a4": "It is a measure of how easy a text is to read. Classic formulas are used: Flesch-Kincaid, Gunning Fog, Coleman-Liau, SMOG and Automated Readability Index. A higher score means easier reading.",
+        "q5": "How are pages calculated?",
+        "a5": "One page is roughly 1800 characters including spaces, which is the standard manuscript convention. Page count updates automatically.",
+        "q6": "Is my text uploaded anywhere?",
+        "a6": "No. Everything runs in your browser. Your text never leaves your device."
       }
     },
     "case-converter": {
@@ -1275,10 +1358,33 @@
       }
     },
     "password-generator": {
-      "title": "Password Generator – Create Strong Secure Passwords",
+      "title": "Password Generator — Strong Random Passwords Online",
       "h1": "Password Generator",
-      "description": "Free password generator. Create strong, random passwords with custom length, character types, and ambiguous character exclusion.",
-      "keywords": "password generator,strong password,random password,secure password,generate password",
+      "description": "Free password generator: creates strong random passwords of any length right in your browser via Web Crypto API. Shows entropy and estimated crack time. Four modes: random, pronounceable, PIN, pattern-based.",
+      "keywords": "password generator,strong password,random password,secure password,generate password,password online,password entropy",
+      "howToUseTitle": "How to use",
+      "howToUse": [
+        "Choose a mode: random password, pronounceable, PIN, or pattern-based.",
+        "Adjust length and character set.",
+        "Click Generate — the password is created instantly and never leaves your device."
+      ],
+      "featuresTitle": "Features",
+      "features": [
+        "Four modes: random, pronounceable, PIN, pattern-based",
+        "Cryptographically secure generation via Web Crypto API",
+        "Shows entropy and estimated crack time",
+        "Exclude ambiguous characters (i, l, 1, O, 0)",
+        "Exclude awkward characters: brackets, quotes, slashes",
+        "Bulk generate up to 500 passwords at once"
+      ],
+      "useCasesTitle": "Common use cases",
+      "useCases": [
+        "Create a strong password for a new account",
+        "Generate a password that is easy to dictate over the phone",
+        "Create a PIN for a bank card",
+        "Generate passwords that match a service's requirements",
+        "Create a password for a Wi-Fi router"
+      ],
       "passwordLabel": "Your password",
       "length": "Length",
       "lowercase": "Lowercase (a-z)",
@@ -1303,8 +1409,12 @@
         "a2": "Yes when the service allows it. Symbols increase the search space, but length is a bigger factor. A 20-character password without symbols is stronger than a 10-character one with symbols.",
         "q3": "What are ambiguous characters?",
         "a3": "Letters and digits that look alike (i, l, 1, O, 0). Excluding them makes manual typing easier, but slightly reduces the search space. Use this option for passwords you type often.",
-        "q4": "Is it safe to generate passwords here?",
-        "a4": "Yes. Generation uses crypto.getRandomValues, a cryptographically secure random source built into your browser. The password never leaves your device."
+        "q4": "What is password entropy?",
+        "a4": "Entropy is a measure of how random a password is, in bits. The higher the value, the harder it is to crack. 60 bits is enough for most accounts, 80 or more for critical services, 100 or more for encryption.",
+        "q5": "What is a pronounceable password?",
+        "a5": "It is a password built from syllables so it can be spoken and remembered, like va-lo-meer-keh. It is less random than a fully random password but easier to dictate and recall.",
+        "q6": "Is it safe to generate passwords here?",
+        "a6": "Yes. Generation uses crypto.getRandomValues, a cryptographically secure random source built into your browser. The password never leaves your device and is never transmitted."
       }
     },
     "qr-code-generator": {
@@ -1431,10 +1541,33 @@
       "displayValue": "Show value under bars"
     },
     "image-compressor": {
-      "title": "Image Compressor – Reduce JPG, PNG & WebP Size",
+      "title": "Image Compressor — Reduce JPG, PNG, WebP Online",
       "h1": "Image Compressor",
-      "description": "Free image compressor that runs entirely in your browser. Compress and resize JPG, PNG, and WebP images by up to 90% with no upload required.",
-      "keywords": "image compressor,compress image online,jpg compressor,png compressor,image optimizer,reduce image size",
+      "description": "Free image compressor that runs entirely in your browser. Compress JPG, PNG, WebP and AVIF images by up to 90% with no upload required. Set a target file size or use the quality slider — the tool picks optimal settings automatically.",
+      "keywords": "image compressor,compress image online,jpg compressor,png compressor,webp compressor,image optimizer,reduce image size,shrink photo",
+      "howToUseTitle": "How to use",
+      "howToUse": [
+        "Drop your images into the window or click to select files.",
+        "Set max width, output format and quality.",
+        "Click Compress All — results appear instantly, download individually or as a batch."
+      ],
+      "featuresTitle": "Features",
+      "features": [
+        "Supports JPG, PNG, WebP, AVIF",
+        "Target file size: 200 KB, 500 KB, 1 MB",
+        "Quality slider with live preview",
+        "Batch processing up to 20 files",
+        "Max width for downscaling",
+        "Size comparison before and after for each file"
+      ],
+      "useCasesTitle": "Common use cases",
+      "useCases": [
+        "Reduce photos before uploading to a site",
+        "Compress screenshots for documentation",
+        "Prepare images for an email campaign",
+        "Fit within a file upload limit",
+        "Reduce page weight for better SEO"
+      ],
       "maxWidth": "Max width",
       "quality": "Quality",
       "format": "Output format",
@@ -1458,11 +1591,15 @@
         "q1": "Is my image uploaded anywhere?",
         "a1": "No. Compression happens locally in your browser using the HTML5 Canvas API. Your photos never leave your device.",
         "q2": "What format should I use?",
-        "a2": "WebP gives the best size-to-quality ratio in modern browsers. JPEG is universally supported. PNG keeps transparency but ignores quality settings — use it only when you need alpha.",
+        "a2": "WebP gives the best size-to-quality ratio in modern browsers. JPEG is universally supported. PNG keeps transparency but ignores quality settings — use it only when you need alpha. AVIF is the most modern format with the smallest size, but browser support is still growing.",
         "q3": "How much can it reduce file size?",
         "a3": "Depends on the original. Typical savings are 50–80% for photos when you set quality to 75–85% and limit max width to 1920px. PNG screenshots compress less.",
         "q4": "Does quality affect PNG?",
-        "a4": "No. PNG is lossless, so the quality slider has no effect. Resizing or switching to WebP/JPEG is the only way to shrink PNG files."
+        "a4": "No. PNG is lossless, so the quality slider has no effect. Resizing or switching to WebP, JPEG or AVIF is the only way to shrink PNG files.",
+        "q5": "What is target file size mode?",
+        "a5": "It lets you specify the desired output size — for example, 200 KB. The tool automatically picks quality and resolution to fit that limit with minimal quality loss.",
+        "q6": "Can I compress many images at once?",
+        "a6": "Yes. Drop up to 20 files, set your options, and click Compress All. You can download them individually or all together."
       }
     },
     "invoice-generator": {

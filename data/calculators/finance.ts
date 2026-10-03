@@ -251,6 +251,8 @@ export const financeCalculators: CalculatorConfig[] = [
       {q: 'percentage-calculator.faq.q2', a: 'percentage-calculator.faq.a2'},
       {q: 'percentage-calculator.faq.q3', a: 'percentage-calculator.faq.a3'},
       {q: 'percentage-calculator.faq.q4', a: 'percentage-calculator.faq.a4'},
+      {q: 'percentage-calculator.faq.q5', a: 'percentage-calculator.faq.a5'},
+      {q: 'percentage-calculator.faq.q6', a: 'percentage-calculator.faq.a6'},
     ],
     publishedAt: '2025-01-15',
   },

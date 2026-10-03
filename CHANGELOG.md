@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### TODO
 
 - **`pdf-to-image`** — in progress. `pdfjs-dist@6.3.289` already installed. Plan: `kind: 'pdf-to-image'`, category `developer`, `isWide: true`, worker via `new URL('pdfjs-dist/build/pdf.worker.min.mjs', import.meta.url)`, page range parser (`1-5, 8, 11-13`), format PNG / JPEG / WebP, scale 1× / 1.5× / 2× / 3×, quality (JPEG / WebP), transparent background (PNG only), grid preview + ZIP download, `useSmoothProgress`. Destroy via `loadingTask.destroy()` (not `pdfDoc.destroy()`), `page.render({canvas, canvasContext, viewport})`.
+- **SEO content for remaining 70 tools** — `howToUse` / `features` / `useCases` + FAQ up to 6 questions. Reference: timbrica.com. Order: top traffic → finance (15) → health (15) → developer (26) → text (5) → generators (10) → business (7).
 - **Wave 6 — interactive trackers & builders**: `pomodoro-timer`, `habit-tracker`, `decision-maker`, `meeting-cost-calculator`, `trip-planner`, `bill-splitter`, `lead-tracker`, `resume-builder`, `visiting-card-generator`, `api-response-mock-generator`
 - **Locale refactor in `data/**`:** all hardcoded `'en-US'` / `'en-IN'` (and any hardcoded locale in `toLocaleString` / `toLocaleDateString` / `Intl.*`) — replace with `ctx.locale` passed from `calculate`. Run `grep -rn "toLocaleString('en\|toLocaleDateString('en\|Intl\." data/`. Affects `finance.ts` (`formatInt`, `formatAmount`, `formatINR`), `pregnancy-due-date-calculator`, potentially `health.ts`. After refactor — delete global `formatInt` / `formatAmount`, keep only local `fmt` inside each `calculate` (see `CONTEXT.md`, rules 29–30).
 - `SalarySlipGeneratorView`: replace `payPeriod` text input with two `<Select>` (Month + Year), localize, add `payMonth` / `payYear` to state
@@ -29,6 +30,59 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `images-to-pdf`: image quality slider does not affect print output (browser prints originals). If needed — recompress via Canvas before printing
 - Chrome page header / footer (date, URL, page numbers) can only be disabled by the user in the print dialog — cannot be removed programmatically
 - Bonus tool: `text-to-svg-generator` (84th) — regex + shape / color / icon dictionary, offline, no dependencies. Discuss after Wave 6
+
+## [0.8.0] - 2026-10-03
+
+### Added
+
+**SEO content blocks**
+
+- `components/shared/ContentSection.tsx` — universal component for the three new SEO blocks. Props: `{slug, titleKey, itemsKey, ordered?}`. Checks `t.has()` before rendering — silently returns `null` if the key is missing, so unprepared tools don't break.
+- New content keys in `messages/en.json` / `messages/ru.json`:
+  - `howToUseTitle` + `howToUse: string[]` — numbered step-by-step guide (3–5 steps)
+  - `featuresTitle` + `features: string[]` — feature list (5–6 items)
+  - `useCasesTitle` + `useCases: string[]` — typical scenarios (4–5 items)
+- Wired into `CalcLayout` and `ToolLayout` in order: form → **howToUse → features → useCases** → FAQ → RelatedTools.
+
+**JSON-LD HowTo**
+
+- `CalculatorSchema.tsx` / `ToolSchema.tsx` — new `HowTo` schema block, rendered only when both `howToUseTitle` and `howToUse` are present. Gives numbered steps in Google SERP (rich snippet).
+
+**FAQ accordion (Base UI)**
+
+- `components/shared/FAQ.tsx` — replaced manual `<div>` / `<h3>` / `<p>` markup with shadcn/ui `Accordion` on Base UI.
+- `openMultiple=true` — multiple answers stay open at the same time (no auto-close of neighbours).
+- Each item uses `value={\`item-${i}\`}` — index-based key instead of `item.q` (translation keys can contain dots that clash with Base UI / ICU internals).
+- `AccordionTrigger` — `text-left text-base font-semibold hover:no-underline` (Base UI inherits underline on hover otherwise).
+- `AccordionContent` — `leading-relaxed text-muted-foreground`.
+
+**SEO texts for 5 tools (extended)**
+
+Based on analysis of timbrica.com and their SEO-content, extended texts were written for:
+
+- `percentage-calculator` — 3-step how-to, 5 features, 5 use cases, FAQ 4 → 6 questions. Added VAT extraction, add/subtract percentage, template scenarios.
+- `word-counter` — 3-step how-to, 6 features (added readability formulas, keyword density, social limits, pages counter), 5 use cases, FAQ 4 → 6 questions.
+- `json-formatter` — 3-step how-to, 6 features (added line/column error reporting, size comparison), 5 use cases, FAQ 3 → 6 questions. Added JSON5/JSONC clarification.
+- `password-generator` — 3-step how-to, 6 features (added entropy, pronounceable passwords, PIN, pattern, bulk generation), 5 use cases, FAQ 4 → 6 questions.
+- `image-compressor` — 3-step how-to, 6 features (added AVIF, target file size mode, batch up to 20), 5 use cases, FAQ 4 → 6 questions.
+
+**Cookie consent**
+
+- `components/cookie-consent.tsx` — fixed bottom banner (`z-50`), shadcn `Card` + `Button`, saves consent to `localStorage` under key `cookie-consent`. Renders only on first visit.
+- `messages/*.json` — new `cookieConsent` namespace.
+
+### Changed
+
+- `messages/en.json` / `messages/ru.json` — for all 5 tools above: extended `title`, `description`, `keywords` (added long-tail terms), added `howToUse*`, `features*`, `useCases*`, added `faq.q5` / `faq.a5` and `faq.q6` / `faq.a6`.
+- `data/calculators/finance.ts` / `data/tools/{text,developer,generators}.ts` — `faq` arrays for the 5 tools extended to 6 entries (`q1–q6`).
+- `components/calculator/CalcLayout.tsx` / `components/tool/ToolLayout.tsx` — new `<ContentSection>` calls before `<FAQ>`.
+- `CONTEXT.md` — new rules #34 (SEO blocks via ContentSection), #35 (FAQ accordion with `openMultiple=true`), #36 (JSON-LD HowTo render conditions). New pitfalls: Base UI Accordion `openMultiple`, `t.raw()` returns array only if JSON is an array.
+
+### Fixed
+
+- `FAQ.tsx` — long question titles were truncating / breaking on mobile in the manual markup; accordion header uses `text-left` to keep wraps readable.
+- `FAQ.tsx` — no bottom borders on short answers; `AccordionItem` handles dividers automatically.
+- `ContentSection` — `t.has()` guard prevents errors when a tool has no SEO blocks yet (70 of 75 tools currently).
 
 ## [0.7.0] - 2026-10-03
 
@@ -80,7 +134,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `SearchModal.tsx` — removed `getAllRegistryEntries` direct call, results no longer depend on `tConfig` inside `.filter()`.
 - Sidebar `SidebarContent` — added `scrollbar-gutter-stable overflow-y-scroll` classes to prevent layout shift on scrollbar appearance.
 - `CONTEXT.md` — updated with new rules (#31 search, #32 icons, #33 server/client config transfer) and known pitfalls (Biome LSP binary, Fuse token search version, `next/font` `--font-sans` self-reference).
-- `CHANGELOG.md` — [Unreleased] TODO pruned of completed items; new [0.7.0] section.
 
 ### Fixed
 

@@ -4,6 +4,7 @@ import {isWideTool} from '@/data'
 import {getBaseUrl} from '@/helpers'
 import {Link} from '@/i18n/navigation'
 import type {ToolConfig} from '@/types'
+import {ContentSection} from '../shared/ContentSection'
 import {FAQ} from '../shared/FAQ'
 import {RelatedTools} from '../shared/RelatedTools'
 import {Badge} from '../ui/badge'
@@ -15,7 +16,7 @@ interface Props {
 }
 
 export async function ToolLayout({config}: Props) {
-  const t = await getTranslations('config')
+  const tConfig = await getTranslations('config')
   const tNav = await getTranslations('nav')
   const tHome = await getTranslations('home')
   const baseUrl = getBaseUrl()
@@ -41,12 +42,32 @@ export async function ToolLayout({config}: Props) {
           {tHome(`categories.${config.category}`)}
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-          {t(config.h1)}
+          {tConfig(config.h1)}
         </h1>
-        <p className="mt-3 text-muted-foreground">{t(config.description)}</p>
+        <p className="mt-3 text-muted-foreground">
+          {tConfig(config.description)}
+        </p>
       </header>
 
+      <ContentSection
+        slug={config.slug}
+        titleKey="howToUseTitle"
+        itemsKey="howToUse"
+        ordered
+      />
+
       <ToolView config={config} />
+
+      <ContentSection
+        slug={config.slug}
+        titleKey="featuresTitle"
+        itemsKey="features"
+      />
+      <ContentSection
+        slug={config.slug}
+        titleKey="useCasesTitle"
+        itemsKey="useCases"
+      />
 
       {config.faq && config.faq.length > 0 && <FAQ items={config.faq} />}
 

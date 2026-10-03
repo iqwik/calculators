@@ -20,6 +20,8 @@ export const textTools: ToolConfig[] = [
       {q: 'word-counter.faq.q2', a: 'word-counter.faq.a2'},
       {q: 'word-counter.faq.q3', a: 'word-counter.faq.a3'},
       {q: 'word-counter.faq.q4', a: 'word-counter.faq.a4'},
+      {q: 'word-counter.faq.q5', a: 'word-counter.faq.a5'},
+      {q: 'word-counter.faq.q6', a: 'word-counter.faq.a6'},
     ],
     related: ['case-converter', 'lorem-ipsum'],
     publishedAt: '2025-01-19',

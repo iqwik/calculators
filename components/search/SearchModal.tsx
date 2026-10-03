@@ -3,8 +3,8 @@
 import {cn} from 'cn'
 import {Search} from 'lucide-react'
 import {useTranslations} from 'next-intl'
-import {useEffect, useMemo, useState} from 'react'
-import {getAllRegistryEntries} from '@/data'
+import {useMemo, useState} from 'react'
+import {useSearchIndex} from '@/hooks/use-search-index'
 import {Link} from '@/i18n/navigation'
 import {highlighted} from '../shared/Highlight'
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from '../ui/dialog'
@@ -20,22 +20,17 @@ export function SearchModal({open, onOpenChange}: Props) {
   const tConfig = useTranslations('config')
   const [query, setQuery] = useState('')
 
-  const all = useMemo(() => getAllRegistryEntries().map(e => e.config), [])
+  const fuse = useSearchIndex()
 
   const results = useMemo(() => {
-    const q = query.trim().toLowerCase()
-    if (!q) return []
-    return all.filter(
-      item =>
-        item.slug.includes(q) ||
-        tConfig(item.h1).toLowerCase().includes(q) ||
-        tConfig(item.description).toLowerCase().includes(q),
-    )
-  }, [all, query, tConfig])
+    const q = query.trim()
+    if (q.length < 2) return []
+    return fuse.search(q, {limit: 20}).map(r => r.item)
+  }, [fuse, query])
 
-  useEffect(() => {
-    if (!open) setQuery('')
-  }, [open])
+  // useEffect(() => {
+  //   if (!open) setQuery('')
+  // }, [open])
 
   const hasQuery = query.trim().length > 0
 
@@ -79,13 +74,13 @@ export function SearchModal({open, onOpenChange}: Props) {
                       <div className="text-sm font-medium">
                         {highlighted({
                           highlight: query,
-                          text: tConfig(item.h1),
+                          text: tConfig(`${item.slug}.h1`),
                         })}
                       </div>
                       <div className="line-clamp-1 text-xs text-muted-foreground">
                         {highlighted({
                           highlight: query,
-                          text: tConfig(item.description),
+                          text: tConfig(`${item.slug}.description`),
                         })}
                       </div>
                     </Link>

@@ -3281,5 +3281,520 @@
         "a4": "It multiplies the output resolution. 1× is best for quick previews, 2× is standard for retina displays and blog posts, 3× is best for high-DPI printing."
       }
     }
+  },
+  "searchSynonyms": {
+    "percentage-calculator": [
+      "percent of",
+      "how much percent",
+      "add percent",
+      "subtract percent",
+      "percent increase",
+      "percent difference"
+    ],
+    "loan-payment-calculator": [
+      "loan calculator",
+      "mortgage payment",
+      "monthly payment",
+      "emi calculator",
+      "amortization",
+      "car loan"
+    ],
+    "compound-interest-calculator": [
+      "compound interest",
+      "investment growth",
+      "future value",
+      "interest calculator"
+    ],
+    "discount-calculator": [
+      "sale price",
+      "percent off",
+      "discount price",
+      "final price",
+      "savings calculator"
+    ],
+    "tip-calculator": [
+      "tip",
+      "gratuity",
+      "split bill",
+      "restaurant tip",
+      "how much tip"
+    ],
+    "sales-tax-calculator": [
+      "vat",
+      "gst",
+      "sales tax",
+      "add tax",
+      "remove tax",
+      "reverse vat",
+      "tax inclusive"
+    ],
+    "salary-calculator": [
+      "salary",
+      "wage",
+      "hourly to annual",
+      "annual income",
+      "pay rate",
+      "income calculator"
+    ],
+    "roi-calculator": [
+      "return on investment",
+      "roi",
+      "profit calculator",
+      "investment return",
+      "roi formula"
+    ],
+    "monthly-investment-calculator": [
+      "monthly investment",
+      "regular savings",
+      "sip calculator",
+      "recurring deposit"
+    ],
+    "date-difference-calculator": [
+      "days between",
+      "date difference",
+      "how many days",
+      "date calculator",
+      "days until"
+    ],
+    "income-tax-calculator": [
+      "income tax",
+      "tax calculator",
+      "marginal tax",
+      "progressive tax",
+      "take home pay"
+    ],
+    "savings-goal-calculator": [
+      "savings goal",
+      "how much to save",
+      "goal calculator",
+      "save for target"
+    ],
+    "loan-eligibility-calculator": [
+      "can i get a loan",
+      "loan eligibility",
+      "borrowing capacity",
+      "dti",
+      "how much can i borrow"
+    ],
+    "rent-vs-buy-calculator": [
+      "rent or buy",
+      "should i buy",
+      "home buying vs renting",
+      "rent vs own"
+    ],
+    "fixed-deposit-calculator": [
+      "fixed deposit",
+      "fd calculator",
+      "term deposit",
+      "cd calculator",
+      "deposit interest"
+    ],
+    "bmi-calculator": [
+      "bmi",
+      "body mass",
+      "healthy weight",
+      "obesity",
+      "underweight",
+      "ideal bmi"
+    ],
+    "calorie-calculator": [
+      "calorie",
+      "daily calories",
+      "tdee",
+      "bmr",
+      "how many calories",
+      "calorie needs"
+    ],
+    "age-calculator": [
+      "age",
+      "how old am i",
+      "calculate age",
+      "birthday calculator",
+      "date of birth"
+    ],
+    "tdee-macro-calculator": [
+      "macros",
+      "macro calculator",
+      "protein carbs fat",
+      "tdee",
+      "macro split"
+    ],
+    "body-fat-calculator": [
+      "body fat",
+      "fat percentage",
+      "lean mass",
+      "navy method"
+    ],
+    "ideal-weight-calculator": [
+      "ideal weight",
+      "healthy weight",
+      "what should i weigh",
+      "target weight"
+    ],
+    "water-intake-calculator": [
+      "water intake",
+      "how much water",
+      "hydration",
+      "daily water",
+      "water needs"
+    ],
+    "heart-rate-zones-calculator": [
+      "heart rate zones",
+      "max heart rate",
+      "training zones",
+      "fat burn zone",
+      "target hr"
+    ],
+    "pregnancy-due-date-calculator": [
+      "due date",
+      "pregnancy calculator",
+      "when is my baby due",
+      "lmp calculator",
+      "conception date"
+    ],
+    "sleep-cycle-calculator": [
+      "sleep cycle",
+      "when to sleep",
+      "when to wake up",
+      "best bedtime",
+      "rem cycle"
+    ],
+    "vo2-max-estimator": [
+      "vo2 max",
+      "cardio fitness",
+      "aerobic capacity",
+      "rockport test",
+      "fitness test"
+    ],
+    "sleep-debt-calculator": [
+      "sleep debt",
+      "sleep deficit",
+      "how much sleep",
+      "sleep recovery"
+    ],
+    "menstrual-cycle-calculator": [
+      "period calculator",
+      "ovulation",
+      "fertile window",
+      "next period",
+      "cycle tracker"
+    ],
+    "calorie-deficit-planner": [
+      "calorie deficit",
+      "weight loss plan",
+      "how many calories to lose weight",
+      "deficit calculator"
+    ],
+    "pregnancy-week-tracker": [
+      "pregnancy week",
+      "how many weeks pregnant",
+      "trimester",
+      "pregnancy tracker"
+    ],
+    "word-counter": [
+      "word count",
+      "character count",
+      "word counter",
+      "count words",
+      "reading time"
+    ],
+    "case-converter": [
+      "case converter",
+      "uppercase",
+      "lowercase",
+      "title case",
+      "camelcase",
+      "snake case",
+      "text case"
+    ],
+    "lorem-ipsum-generator": [
+      "lorem ipsum",
+      "placeholder text",
+      "dummy text",
+      "lipsum",
+      "fill text"
+    ],
+    "diff-checker": [
+      "diff",
+      "compare text",
+      "compare files",
+      "text diff",
+      "find differences"
+    ],
+    "number-to-words-converter": [
+      "number to words",
+      "spell number",
+      "number in words",
+      "write number"
+    ],
+    "unit-converter": [
+      "unit converter",
+      "cm to inches",
+      "kg to lbs",
+      "celsius to fahrenheit",
+      "unit conversion"
+    ],
+    "json-formatter": [
+      "json",
+      "format json",
+      "pretty print json",
+      "json validator",
+      "json beautifier"
+    ],
+    "base64-encoder-decoder": [
+      "base64",
+      "base64 encode",
+      "base64 decode",
+      "encode base64"
+    ],
+    "uuid-generator": ["uuid", "guid", "generate uuid", "unique id", "uuid v4"],
+    "hash-generator": ["hash", "md5", "sha256", "sha1", "sha512", "checksum"],
+    "url-encoder-decoder": [
+      "url encode",
+      "url decode",
+      "encode uri",
+      "urlencode",
+      "percent encoding"
+    ],
+    "timestamp-converter": [
+      "timestamp",
+      "unix time",
+      "epoch",
+      "unix timestamp",
+      "convert timestamp"
+    ],
+    "jwt-decoder": [
+      "jwt",
+      "decode jwt",
+      "jwt token",
+      "json web token",
+      "jwt parser"
+    ],
+    "jwt-encoder": [
+      "create jwt",
+      "jwt encode",
+      "sign jwt",
+      "generate jwt",
+      "hs256"
+    ],
+    "license-generator": [
+      "license",
+      "mit license",
+      "apache license",
+      "gpl",
+      "open source license"
+    ],
+    "gitignore-generator": [
+      "gitignore",
+      ".gitignore",
+      "git ignore",
+      "gitignore template",
+      "gitignore node"
+    ],
+    "markdown-previewer": [
+      "markdown",
+      "md editor",
+      "markdown preview",
+      "markdown to html",
+      "md renderer"
+    ],
+    "sql-formatter-minifier": [
+      "sql formatter",
+      "format sql",
+      "sql beautifier",
+      "sql pretty",
+      "minify sql"
+    ],
+    "code-minifier": [
+      "minifier",
+      "minify",
+      "minify js",
+      "minify css",
+      "minify html",
+      "code compress"
+    ],
+    "color-picker": [
+      "color picker",
+      "pick color",
+      "hex color",
+      "rgb",
+      "hsl",
+      "color chooser"
+    ],
+    "color-contrast-checker": [
+      "contrast",
+      "contrast ratio",
+      "wcag",
+      "accessibility check",
+      "a11y"
+    ],
+    "meta-tag-generator": [
+      "meta tags",
+      "opengraph",
+      "og tags",
+      "twitter card",
+      "seo meta"
+    ],
+    "svg-to-base64": [
+      "svg base64",
+      "svg to base64",
+      "svg data uri",
+      "svg to css"
+    ],
+    "base64-to-image": [
+      "base64 image",
+      "base64 to image",
+      "decode base64 image",
+      "base64 png"
+    ],
+    "regex-tester": [
+      "regex",
+      "regexp",
+      "test regex",
+      "regular expression",
+      "regex tester"
+    ],
+    "regex-generator": [
+      "regex generator",
+      "regex from examples",
+      "create regex",
+      "regex builder"
+    ],
+    "css-generator": [
+      "css generator",
+      "css shadow",
+      "box-shadow",
+      "css gradient",
+      "generator css"
+    ],
+    "favicon-generator": [
+      "favicon",
+      "favicon generator",
+      "app icon",
+      "site icon",
+      "pwa icons"
+    ],
+    "base64-image-optimizer": [
+      "optimize base64",
+      "compress base64 image",
+      "base64 compress"
+    ],
+    "pdf-to-image": [
+      "pdf to image",
+      "pdf to jpg",
+      "pdf to png",
+      "convert pdf",
+      "pdf extract"
+    ],
+    "password-generator": [
+      "password",
+      "generate password",
+      "strong password",
+      "random password",
+      "password maker"
+    ],
+    "qr-code-generator": [
+      "qr code",
+      "qr",
+      "generate qr",
+      "qr maker",
+      "barcode",
+      "qr generator"
+    ],
+    "image-compressor": [
+      "compress image",
+      "image compressor",
+      "reduce image size",
+      "shrink photo",
+      "jpg compress"
+    ],
+    "image-converter": [
+      "image converter",
+      "jpg to png",
+      "png to jpg",
+      "webp converter",
+      "convert image"
+    ],
+    "bulk-image-resizer": [
+      "resize image",
+      "bulk resize",
+      "resize photo",
+      "image resizer",
+      "batch resize"
+    ],
+    "image-watermark": [
+      "watermark",
+      "add watermark",
+      "watermark photo",
+      "image watermark",
+      "protect image"
+    ],
+    "color-palette-extractor": [
+      "palette",
+      "color palette",
+      "colors from image",
+      "extract colors"
+    ],
+    "images-to-pdf": [
+      "images to pdf",
+      "jpg to pdf",
+      "png to pdf",
+      "merge to pdf",
+      "photos to pdf"
+    ],
+    "screenshot-beautifier": [
+      "screenshot",
+      "beautify screenshot",
+      "screenshot background",
+      "pretty screenshot",
+      "screenshot frame"
+    ],
+    "invoice-generator": [
+      "invoice",
+      "invoice maker",
+      "create invoice",
+      "billing",
+      "invoice template"
+    ],
+    "invoice-number-generator": [
+      "invoice number",
+      "invoice numbering",
+      "number sequence",
+      "invoice tracker"
+    ],
+    "utm-builder": [
+      "utm",
+      "utm builder",
+      "utm tags",
+      "campaign url",
+      "tracking link"
+    ],
+    "profit-margin-calculator": [
+      "margin",
+      "markup",
+      "profit margin",
+      "margin calculator",
+      "profit calculator"
+    ],
+    "break-even-calculator": [
+      "break even",
+      "break-even point",
+      "breakeven",
+      "contribution margin"
+    ],
+    "quotation-generator": [
+      "quotation",
+      "quote",
+      "estimate",
+      "quote maker",
+      "quote template"
+    ],
+    "payslip-generator": [
+      "payslip",
+      "salary slip",
+      "pay stub",
+      "payslip maker",
+      "payroll slip"
+    ]
   }
 }

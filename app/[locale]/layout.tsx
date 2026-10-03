@@ -12,6 +12,7 @@ import '../globals.css'
 
 import {Geist_Mono, Inter, JetBrains_Mono} from 'next/font/google'
 import {cookies} from 'next/headers'
+import {CookieConsent} from '@/components/cookie-consent'
 import {SearchProvider} from '@/components/search/SearchProvider'
 import {TooltipProvider} from '@/components/ui/tooltip'
 
@@ -85,6 +86,7 @@ export default async function LocaleLayout({children, params}: LayoutProps) {
                       </div>
                     </header>
                     {children}
+                    <CookieConsent />
                   </main>
                 </SidebarProvider>
               </SearchProvider>

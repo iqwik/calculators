@@ -1,20 +1,18 @@
-import {
-  BadgePercent,
-  BanknoteCheck,
-  BriefcaseBusiness,
-  CalendarSearch,
-  ChartLine,
-  ChartNoAxesCombined,
-  Coffee,
-  HandCoins,
-  House,
-  Landmark,
-  Percent,
-  PiggyBank,
-  Scale,
-  Target,
-  TicketPercent,
-} from 'lucide-react'
+import {CalculatorIcon} from '@animateicons/react/huge/calculator-icon'
+import {CoinsIcon} from '@animateicons/react/lucide'
+import {BadgePercentIcon as BadgePercent} from '@animateicons/react/lucide/badge-percent-icon'
+import {BanknoteIcon as BanknoteCheck} from '@animateicons/react/lucide/banknote-icon'
+import {BriefcaseIcon as BriefcaseBusiness} from '@animateicons/react/lucide/briefcase-icon'
+import {CalendarSearchIcon as CalendarSearch} from '@animateicons/react/lucide/calendar-search-icon'
+import {ChartLineIcon as ChartLine} from '@animateicons/react/lucide/chart-line-icon'
+import {ChartNoAxesCombinedIcon as ChartNoAxesCombined} from '@animateicons/react/lucide/chart-no-axes-combined-icon'
+import {CoffeeIcon as Coffee} from '@animateicons/react/lucide/coffee-icon'
+import {HandCoinsIcon as HandCoins} from '@animateicons/react/lucide/hand-coins-icon'
+import {HouseIcon as House} from '@animateicons/react/lucide/house-icon'
+import {LandmarkIcon as Landmark} from '@animateicons/react/lucide/landmark-icon'
+import {PercentIcon as Percent} from '@animateicons/react/lucide/percent-icon'
+import {PiggyBankIcon as PiggyBank} from '@animateicons/react/lucide/piggy-bank-icon'
+import {Target01Icon as Target} from '@/components/ui/target-0-1-icon'
 import type {CalculatorConfig} from '@/types'
 
 function fmt(n: number): string {
@@ -33,28 +31,6 @@ function formatAmount(n: number, decimals = 2): string {
 function formatInt(n: number): string {
   if (!Number.isFinite(n)) return '—'
   return Math.round(n).toLocaleString('en-US')
-}
-
-function calcOldRegimeTax(taxable: number): number {
-  if (taxable <= 250000) return 0
-  if (taxable <= 500000) return (taxable - 250000) * 0.05
-  if (taxable <= 1000000) return 12500 + (taxable - 500000) * 0.2
-  return 112500 + (taxable - 1000000) * 0.3
-}
-
-function calcNewRegimeTax(taxable: number): number {
-  if (taxable <= 400000) return 0
-  if (taxable <= 800000) return (taxable - 400000) * 0.05
-  if (taxable <= 1200000) return 20000 + (taxable - 800000) * 0.1
-  if (taxable <= 1600000) return 60000 + (taxable - 1200000) * 0.15
-  if (taxable <= 2000000) return 120000 + (taxable - 1600000) * 0.2
-  if (taxable <= 2400000) return 200000 + (taxable - 2000000) * 0.25
-  return 300000 + (taxable - 2400000) * 0.3
-}
-
-function formatINR(n: number): string {
-  if (!Number.isFinite(n)) return '—'
-  return `₹${Math.round(n).toLocaleString('en-IN')}`
 }
 
 // ─── Rent vs Buy ─────────────────────────────────────────
@@ -525,7 +501,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'discount-calculator.h1',
     description: 'discount-calculator.description',
     keywords: ['discount-calculator.keywords'],
-    Icon: TicketPercent,
+    Icon: BadgePercent,
     inputs: [
       {
         name: 'price',
@@ -681,7 +657,7 @@ export const financeCalculators: CalculatorConfig[] = [
     h1: 'sales-tax-calculator.h1',
     description: 'sales-tax-calculator.description',
     keywords: ['sales-tax-calculator.keywords'],
-    Icon: BadgePercent, // Tag
+    Icon: CoinsIcon,
     inputs: [
       {
         name: 'amount',
@@ -1221,105 +1197,177 @@ export const financeCalculators: CalculatorConfig[] = [
     publishedAt: '2025-01-17',
   },
   {
-    slug: 'tax-regime-comparator',
+    slug: 'income-tax-calculator',
     category: 'finance',
     tags: ['calculator'],
-    title: 'tax-regime-comparator.title',
-    h1: 'tax-regime-comparator.h1',
-    description: 'tax-regime-comparator.description',
-    keywords: ['tax-regime-comparator.keywords'],
-    Icon: Scale,
+    title: 'income-tax-calculator.title',
+    h1: 'income-tax-calculator.h1',
+    description: 'income-tax-calculator.description',
+    keywords: ['income-tax-calculator.keywords'],
+    Icon: CalculatorIcon,
     inputs: [
       {
         name: 'annualIncome',
-        label: 'tax-regime-comparator.inputs.annualIncome',
+        label: 'income-tax-calculator.inputs.annualIncome',
         type: 'slider',
-        min: 300000,
-        max: 10000000,
-        step: 50000,
-        defaultValue: 1200000,
-        hint: 'tax-regime-comparator.hints.annualIncome',
+        min: 1000,
+        max: 500000,
+        step: 1000,
+        defaultValue: 50000,
       },
       {
         name: 'deductions',
-        label: 'tax-regime-comparator.inputs.deductions',
+        label: 'income-tax-calculator.inputs.deductions',
+        type: 'slider',
+        min: 0,
+        max: 100000,
+        step: 500,
+        defaultValue: 0,
+        hint: 'income-tax-calculator.hints.deductions',
+      },
+      {
+        name: 'baseRate',
+        label: 'income-tax-calculator.inputs.baseRate',
+        type: 'slider',
+        unit: '%',
+        min: 0,
+        max: 60,
+        step: 0.5,
+        defaultValue: 20,
+        hint: 'income-tax-calculator.hints.baseRate',
+      },
+      {
+        name: 'higherThreshold',
+        label: 'income-tax-calculator.inputs.higherThreshold',
         type: 'slider',
         min: 0,
         max: 500000,
-        step: 5000,
-        defaultValue: 150000,
-        hint: 'tax-regime-comparator.hints.deductions',
+        step: 1000,
+        defaultValue: 100000,
+        hint: 'income-tax-calculator.hints.higherThreshold',
+      },
+      {
+        name: 'higherRate',
+        label: 'income-tax-calculator.inputs.higherRate',
+        type: 'slider',
+        unit: '%',
+        min: 0,
+        max: 80,
+        step: 0.5,
+        defaultValue: 40,
+        hint: 'income-tax-calculator.hints.higherRate',
+      },
+      {
+        name: 'taxCredit',
+        label: 'income-tax-calculator.inputs.taxCredit',
+        type: 'slider',
+        min: 0,
+        max: 50000,
+        step: 100,
+        defaultValue: 0,
+        hint: 'income-tax-calculator.hints.taxCredit',
       },
     ],
-    calculate: ({annualIncome, deductions}) => {
-      const income = Number(annualIncome)
+    calculate: (
+      {
+        annualIncome,
+        deductions,
+        baseRate,
+        higherThreshold,
+        higherRate,
+        taxCredit,
+      },
+      {locale},
+    ) => {
+      function fmt(n: number): string {
+        if (!Number.isFinite(n)) return '—'
+        return Math.round(n).toLocaleString(locale ?? 'en')
+      }
+
+      const gross = Number(annualIncome)
       const ded = Number(deductions)
+      const r1 = Number(baseRate)
+      const threshold = Number(higherThreshold)
+      const r2 = Number(higherRate)
+      const credit = Number(taxCredit)
 
-      if (!Number.isFinite(income) || income <= 0) return {value: '—'}
+      if (!Number.isFinite(gross) || gross <= 0) return {value: '—'}
+      if (!Number.isFinite(ded) || ded < 0) return {value: '—'}
+      if (!Number.isFinite(r1) || r1 < 0) return {value: '—'}
+      if (!Number.isFinite(r2) || r2 < 0) return {value: '—'}
 
-      // --- New Regime ---
-      const newStdDed = 75000
-      const newTaxable = Math.max(0, income - newStdDed)
-      const newTaxBeforeRebate = calcNewRegimeTax(newTaxable)
-      const newRebate = newTaxable <= 700000 ? newTaxBeforeRebate : 0
-      const newTaxAfterRebate = Math.max(0, newTaxBeforeRebate - newRebate)
-      const newTax = Math.round(newTaxAfterRebate * 1.04)
+      const taxable = Math.max(0, gross - ded)
 
-      // --- Old Regime ---
-      const oldStdDed = 50000
-      const oldTaxable = Math.max(0, income - oldStdDed - ded)
-      const oldTaxBeforeRebate = calcOldRegimeTax(oldTaxable)
-      const oldRebate = oldTaxable <= 500000 ? oldTaxBeforeRebate : 0
-      const oldTaxAfterRebate = Math.max(0, oldTaxBeforeRebate - oldRebate)
-      const oldTax = Math.round(oldTaxAfterRebate * 1.04)
+      let tax = 0
+      let lowerPart = 0
+      let upperPart = 0
 
-      const savings = Math.abs(oldTax - newTax)
-      let better: 'old' | 'new' | 'same'
-      if (oldTax < newTax) better = 'old'
-      else if (newTax < oldTax) better = 'new'
-      else better = 'same'
+      if (threshold > 0) {
+        lowerPart = Math.min(taxable, threshold)
+        tax += (lowerPart * r1) / 100
+        if (taxable > threshold) {
+          upperPart = taxable - threshold
+          tax += (upperPart * r2) / 100
+        }
+      } else {
+        // flat rate scenario
+        tax += (taxable * r1) / 100
+      }
+
+      const taxBeforeCredit = tax
+      const finalTax = Math.max(0, tax - credit)
+
+      const effectiveRate = gross > 0 ? (finalTax / gross) * 100 : 0
+      const marginalRate = threshold > 0 && taxable > threshold ? r2 : r1
+      const takeHome = gross - finalTax
 
       return {
-        value: formatINR(savings),
-        raw: savings,
+        value: fmt(finalTax),
+        raw: finalTax,
         secondary: [
           {
-            label: 'tax-regime-comparator.secondary.recommended',
-            value:
-              better === 'new'
-                ? 'tax-regime-comparator.recommendation.new'
-                : better === 'old'
-                  ? 'tax-regime-comparator.recommendation.old'
-                  : 'tax-regime-comparator.recommendation.same',
+            label: 'income-tax-calculator.secondary.taxable',
+            value: fmt(taxable),
           },
           {
-            label: 'tax-regime-comparator.secondary.oldTax',
-            value: formatINR(oldTax),
+            label: 'income-tax-calculator.secondary.taxBeforeCredit',
+            value: fmt(taxBeforeCredit),
           },
           {
-            label: 'tax-regime-comparator.secondary.newTax',
-            value: formatINR(newTax),
+            label: 'income-tax-calculator.secondary.effectiveRate',
+            value: `${effectiveRate.toFixed(1)}%`,
           },
           {
-            label: 'tax-regime-comparator.secondary.oldTaxable',
-            value: formatINR(oldTaxable),
+            label: 'income-tax-calculator.secondary.marginalRate',
+            value: `${marginalRate}%`,
           },
           {
-            label: 'tax-regime-comparator.secondary.newTaxable',
-            value: formatINR(newTaxable),
+            label: 'income-tax-calculator.secondary.takeHome',
+            value: fmt(takeHome),
           },
         ],
       }
     },
-    resultLabel: 'tax-regime-comparator.resultLabel',
-    resultUnit: 'tax-regime-comparator.resultUnit',
+    resultLabel: 'income-tax-calculator.resultLabel',
     faq: [
-      {q: 'tax-regime-comparator.faq.q1', a: 'tax-regime-comparator.faq.a1'},
-      {q: 'tax-regime-comparator.faq.q2', a: 'tax-regime-comparator.faq.a2'},
-      {q: 'tax-regime-comparator.faq.q3', a: 'tax-regime-comparator.faq.a3'},
-      {q: 'tax-regime-comparator.faq.q4', a: 'tax-regime-comparator.faq.a4'},
+      {
+        q: 'income-tax-calculator.faq.q1',
+        a: 'income-tax-calculator.faq.a1',
+      },
+      {
+        q: 'income-tax-calculator.faq.q2',
+        a: 'income-tax-calculator.faq.a2',
+      },
+      {
+        q: 'income-tax-calculator.faq.q3',
+        a: 'income-tax-calculator.faq.a3',
+      },
+      {
+        q: 'income-tax-calculator.faq.q4',
+        a: 'income-tax-calculator.faq.a4',
+      },
     ],
-    related: ['loan-payment-calculator', 'monthly-investment-calculator'],
+    related: ['salary-calculator', 'loan-payment-calculator'],
     publishedAt: '2026-09-29',
   },
   {

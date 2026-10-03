@@ -2,9 +2,9 @@
 
 import {TooltipPositionerProps} from '@base-ui/react/tooltip'
 import {cn} from 'cn'
-import {Search} from 'lucide-react'
 import {useTranslations} from 'next-intl'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
+import {SearchIcon, SearchIconHandle} from '../ui/search-icon'
 import {Tooltip, TooltipContent, TooltipTrigger} from '../ui/tooltip'
 import {useSearch} from './SearchProvider'
 
@@ -29,6 +29,8 @@ export function SearchTrigger({
   const {setOpen} = useSearch()
   const [modKey, setModKey] = useState('Ctrl')
 
+  const searchIconRef = useRef<SearchIconHandle>(null)
+
   useEffect(() => {
     const isMac = /Mac|iPhone|iPad/.test(navigator.platform)
     setModKey(isMac ? '⌘' : 'Ctrl')
@@ -43,12 +45,14 @@ export function SearchTrigger({
       onClick={() => setOpen(true)}
       aria-label={t('search.label')}
       aria-keyshortcuts="Meta+K Control+K"
+      onMouseEnter={() => searchIconRef.current?.startAnimation()}
+      onMouseLeave={() => searchIconRef.current?.stopAnimation()}
       className={cn(
-        'group/search relative inline-flex h-8 shrink-0 items-center rounded-md',
-        'text-sm text-muted-foreground outline-none cursor-pointer bg-transparent',
+        'group/search relative inline-flex size-9 shrink-0 items-center rounded-lg',
+        'text-muted-foreground outline-none cursor-pointer bg-transparent',
         'transition-[width,background-color] duration-200 ease-linear',
         'focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-        isFull ? 'w-full' : 'w-8 hover:bg-accent hover:text-foreground',
+        isFull ? 'w-full' : 'hover:bg-accent hover:text-foreground',
         buttonClassName,
       )}
     >
@@ -61,8 +65,12 @@ export function SearchTrigger({
         )}
       />
 
-      <span className="relative flex size-8 shrink-0 items-center justify-center">
-        <Search className="size-4" />
+      <span className="relative flex size-9 shrink-0 items-center justify-center">
+        <SearchIcon
+          ref={searchIconRef}
+          isAnimated={false}
+          className="size-4.5"
+        />
       </span>
 
       {isFull && (
@@ -75,7 +83,7 @@ export function SearchTrigger({
             data-slot="kbd"
             className={cn(
               'mr-3 hidden shrink-0 rounded border bg-background',
-              'px-1.5 font-mono text-[10px] text-muted-foreground/80',
+              'px-1.5 font-mono text-xs text-muted-foreground/80',
               'sm:inline-block sm:opacity-0 sm:group-hover/search:opacity-100',
               'transition-opacity duration-200 ease-out',
               kbdClassName,

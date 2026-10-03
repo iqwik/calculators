@@ -1,12 +1,9 @@
-import {
-  BadgeDollarSign,
-  Banknote,
-  ChartNoAxesColumn,
-  ClipboardList,
-  ListOrdered,
-  ReceiptText,
-  Route,
-} from 'lucide-react'
+import {BarcodeIcon, ChartNoAxesColumnIcon} from '@animateicons/react/lucide'
+import {BadgeDollarSignIcon as BadgeDollarSign} from '@animateicons/react/lucide/badge-dollar-sign-icon'
+import {ClipboardListIcon as ClipboardList} from '@animateicons/react/lucide/clipboard-list-icon'
+import {ReceiptTextIcon as ReceiptText} from '@animateicons/react/lucide/receipt-text-icon'
+import {RouteIcon as Route} from '@animateicons/react/lucide/route-icon'
+import {WalletIcon as Banknote} from '@animateicons/react/lucide/wallet-icon'
 import type {ToolConfig} from '@/types'
 
 export const businessTools: ToolConfig[] = [
@@ -37,7 +34,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'invoice-number-generator.h1',
     description: 'invoice-number-generator.description',
     keywords: ['invoice-number-generator.keywords'],
-    Icon: ListOrdered,
+    Icon: BarcodeIcon,
     tags: ['business'],
     faq: [
       {
@@ -118,7 +115,7 @@ export const businessTools: ToolConfig[] = [
     h1: 'break-even-calculator.h1',
     description: 'break-even-calculator.description',
     keywords: ['break-even-calculator.keywords'],
-    Icon: ChartNoAxesColumn,
+    Icon: ChartNoAxesColumnIcon,
     tags: ['business'],
     faq: [
       {q: 'break-even-calculator.faq.q1', a: 'break-even-calculator.faq.a1'},

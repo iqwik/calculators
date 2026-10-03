@@ -1,14 +1,13 @@
-import {
-  Droplet,
-  FileStack,
-  KeyRound,
-  Minimize2,
-  QrCode,
-  RefreshCw,
-  Scaling,
-  Sparkles,
-  SwatchBook,
-} from 'lucide-react'
+import {DropletsIcon as Droplet} from '@animateicons/react/lucide/droplets-icon'
+import {FilesIcon as FileStack} from '@animateicons/react/lucide/files-icon'
+import {KeyRoundIcon as KeyRound} from '@animateicons/react/lucide/key-round-icon'
+
+import {QrCodeIcon as QrCode} from '@animateicons/react/lucide/qr-code-icon'
+import {RefreshCwIcon as RefreshCw} from '@animateicons/react/lucide/refresh-cw-icon'
+import {SparklesIcon as Sparkles} from '@animateicons/react/lucide/sparkles-icon'
+import {LayoutGridIcon} from '@/components/ui/layout-grid-icon'
+import {PictureInPictureIcon} from '@/components/ui/picture-in-picture-icon'
+import {PipetteIcon} from '@/components/ui/pipette-icon'
 import type {ToolConfig} from '@/types'
 
 export const generatorTools: ToolConfig[] = [
@@ -58,7 +57,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'image-compressor.h1',
     description: 'image-compressor.description',
     keywords: ['image-compressor.keywords'],
-    Icon: Minimize2,
+    Icon: PictureInPictureIcon,
     tags: ['generators'],
     faq: [
       {q: 'image-compressor.faq.q1', a: 'image-compressor.faq.a1'},
@@ -96,7 +95,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'bulk-image-resizer.h1',
     description: 'bulk-image-resizer.description',
     keywords: ['bulk-image-resizer.keywords'],
-    Icon: Scaling,
+    Icon: LayoutGridIcon,
     tags: ['generators'],
     faq: [
       {q: 'bulk-image-resizer.faq.q1', a: 'bulk-image-resizer.faq.a1'},
@@ -134,7 +133,7 @@ export const generatorTools: ToolConfig[] = [
     h1: 'color-palette-extractor.h1',
     description: 'color-palette-extractor.description',
     keywords: ['color-palette-extractor.keywords'],
-    Icon: SwatchBook,
+    Icon: PipetteIcon,
     tags: ['generators'],
     faq: [
       {

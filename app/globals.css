@@ -58,6 +58,9 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  --color-success-custom: var(--success-custom);
+  --color-success-custom-foreground: var(--success-custom-foreground);
 }
 
 :root {
@@ -68,6 +71,8 @@
   --sidebar-accent-foreground: oklch(0.2 0.02 260);
   --sidebar-active-badge: oklch(0.55 0.22 260);
   --sidebar-active-badge-foreground: oklch(1 0 0);
+  --success-custom: oklch(0.89 0.13 162.61);
+  --success-custom-foreground: oklch(0.49 0.1 163.27);
   --background: oklch(1 0 0);
   --foreground: oklch(0.2 0.02 260);
   --card: oklch(1 0 0);
@@ -110,6 +115,8 @@
   --sidebar-accent-foreground: oklch(0.97 0.005 260);
   --sidebar-active-badge: oklch(0.62 0.2 260);
   --sidebar-active-badge-foreground: oklch(0.15 0.02 260);
+  --success-custom: oklch(0.49 0.1 163.27);
+  --success-custom-foreground: oklch(0.89 0.13 162.61);
   --background: oklch(0.16 0.015 260);
   --foreground: oklch(0.97 0.005 260);
   --card: oklch(0.2 0.02 260);
@@ -144,18 +151,19 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
   html {
     @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-inter), system-ui, sans-serif;
+    line-height: 1.5;
   }
 }
 
 @utility page {
-  max-width: 1080px;
-  margin-inline: auto;
-  padding: 24px;
+  max-width: 1100px;
+  margin: 24px auto;
 }
 
 @utility shadow-custom {
@@ -164,6 +172,7 @@
 
 html {
   scrollbar-gutter: stable;
+  scroll-behavior: smooth;
 }
 
 html,
@@ -213,10 +222,10 @@ body {
 }
 
 /* Firefox */
-/* * {
+* {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
-} */
+}
 
 *:hover {
   scrollbar-color: oklch(0.55 0.02 260 / 0.5) transparent;

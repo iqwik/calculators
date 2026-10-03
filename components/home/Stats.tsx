@@ -24,11 +24,13 @@ export function Stats() {
   return (
     <div className="flex gap-3 m-auto py-4">
       {items.map((item, i) => (
-        <div key={item.label} className="flex items-center gap-1 text-xs">
-          <span className="font-extrabold">{item.value}</span>
-          <span className="font-medium tracking-wide text-muted-foreground">
-            {item.label}
-          </span>
+        <div key={item.label} className="flex items-center gap-1 text-sm">
+          <div className="flex items-center gap-1">
+            <div className="font-extrabold">{item.value}</div>
+            <div className="font-medium text-xs h-full text-muted-foreground">
+              {item.label}
+            </div>
+          </div>
           {i < items.length - 1 && (
             <span className="text-muted-foreground/50 ml-2">•</span>
           )}

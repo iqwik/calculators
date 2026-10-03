@@ -4,7 +4,7 @@ import {mergeProps} from '@base-ui/react/merge-props'
 import {useRender} from '@base-ui/react/use-render'
 import {cva, type VariantProps} from 'class-variance-authority'
 import {cn} from 'cn'
-import {PanelLeftIcon} from 'lucide-react'
+// import {PanelLeftIcon} from 'lucide-react'
 import {
   ComponentProps,
   CSSProperties,
@@ -13,6 +13,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import {Button} from '@/components/ui/button'
@@ -27,12 +28,21 @@ import {
 } from '@/components/ui/sheet'
 import {Skeleton} from '@/components/ui/skeleton'
 import {Tooltip, TooltipContent, TooltipTrigger} from '@/components/ui/tooltip'
+import {useEvent} from '@/hooks/use-event'
 import {useIsMobile} from '@/hooks/use-mobile'
+import {
+  PanelLeftCloseIcon,
+  PanelLeftCloseIconHandle,
+} from './panel-left-close-icon'
+import {
+  PanelLeftOpenIcon,
+  PanelLeftOpenIconHandle,
+} from './panel-left-open-icon'
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state'
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-const SIDEBAR_WIDTH = '18rem'
-const SIDEBAR_WIDTH_MOBILE = '18rem'
+const SIDEBAR_WIDTH = '18.85rem'
+const SIDEBAR_WIDTH_MOBILE = '18.85rem'
 const SIDEBAR_WIDTH_ICON = '3rem'
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b'
 
@@ -256,27 +266,59 @@ function Sidebar({
   )
 }
 
+type SidebarTriggerProps = Omit<ComponentProps<typeof Button>, 'variant'> & {
+  variant?: 'open' | 'close'
+}
+
 function SidebarTrigger({
   className,
   onClick,
+  variant,
   ...props
-}: ComponentProps<typeof Button>) {
+}: SidebarTriggerProps) {
   const {toggleSidebar} = useSidebar()
+  const iconOpenRef = useRef<PanelLeftOpenIconHandle>(null)
+  const iconCloseRef = useRef<PanelLeftCloseIconHandle>(null)
+
+  const onMouseEnter = useEvent(() => {
+    if (variant === 'close') {
+      iconOpenRef.current?.startAnimation()
+    } else if (variant === 'open') {
+      iconCloseRef.current?.startAnimation()
+    }
+  })
+
+  const onMouseLeave = useEvent(() => {
+    if (variant === 'close') {
+      iconOpenRef.current?.stopAnimation()
+    } else if (variant === 'open') {
+      iconCloseRef.current?.stopAnimation()
+    }
+  })
 
   return (
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
       variant="ghost"
-      size="icon-sm"
-      className={cn(className, 'cursor-pointer')}
+      size="icon"
+      className={cn(
+        'cursor-pointer shrink-0 text-muted-foreground hover:text-muted-foreground transition-colors duration-300',
+        className,
+      )}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       onClick={event => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      {variant === 'close' ? (
+        <PanelLeftOpenIcon ref={iconOpenRef} isAnimated={false} />
+      ) : (
+        <PanelLeftCloseIcon ref={iconCloseRef} isAnimated={false} />
+      )}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )
@@ -474,8 +516,8 @@ function SidebarMenuItem({className, ...props}: ComponentProps<'li'>) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  `peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-lg p-2
-  text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding]
+  `peer/menu-button group/menu-button flex w-full items-center overflow-hidden rounded-lg
+  px-2 text-left ring-sidebar-ring outline-hidden transition-[width,height,padding]
   group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2!
   hover:bg-sidebar-accent hover:text-sidebar-accent-foreground
   focus-visible:ring-2
@@ -492,9 +534,9 @@ const sidebarMenuButtonVariants = cva(
           'bg-background shadow-[0_0_0_1px_var(--sidebar-border)] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground hover:shadow-[0_0_0_1px_var(--sidebar-accent)]',
       },
       size: {
-        default: 'h-10 text-sm',
-        sm: 'h-7 text-xs',
-        lg: 'h-12 text-sm group-data-[collapsible=icon]:p-0!',
+        default: 'h-11',
+        sm: 'h-8 text-sm',
+        lg: 'h-12 text-lg group-data-[collapsible=icon]:p-0!',
       },
     },
     defaultVariants: {

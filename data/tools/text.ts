@@ -1,10 +1,7 @@
-import {
-  CaseSensitive,
-  FileText,
-  GitCompare,
-  SpellCheck,
-  TextInitial,
-} from 'lucide-react'
+import {LeftToRightListNumberIcon, TextFontIcon} from '@animateicons/react/huge'
+import {TextSearchIcon} from '@animateicons/react/lucide'
+import {NotebookPenIcon as FileText} from '@animateicons/react/lucide/notebook-pen-icon'
+import {SpellCheckIcon as SpellCheck} from '@animateicons/react/lucide/spell-check-icon'
 import type {ToolConfig} from '@/types'
 
 export const textTools: ToolConfig[] = [
@@ -16,7 +13,7 @@ export const textTools: ToolConfig[] = [
     h1: 'word-counter.h1',
     description: 'word-counter.description',
     keywords: ['word-counter.keywords'],
-    Icon: TextInitial,
+    Icon: LeftToRightListNumberIcon,
     tags: ['text'],
     faq: [
       {q: 'word-counter.faq.q1', a: 'word-counter.faq.a1'},
@@ -35,7 +32,7 @@ export const textTools: ToolConfig[] = [
     h1: 'case-converter.h1',
     description: 'case-converter.description',
     keywords: ['case-converter.keywords'],
-    Icon: CaseSensitive,
+    Icon: TextFontIcon,
     tags: ['text'],
     faq: [
       {q: 'case-converter.faq.q1', a: 'case-converter.faq.a1'},
@@ -73,7 +70,7 @@ export const textTools: ToolConfig[] = [
     h1: 'diff-checker.h1',
     description: 'diff-checker.description',
     keywords: ['diff-checker.keywords'],
-    Icon: GitCompare,
+    Icon: TextSearchIcon,
     tags: ['text'],
     faq: [
       {q: 'diff-checker.faq.q1', a: 'diff-checker.faq.a1'},

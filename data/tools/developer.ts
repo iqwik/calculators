@@ -1,29 +1,27 @@
-import {
-  ArrowRightLeft,
-  Binary,
-  Clock,
-  CodeXml,
-  Contrast,
-  Database,
-  FileBraces,
-  FileCode,
-  FingerprintPattern,
-  GitGraph,
-  Globe,
-  Hash,
-  Image,
-  Link,
-  LockKeyhole,
-  LockOpen,
-  Minimize2,
-  Palette,
-  Regex,
-  ScanSearch,
-  ScrollText,
-  Shapes,
-  SlidersHorizontal,
-  Tag,
-} from 'lucide-react'
+import {BracesIcon} from '@animateicons/react/huge'
+import {FoldVerticalIcon} from '@animateicons/react/lucide'
+import {ArrowLeftRightIcon as ArrowRightLeft} from '@animateicons/react/lucide/arrow-left-right-icon'
+import {ClockIcon as Clock} from '@animateicons/react/lucide/clock-icon'
+import {CodeIcon as Regex} from '@animateicons/react/lucide/code-icon'
+import {CodeXmlIcon as Binary} from '@animateicons/react/lucide/code-xml-icon'
+import {ContrastIcon as Contrast} from '@animateicons/react/lucide/contrast-icon'
+import {DatabaseIcon as Database} from '@animateicons/react/lucide/database-icon'
+import {FileTextIcon as FileCode} from '@animateicons/react/lucide/file-text-icon'
+import {FingerprintPatternIcon as FingerprintPattern} from '@animateicons/react/lucide/fingerprint-pattern-icon'
+import {GitBranchIcon as GitGraph} from '@animateicons/react/lucide/git-branch-icon'
+import {GlobeIcon as Globe} from '@animateicons/react/lucide/globe-icon'
+import {HashIcon as Hash} from '@animateicons/react/lucide/hash-icon'
+import {ImageIcon as Image} from '@animateicons/react/lucide/image-icon'
+import {LinkIcon as Link} from '@animateicons/react/lucide/link-icon'
+import {LockIcon as LockKeyhole} from '@animateicons/react/lucide/lock-icon'
+import {LockOpenIcon as LockOpen} from '@animateicons/react/lucide/lock-open-icon'
+import {PaletteIcon as Palette} from '@animateicons/react/lucide/palette-icon'
+import {ScanLineIcon as ScanSearch} from '@animateicons/react/lucide/scan-line-icon'
+import {ScrollTextIcon as ScrollText} from '@animateicons/react/lucide/scroll-text-icon'
+import {ShapesIcon as Shapes} from '@animateicons/react/lucide/shapes-icon'
+import {ShrinkIcon as Minimize2} from '@animateicons/react/lucide/shrink-icon'
+import {SlidersHorizontalIcon as SlidersHorizontal} from '@animateicons/react/lucide/sliders-horizontal-icon'
+import {TagIcon as Tag} from '@animateicons/react/lucide/tag-icon'
 import type {ToolConfig} from '@/types'
 import {UNIT_CATEGORIES} from './unit-categories'
 
@@ -54,7 +52,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'json-formatter.h1',
     description: 'json-formatter.description',
     keywords: ['json-formatter.keywords'],
-    Icon: FileBraces,
+    Icon: BracesIcon,
     tags: ['developer'],
     faq: [
       {q: 'json-formatter.faq.q1', a: 'json-formatter.faq.a1'},
@@ -279,7 +277,7 @@ export const developerTools: ToolConfig[] = [
     h1: 'code-minifier.h1',
     description: 'code-minifier.description',
     keywords: ['code-minifier.keywords'],
-    Icon: CodeXml,
+    Icon: FoldVerticalIcon,
     tags: ['developer'],
     faq: [
       {q: 'code-minifier.faq.q1', a: 'code-minifier.faq.a1'},

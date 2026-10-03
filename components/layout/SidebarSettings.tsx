@@ -1,6 +1,6 @@
 'use client'
 
-import {Settings} from 'lucide-react'
+import {SettingsIcon} from '@animateicons/react/lucide'
 import {useTranslations} from 'next-intl'
 import {Link} from '@/i18n/navigation'
 import {Popover, PopoverContent, PopoverTrigger} from '../ui/popover'
@@ -16,8 +16,15 @@ export function SidebarSettings() {
     <SidebarMenu>
       <SidebarMenuItem>
         <Popover>
-          <PopoverTrigger render={<SidebarMenuButton tooltip={t('label')} />}>
-            <Settings className="h-4 w-4" />
+          <PopoverTrigger
+            render={
+              <SidebarMenuButton
+                className="cursor-pointer gap-1 text-sm"
+                tooltip={t('label')}
+              />
+            }
+          >
+            <SettingsIcon className="size-5" />
             <span>{t('label')}</span>
           </PopoverTrigger>
           <PopoverContent side="right" align="end" className="w-56 p-2">

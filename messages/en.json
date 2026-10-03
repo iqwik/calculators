@@ -44,7 +44,8 @@
     },
     "privacy": {
       "label": "100% Private — Everything Stays in Your Browser",
-      "text": "Your passwords, financial calculations, and sensitive text are processed only on your device. Not a single byte is sent to a server. Powered by WebAssembly and Web Workers. Zero network requests. Runs on WebAssembly and Web Workers. Zero network requests."
+      "text": "Your passwords, financial calculations, and sensitive text are processed only on your device. Not a single byte is sent to a server. Powered by WebAssembly and Web Workers. Zero network requests. Runs on WebAssembly and Web Workers. Zero network requests.",
+      "badge": "client-side only"
     }
   },
   "nav": {
@@ -102,6 +103,12 @@
     "copiedAll": "Copied",
     "download": "Download",
     "open": "Open"
+  },
+  "cookieConsent": {
+    "title": "We use cookies",
+    "description": "We use cookies for analytics and to improve the service. Learn more in our",
+    "privacyLink": "privacy policy",
+    "accept": "Accept"
   },
   "notFound": {
     "title": "Page not found",
@@ -2260,42 +2267,43 @@
         "a4": "No. All generation runs 100% locally in your browser. No shadow or gradient configurations are stored on our servers."
       }
     },
-    "tax-regime-comparator": {
-      "title": "Old vs New Tax Regime Calculator – 2025-26 Comparison",
-      "h1": "Old vs New Tax Regime Comparator",
-      "description": "Free old vs new tax regime calculator for India (FY 2025-26). Compare tax under both regimes with deductions and rebate to see which saves more.",
-      "keywords": "old vs new tax regime,tax regime comparator,which tax regime is better,new tax regime vs old,income tax calculator india,87a rebate calculator",
+    "income-tax-calculator": {
+      "title": "Income Tax Calculator",
+      "h1": "Income Tax Calculator",
+      "description": "Calculate your income tax with custom tax brackets. Enter your annual income, deductions, base and higher rates to see your total tax, effective rate and take-home pay.",
+      "keywords": "income tax calculator, tax calculator, progressive tax, effective tax rate, marginal tax rate, take home pay",
       "inputs": {
         "annualIncome": "Gross annual income",
-        "deductions": "Total deductions (Old Regime)"
+        "deductions": "Deductions",
+        "baseRate": "Base tax rate",
+        "higherThreshold": "Higher rate threshold",
+        "higherRate": "Higher tax rate",
+        "taxCredit": "Tax credit"
       },
       "hints": {
-        "annualIncome": "Your total income before any deductions.",
-        "deductions": "Sum of 80C, 80D, HRA, home loan interest, and other deductions. Applied only to the Old Regime."
+        "deductions": "Total pre-tax deductions and allowances that reduce your taxable income.",
+        "baseRate": "The tax rate applied to income up to the higher rate threshold.",
+        "higherThreshold": "Income level above which the higher tax rate applies.",
+        "higherRate": "The tax rate applied to income above the higher rate threshold.",
+        "taxCredit": "A fixed amount subtracted from your final tax bill."
       },
-      "resultLabel": "You save",
-      "resultUnit": "per year",
+      "resultLabel": "Total income tax",
       "secondary": {
-        "recommended": "Recommended regime",
-        "oldTax": "Old Regime tax",
-        "newTax": "New Regime tax",
-        "oldTaxable": "Old Regime taxable income",
-        "newTaxable": "New Regime taxable income"
-      },
-      "recommendation": {
-        "old": "Old Regime",
-        "new": "New Regime",
-        "same": "Both equal"
+        "taxable": "Taxable income",
+        "taxBeforeCredit": "Tax before credit",
+        "effectiveRate": "Effective rate",
+        "marginalRate": "Marginal rate",
+        "takeHome": "Take-home pay"
       },
       "faq": {
-        "q1": "Which tax regime is better – Old or New?",
-        "a1": "It depends on your income and deductions. If you have significant deductions (80C, HRA, home loan interest, etc.), the Old Regime is often better. If you have fewer deductions, the New Regime usually results in lower tax.",
-        "q2": "Can I switch between Old and New regime every year?",
-        "a2": "Salaried employees can switch every year. Business owners and professionals can switch only once in their lifetime (with some exceptions).",
-        "q3": "What is the standard deduction in both regimes?",
-        "a3": "New Regime: ₹75,000 (from FY 2024-25). Old Regime: ₹50,000. The New Regime gives a higher standard deduction.",
-        "q4": "Up to what income is tax zero in the New Regime?",
-        "a4": "Up to ₹7 lakh gross income, you pay zero tax in the New Regime due to the increased rebate under Section 87A."
+        "q1": "How is income tax calculated?",
+        "a1": "Income tax is calculated on your taxable income, which is your gross income minus deductions. The portion up to the higher rate threshold is taxed at the base rate. Any income above the threshold is taxed at the higher rate. A tax credit, if any, is then subtracted from the total.",
+        "q2": "What is the difference between effective and marginal tax rate?",
+        "a2": "The marginal rate is the tax rate applied to your last unit of income (the highest bracket you fall into). The effective rate is your total tax divided by your gross income. The effective rate is always lower than or equal to the marginal rate in a progressive system.",
+        "q3": "Does this calculator work for my country?",
+        "a3": "Yes. Enter your country's tax brackets and rates manually — the calculator is not tied to any specific tax system. For multi-bracket systems, approximate by entering the rate most of your income falls under as the base rate, and the rate on the highest portion as the higher rate.",
+        "q4": "What counts as a deduction?",
+        "a4": "Deductions are amounts subtracted from your gross income before tax is calculated — such as retirement contributions, health insurance, or a standard deduction. Rules vary by country, so check your local tax code."
       }
     },
     "payslip-generator": {

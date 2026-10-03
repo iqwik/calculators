@@ -1,20 +1,18 @@
-import {
-  Baby,
-  Bed,
-  Cake,
-  CalendarHeart,
-  Droplet,
-  Flame,
-  Flower,
-  Ham,
-  Heart,
-  Moon,
-  PersonStanding,
-  Ruler,
-  TrendingDown,
-  Weight,
-  Wind,
-} from 'lucide-react'
+import {UserCircleIcon} from '@animateicons/react/huge'
+import {CalendarHeartIcon as CalendarHeart} from '@animateicons/react/lucide/calendar-heart-icon'
+import {DropletIcon as Droplet} from '@animateicons/react/lucide/droplet-icon'
+import {DumbbellIcon as Weight} from '@animateicons/react/lucide/dumbbell-icon'
+import {FlameIcon as Flame} from '@animateicons/react/lucide/flame-icon'
+import {GiftIcon as Cake} from '@animateicons/react/lucide/gift-icon'
+import {HeartIcon as Heart} from '@animateicons/react/lucide/heart-icon'
+import {LeafIcon as Flower} from '@animateicons/react/lucide/leaf-icon'
+import {MoonIcon as Bed} from '@animateicons/react/lucide/moon-icon'
+import {MoonStarIcon as Moon} from '@animateicons/react/lucide/moon-star-icon'
+import {RulerIcon as Ruler} from '@animateicons/react/lucide/ruler-icon'
+import {TrendingDownIcon as TrendingDown} from '@animateicons/react/lucide/trending-down-icon'
+import {UserIcon as PersonStanding} from '@animateicons/react/lucide/user-icon'
+import {UtensilsIcon as Ham} from '@animateicons/react/lucide/utensils-icon'
+import {WindIcon as Wind} from '@animateicons/react/lucide/wind-icon'
 import type {CalculatorConfig} from '@/types'
 
 export const healthCalculators: CalculatorConfig[] = [
@@ -880,7 +878,7 @@ export const healthCalculators: CalculatorConfig[] = [
     h1: 'pregnancy-due-date-calculator.h1',
     description: 'pregnancy-due-date-calculator.description',
     keywords: ['pregnancy-due-date-calculator.keywords'],
-    Icon: Baby,
+    Icon: UserCircleIcon,
     inputs: [
       {
         name: 'method',

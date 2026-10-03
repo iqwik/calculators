@@ -29,9 +29,9 @@ export default async function NotFound() {
             <Link
               key={cat.slug}
               href={`/${cat.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm font-medium transition hover:border-primary hover:bg-primary/5"
+              className="inline-flex items-center gap-2 rounded-full border bg-card px-4 py-2 font-medium transition hover:border-primary hover:bg-primary/5"
             >
-              <span aria-hidden="true">{cat.icon}</span>
+              <cat.Icon />
               {tHome(`categories.${cat.slug}`)}
             </Link>
           ))}

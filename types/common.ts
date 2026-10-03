@@ -1,4 +1,4 @@
-import {ComponentType, SVGProps} from 'react'
+import {ComponentType, RefAttributes} from 'react'
 
 export interface FAQItem {
   q: string
@@ -21,6 +21,19 @@ export type Tag =
   | 'generators'
   | 'business'
 
+export type IconHandle = {
+  startAnimation: () => void
+  stopAnimation: () => void
+}
+
+type IconProps = {
+  size?: number
+  className?: string
+  color?: string
+  isAnimated?: boolean
+  duration?: number
+}
+
 export interface BaseConfig {
   slug: string
   category: CategorySlug
@@ -32,7 +45,7 @@ export interface BaseConfig {
   faq?: FAQItem[]
   related?: string[]
   publishedAt?: string
-  Icon: ComponentType<SVGProps<SVGSVGElement>>
+  Icon: ComponentType<IconProps & RefAttributes<IconHandle>>
 }
 
 export type Values = Record<string, string | number>
